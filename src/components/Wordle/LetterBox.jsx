@@ -5,7 +5,7 @@ const LetterBox = ({ letterData, isSubmitted }) => {
   const { letter, status } = letterData
   const isEmpty = status === 'empty'
 
-  const boxSize = 16
+  const boxSize = [14, 14, 16, 16, 16]
 
   const border = isSubmitted
     ? 'none'

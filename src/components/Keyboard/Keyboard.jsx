@@ -49,16 +49,15 @@ const Keyboard = (props) => {
       textAlign='center'
       align='center'
       gap='4px'
-      py={8}
-      w='100%'
+      pt={8}
       {...rest}
     >
       {keys.map((row, i) => (
         <Flex
           key={i}
           flexDir='row'
-          justify='space-around'
-          gap='2px'
+          justify='space-between'
+          gap={['3px', '3px', '2px', '2px', '2px']}
         >
           {row.map((key, j) => (
             <KeyboardLetter

@@ -25,9 +25,9 @@ const Game = ({ gameProps, openSettings, keyHandler }) => {
         openSettings={openSettings}
       />
 
-      <Spacer />
+      <WordleGrid mt={16} />
 
-      <WordleGrid />
+      <Spacer />
 
       <Keyboard keyHandler={keyHandler} />
 

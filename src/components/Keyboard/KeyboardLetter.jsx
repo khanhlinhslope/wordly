@@ -3,11 +3,9 @@ import Backspace from 'components/Keyboard/Backspace'
 import useStore from 'modules/store'
 
 const KeyboardLetter = ({ letter, keyHandler }) => {
-  // const { wordList, wordleWord } = useStore()
   const { lettersGuessed, lettersPresent, lettersTried } = useStore()
   const { key, special } = letter
 
-  // const isSubmitted = wordList.some(wordObj => wordObj.map(letter => letter.letter).includes(key))
   const isSubmitted = lettersGuessed.includes(key) || lettersPresent.includes(key) || lettersTried.includes(key)
 
   let bg
@@ -22,10 +20,18 @@ const KeyboardLetter = ({ letter, keyHandler }) => {
     ? 'white'
     : 'gray.800'
 
+  const letterWidth = special
+    ? ['54px', '68px', '81px', '87px', '93px']
+    : ['35px', '44px', '52px', '56px', '60px']
+
+  const letterHeight = ['50px', '44px', '52px', '56px', '60px']
+
+  const fontSize = ['18px', '20px', '22px', '24px', '26px']
+
   return (
     <Flex
-      w={special ? '93px' : '60px'}
-      h='60px'
+      w={letterWidth}
+      h={letterHeight}
       borderRadius='9px'
       bg={bg}
       color={fontColor}
@@ -35,8 +41,9 @@ const KeyboardLetter = ({ letter, keyHandler }) => {
       align='center'
       cursor='pointer'
       _active={!isSubmitted && {
-        h: '55px',
-        mt: '5px',
+        cursor: 'pointer',
+        h: '90%',
+        mt: '1%',
         transform: 'scale(0.95)'
       }}
       _hover={!isSubmitted && {
@@ -44,7 +51,7 @@ const KeyboardLetter = ({ letter, keyHandler }) => {
       }}
       onClick={() => keyHandler(key)}
       textTransform={!special ? 'uppercase' : 'capitalize'}
-      fontSize='26px'
+      fontSize={fontSize}
       userSelect='none'
       transition='all .2s ease-in-out'
     >
