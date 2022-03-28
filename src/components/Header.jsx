@@ -2,7 +2,7 @@ import { Flex, Box, IconButton } from '@chakra-ui/react'
 import { HiCog, HiInformationCircle } from 'react-icons/hi'
 
 const Logo = () => {
-  const brand = 'wordle'
+  const brand = 'wordly'
   const brandLetters = brand.split('')
   return (
     <Flex
