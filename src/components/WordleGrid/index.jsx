@@ -1,6 +1,6 @@
 import { Flex } from '@chakra-ui/react'
-import WordRow from 'components/Wordle/WordRow'
-import useStore from 'modules/store'
+import WordRow from 'components/WordleGrid/WordRow'
+import useStore from 'lib/store'
 
 const WordleGrid = ({ ...props }) => {
   const { wordList, wordInput, inputIndex } = useStore()

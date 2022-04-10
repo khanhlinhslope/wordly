@@ -1,5 +1,4 @@
-import { Flex, Spacer, Box, IconButton, FormControl, FormLabel, Switch, Text, useColorModeValue } from '@chakra-ui/react'
-import { MdOutlineClose as CloseIcon } from 'react-icons/md'
+import { Flex, Box, FormControl, FormLabel, Switch, Text, useColorModeValue } from '@chakra-ui/react'
 
 const items = [
   {
@@ -10,42 +9,23 @@ const items = [
   {
     id: 'blind-mode',
     title: 'Blind mode',
-    subtitle: ''
+    subtitle: 'Toggle between blind and normal mode.'
   },
   {
     id: 'swap-keys',
     title: 'Swap special keys',
     subtitle: 'Swap "Enter" and "Backspace" buttons.'
+  },
+  {
+    id: 'fat-keys',
+    title: 'Fat fingers',
+    subtitle: 'Increase the size of the buttons.'
   }
 ]
 
-const Header = ({ closeSettings }) => {
+const Options = ({ ...props }) => {
   return (
-    <Flex
-      w='100%'
-      flexDir='row'
-      justify='space-between'
-      textAlign='center'
-      align='center'
-      // borderBottom='1px solid #A0AEC0'
-    >
-      <Spacer />
-
-      <Box>
-        <IconButton
-          icon={<CloseIcon />}
-          variant='ghost'
-          size='lg'
-          onClick={closeSettings}
-        />
-      </Box>
-    </Flex>
-  )
-}
-
-const Content = () => {
-  return (
-    <Box pt={4}>
+    <Box pt={4} {...props}>
       <form>
         {items.map((item, i) => {
           const { id, title, subtitle } = item
@@ -89,20 +69,4 @@ const Content = () => {
   )
 }
 
-const Settings = ({ settingsIsOpen, closeSettings }) => {
-  if (!settingsIsOpen) return null
-
-  return (
-    <Flex
-      flexDir='column'
-      height='100vh'
-      w={['100%', '90%', '80%', '50%', '40%']}
-    >
-      <Header closeSettings={closeSettings} />
-
-      <Content />
-    </Flex>
-  )
-}
-
-export default Settings
+export default Options

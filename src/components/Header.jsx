@@ -1,5 +1,5 @@
 import { Flex, Box, IconButton } from '@chakra-ui/react'
-import { HiCog, HiInformationCircle } from 'react-icons/hi'
+import { HiCog as CogIcon, HiInformationCircle as HelpIcon } from 'react-icons/hi'
 
 const Logo = () => {
   const brand = 'wordly'
@@ -30,20 +30,20 @@ const Logo = () => {
   )
 }
 
-const Header = ({ openSettings }) => {
+const Header = ({ openSettings, ...rest }) => {
   return (
     <Flex
-      // border='2px solid pink'
       w='100%'
       flexDir='row'
       justify='space-between'
       textAlign='center'
       align='center'
       borderBottom='1px solid #A0AEC0'
+      {...rest}
     >
       <Box>
         <IconButton
-          icon={<HiInformationCircle />}
+          icon={<HelpIcon />}
           variant='ghost'
           size='lg'
         />
@@ -55,7 +55,7 @@ const Header = ({ openSettings }) => {
 
       <Box>
         <IconButton
-          icon={<HiCog />}
+          icon={<CogIcon />}
           variant='ghost'
           size='lg'
           onClick={openSettings}

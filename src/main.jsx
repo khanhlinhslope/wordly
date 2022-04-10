@@ -1,10 +1,19 @@
 import './main.css'
 import 'react-toastify/dist/ReactToastify.css'
-import React from 'react'
-import ReactDOM from 'react-dom'
-import App from './App'
+import { render } from 'react-dom'
+import App from 'src/App'
+import theme from 'lib/theme'
 import { ChakraProvider } from '@chakra-ui/react'
 import { ToastContainer } from 'react-toastify'
+
+const Content = () => {
+  return (
+    <ChakraProvider theme={theme}>
+      <App />
+      <ToastContainer {...toastProps} />
+    </ChakraProvider>
+  )
+}
 
 const toastProps = {
   position: 'top-center',
@@ -18,12 +27,5 @@ const toastProps = {
   pauseOnHover: false
 }
 
-ReactDOM.render(
-  <React.StrictMode>
-    <ChakraProvider>
-      <App />
-      <ToastContainer {...toastProps} />
-    </ChakraProvider>
-  </React.StrictMode>,
-  document.getElementById('root')
-)
+const root = document.getElementById('root')
+render(<Content />, root)

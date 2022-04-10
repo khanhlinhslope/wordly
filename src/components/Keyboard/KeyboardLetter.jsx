@@ -1,8 +1,8 @@
-import { Flex, chakra } from '@chakra-ui/react'
+import { Flex } from '@chakra-ui/react'
 import Backspace from 'components/Keyboard/Backspace'
-import useStore from 'modules/store'
+import useStore from 'lib/store'
 
-const KeyboardLetter = ({ letter, keyHandler }) => {
+const KeyboardLetter = ({ letter, keyHandler, ...rest }) => {
   const { lettersGuessed, lettersPresent, lettersTried } = useStore()
   const { key, special } = letter
 
@@ -21,18 +21,24 @@ const KeyboardLetter = ({ letter, keyHandler }) => {
     : 'gray.800'
 
   const letterWidth = special
-    ? ['54px', '68px', '81px', '87px', '93px']
-    : ['35px', '44px', '52px', '56px', '60px']
+    ? ['50px', '69px', '69px', '69px', '81px']
+    : ['33px', '46px', '46px', '46px', '54px']
 
-  const letterHeight = ['50px', '44px', '52px', '56px', '60px']
+  const letterHeight = ['50px', '44px', '52px', '56px', '56px']
 
-  const fontSize = ['18px', '20px', '22px', '24px', '26px']
+  // const fontSize = ['18px', '20px', '22px', '24px', '24px']
 
   return (
     <Flex
+      as='button'
+      p={1}
+      fontWeight={700}
+      fontSize={16}
+      lineHeight={1.25}
+
       w={letterWidth}
       h={letterHeight}
-      borderRadius='9px'
+      borderRadius={8}
       bg={bg}
       color={fontColor}
       boxShadow='0px 3px 3px rgba(0, 0, 0, .7)'
@@ -51,15 +57,14 @@ const KeyboardLetter = ({ letter, keyHandler }) => {
       }}
       onClick={() => keyHandler(key)}
       textTransform={!special ? 'uppercase' : 'capitalize'}
-      fontSize={fontSize}
+      // fontSize={fontSize}
       userSelect='none'
       transition='all .2s ease-in-out'
+      {...rest}
     >
-      <chakra.span>
-        {key === 'backspace'
-          ? <Backspace />
-          : key}
-      </chakra.span>
+      {key === 'backspace'
+        ? <Backspace />
+        : key}
     </Flex>
   )
 }

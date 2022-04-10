@@ -1,5 +1,5 @@
 import { Flex } from '@chakra-ui/react'
-import LetterBox from 'components/Wordle/LetterBox'
+import LetterBox from 'components/WordleGrid/LetterBox'
 
 const Word = ({ word, isSubmitted }) => {
   return (

@@ -1,37 +1,44 @@
 import { useEffect, useState } from 'react'
-import { Flex, Spacer } from '@chakra-ui/react'
+import { Flex } from '@chakra-ui/react'
 import Header from 'components/Header'
-import WordleGrid from 'components/Wordle/WordleGrid'
-import Keyboard from 'components/Keyboard/Keyboard'
+import WordleGrid from 'components/WordleGrid'
+import Keyboard from 'components/Keyboard'
 import Confetti from 'components/Confetti'
 import Settings from 'components/Settings'
 import useKeys from 'hooks/useKeys'
-import useStore from 'modules/store'
+import useViewport from 'hooks/useViewport'
+import useStore from 'lib/store'
 import { decrypt } from 'utils/crypto'
 import { isValidLetter } from 'utils/validation'
 import { toast } from 'react-toastify'
 
-const Game = ({ gameProps, openSettings, keyHandler }) => {
+const Game = ({ gameProps, openSettings, keyHandler, ...rest }) => {
   return (
     <Flex
       flexDir='column'
       justify='center'
       textAlign='center'
       align='center'
-      w={['100%', '90%', '80%', '50%', '40%']}
+      w={['100%', '90%', '65%', '45%', '40%']}
       {...gameProps}
+      {...rest}
     >
       <Header
         openSettings={openSettings}
+        h='calc(var(--vh, 1vh) * 7)'
       />
 
-      <WordleGrid mt={16} />
+      <WordleGrid
+        minH='calc(var(--vh, 1vh) * 60)'
+        py={[2, 5, 5, 5, 5]}
+        // border='2px solid blue'
+      />
 
-      <Spacer />
-
-      <Keyboard keyHandler={keyHandler} />
-
-      <Spacer />
+      <Keyboard
+        keyHandler={keyHandler}
+        minH='calc(var(--vh, 1vh) * 33)'
+        // border='2px solid red'
+      />
     </Flex>
   )
 }
@@ -57,10 +64,9 @@ const App = () => {
     lettersTried,
     addLetterTried
   } = useStore()
-
   const [settingsIsOpen, setSettingsIsOpen] = useState(false)
-
   useKeys(keyHandler, !wordleGuessed)
+  useViewport()
 
   useEffect(() => {
     if (!wordleWord) {
@@ -198,29 +204,32 @@ const App = () => {
   }
 
   return (
-    <>
-      <Flex
-        flexDir='column'
-        justify='center'
-        textAlign='center'
-        align='center'
-        height='100vh'
-        fontFamily='Open Sans, Roboto, sans-serif, Arial, Helvetica, monospace'
-      >
-        <Game
-          gameProps={gameProps}
-          openSettings={openSettings}
-          keyHandler={keyHandler}
-        />
+    <Flex
+      flexDir='column'
+      justify='center'
+      textAlign='center'
+      align='center'
+      fontFamily='Open Sans, Roboto, sans-serif, Arial, Helvetica, monospace'
+      overflow='hidden'
+      minH='calc(var(--vh, 1vh) * 100)'
+    >
+      <Game
+        gameProps={gameProps}
+        openSettings={openSettings}
+        keyHandler={keyHandler}
+        h='calc(var(--vh, 1vh) * 100)'
+        // border='2px solid green'
+      />
 
-        <Settings
-          settingsIsOpen={settingsIsOpen}
-          closeSettings={closeSettings}
-        />
+      <Settings
+        settingsIsOpen={settingsIsOpen}
+        closeSettings={closeSettings}
+        h='calc(var(--vh, 1vh) * 100)'
+        // border='2px solid green'
+      />
 
-        <Confetti launchFireworks={wordleGuessed} />
-      </Flex>
-    </>
+      <Confetti launchFireworks={wordleGuessed} />
+    </Flex>
   )
 }
 

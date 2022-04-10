@@ -4,39 +4,35 @@ import eslintPlugin from '@nabla/vite-plugin-eslint'
 import alias from '@rollup/plugin-alias'
 import { resolve } from 'path'
 
-const projectRootDir = resolve(__dirname)
+const paths = {
+  '@': 'src',
+  src: 'src',
+  assets: 'src/assets',
+  components: 'src/components',
+  hooks: 'src/hooks',
+  lib: 'src/lib',
+  modules: 'src/modules',
+  styles: 'src/styles',
+  utils: 'src/utils'
+}
 
 export default defineConfig({
   plugins: [
     react(),
     eslintPlugin(),
-    alias({
-      entries: [
-        {
-          find: '@',
-          replacement: resolve(projectRootDir, 'src')
-        },
-        {
-          find: 'src',
-          replacement: resolve(projectRootDir, 'src')
-        },
-        {
-          find: 'components',
-          replacement: resolve(projectRootDir, 'src/components')
-        },
-        {
-          find: 'hooks',
-          replacement: resolve(projectRootDir, 'src/hooks')
-        },
-        {
-          find: 'utils',
-          replacement: resolve(projectRootDir, 'src/utils')
-        },
-        {
-          find: 'modules',
-          replacement: resolve(projectRootDir, 'src/modules')
-        }
-      ]
-    })
+    pathsResolver(paths)
   ]
 })
+
+function pathsResolver (paths) {
+  const projectRootDir = resolve(__dirname)
+  const keys = Object.keys(paths)
+  const entries = keys.map((k, i) => {
+    return {
+      find: k,
+      replacement: resolve(projectRootDir, paths[k])
+    }
+  })
+
+  return alias({ entries })
+}

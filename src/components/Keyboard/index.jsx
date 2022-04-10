@@ -27,7 +27,7 @@ const keys = [
     { key: 'ñ' }
   ],
   [
-    { key: 'backspace', special: true },
+    { key: 'enter', special: true },
     { key: 'z' },
     { key: 'x' },
     { key: 'c' },
@@ -35,7 +35,7 @@ const keys = [
     { key: 'b' },
     { key: 'n' },
     { key: 'm' },
-    { key: 'enter', special: true }
+    { key: 'backspace', special: true }
   ]
 ]
 
@@ -48,16 +48,17 @@ const Keyboard = (props) => {
       justify='center'
       textAlign='center'
       align='center'
-      gap='4px'
-      pt={8}
+      w='100%'
+      gap='0.5rem'
+      mx='auto'
+      // border='2px solid #A0AEC0'
       {...rest}
     >
       {keys.map((row, i) => (
         <Flex
           key={i}
           flexDir='row'
-          justify='space-between'
-          gap={['3px', '3px', '2px', '2px', '2px']}
+          gap='0.25rem'
         >
           {row.map((key, j) => (
             <KeyboardLetter
