@@ -1,8 +1,9 @@
 import { Flex } from '@chakra-ui/react'
 
-const Logo = () => {
-  const brand = 'settings'
-  const brandLetters = brand.split('')
+const Logo = ({ word }) => {
+  if (!word) return null
+
+  const brandLetters = word.split('')
   return (
     <Flex
       flexDir='row'

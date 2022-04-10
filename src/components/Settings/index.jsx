@@ -1,6 +1,7 @@
 import { Flex } from '@chakra-ui/react'
-import Header from 'components/Settings/Header'
+import Header from 'components/Header'
 import Options from 'components/Settings/Options'
+import { MdOutlineClose as CloseIcon } from 'react-icons/md'
 
 const Settings = ({ settingsIsOpen, closeSettings, ...rest }) => {
   if (!settingsIsOpen) return null
@@ -12,7 +13,9 @@ const Settings = ({ settingsIsOpen, closeSettings, ...rest }) => {
       {...rest}
     >
       <Header
-        closeSettings={closeSettings}
+        rigthIcon={<CloseIcon />}
+        rightIconHandler={closeSettings}
+        headerCaption='Settings'
         h='calc(var(--vh, 1vh) * 7)'
       />
 

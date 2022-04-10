@@ -1,36 +1,7 @@
-import { Flex, Box, IconButton } from '@chakra-ui/react'
-import { HiCog as CogIcon, HiInformationCircle as HelpIcon } from 'react-icons/hi'
+import { Flex, IconButton, Box } from '@chakra-ui/react'
+import Logo from 'components/Logo'
 
-const Logo = () => {
-  const brand = 'wordly'
-  const brandLetters = brand.split('')
-  return (
-    <Flex
-      flexDir='row'
-      gap={1}
-    >
-      {brandLetters.map((letter, i) => (
-        <Flex
-          key={i}
-          h={8}
-          w={8}
-          borderRadius={4}
-          textTransform='uppercase'
-          justify='center'
-          align='center'
-          bg='green.300'
-          fontWeight={600}
-          fontSize={24}
-          color='white'
-        >
-          {letter}
-        </Flex>
-      ))}
-    </Flex>
-  )
-}
-
-const Header = ({ openSettings, ...rest }) => {
+const Header = ({ headerCaption, leftIcon, leftIconHandler, rigthIcon, rightIconHandler, ...rest }) => {
   return (
     <Flex
       w='100%'
@@ -41,26 +12,27 @@ const Header = ({ openSettings, ...rest }) => {
       borderBottom='1px solid #A0AEC0'
       {...rest}
     >
-      <Box>
-        <IconButton
-          icon={<HelpIcon />}
+      {leftIcon
+        ? <IconButton
+          icon={leftIcon}
+          onClick={leftIconHandler}
           variant='ghost'
           size='lg'
         />
-      </Box>
+        : <Box />
+      }
 
-      <Box>
-        <Logo />
-      </Box>
+      <Logo word={headerCaption} />
 
-      <Box>
-        <IconButton
-          icon={<CogIcon />}
+      {rigthIcon
+        ? <IconButton
+          icon={rigthIcon}
+          onClick={rightIconHandler}
           variant='ghost'
           size='lg'
-          onClick={openSettings}
         />
-      </Box>
+        : <Box />
+      }
     </Flex>
   )
 }

@@ -11,6 +11,7 @@ import useStore from 'lib/store'
 import { decrypt } from 'utils/crypto'
 import { isValidLetter } from 'utils/validation'
 import { toast } from 'react-toastify'
+import { HiCog as CogIcon, HiInformationCircle as HelpIcon } from 'react-icons/hi'
 
 const Game = ({ gameProps, openSettings, keyHandler, ...rest }) => {
   return (
@@ -24,7 +25,11 @@ const Game = ({ gameProps, openSettings, keyHandler, ...rest }) => {
       {...rest}
     >
       <Header
-        openSettings={openSettings}
+        rigthIcon={<CogIcon />}
+        rightIconHandler={openSettings}
+        leftIcon={<HelpIcon />}
+        leftIconHandler={() => toast('Test!')}
+        headerCaption='Wordly'
         h='calc(var(--vh, 1vh) * 7)'
       />
 
