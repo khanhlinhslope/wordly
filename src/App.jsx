@@ -105,7 +105,8 @@ const App = () => {
     if (emptyLetterIndex !== -1) {
       currWord[emptyLetterIndex] = {
         ...currWord[emptyLetterIndex],
-        letter: inputLetter
+        letter: inputLetter,
+        status: 'not_exists'
       }
 
       setWordInput(currWord)
@@ -120,8 +121,7 @@ const App = () => {
       currWord[letterIndex] = {
         ...currWord[letterIndex],
         letter: '',
-        status: 'empty',
-        total: 0
+        status: 'empty'
       }
       currWord.reverse()
       setWordInput(currWord)

@@ -1,7 +1,7 @@
 import { Flex, IconButton, Box } from '@chakra-ui/react'
 import Logo from 'components/Logo'
 
-const Header = ({ headerCaption, leftIcon, leftIconHandler, rigthIcon, rightIconHandler, ...rest }) => {
+const Header = ({ headerCaption, leftIcon, leftIconHandler, rigthIcon, rightIconHandler, showBorder = true, ...rest }) => {
   return (
     <Flex
       w='100%'
@@ -9,7 +9,7 @@ const Header = ({ headerCaption, leftIcon, leftIconHandler, rigthIcon, rightIcon
       justify='space-between'
       textAlign='center'
       align='center'
-      borderBottom='1px solid #A0AEC0'
+      borderBottom={showBorder && '1px solid #A0AEC0'}
       {...rest}
     >
       {leftIcon

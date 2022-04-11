@@ -16,6 +16,7 @@ const Settings = ({ settingsIsOpen, closeSettings, ...rest }) => {
         rigthIcon={<CloseIcon />}
         rightIconHandler={closeSettings}
         headerCaption='Settings'
+        showBorder={false}
         h='calc(var(--vh, 1vh) * 7)'
       />
 
