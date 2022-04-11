@@ -9,28 +9,32 @@ const Options = ({ ...props }) => {
       title: 'Dark mode',
       subtitle: 'Toggle between dark and light mode.',
       handler: toggleColorMode,
-      value: colorMode === 'dark'
+      value: colorMode === 'dark',
+      enabled: true
     },
     {
       id: 'blind-mode',
       title: 'Blind mode',
       subtitle: 'Toggle between blind and normal mode.',
       handler: () => { },
-      value: false
+      value: false,
+      enabled: false
     },
     {
       id: 'swap-keys',
       title: 'Swap special keys',
       subtitle: 'Swap "Enter" and "Backspace" buttons.',
       handler: () => { },
-      value: false
+      value: false,
+      enabled: false
     },
     {
       id: 'fat-keys',
       title: 'Fat fingers',
       subtitle: 'Increase the size of the buttons.',
       handler: () => { },
-      value: false
+      value: false,
+      enabled: false
     }
   ]
 
@@ -73,6 +77,7 @@ const Options = ({ ...props }) => {
                     id={id}
                     isChecked={item.value}
                     onChange={item.handler}
+                    disabled={!item.enabled}
                   />
                 </Flex>
               </Flex>

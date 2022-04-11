@@ -1,8 +1,6 @@
 import { Flex, chakra, useColorModeValue, useToken } from '@chakra-ui/react'
-// import useStore from 'lib/store'
 
 const LetterBox = ({ letterData, isSubmitted }) => {
-  // const { wordInput } = useStore()
   const { letter, status } = letterData
   const isEmpty = status === 'empty'
 

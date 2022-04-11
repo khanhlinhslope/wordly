@@ -4,7 +4,7 @@ const useKeys = (handler, condition = true) => {
   useEffect(() => {
     const handleKeyDown = event => {
       if (condition) {
-        event.preventDefault()
+        // event.preventDefault()
         handler(event.key)
       }
     }

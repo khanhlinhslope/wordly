@@ -1,4 +1,4 @@
-import { Flex, useColorModeValue } from '@chakra-ui/react'
+import { Button, useColorModeValue } from '@chakra-ui/react'
 import Backspace from 'components/Keyboard/Backspace'
 import useStore from 'lib/store'
 
@@ -10,7 +10,8 @@ const KeyboardLetter = ({ letter, keyHandler, ...rest }) => {
     default: useColorModeValue('gray.100', 'gray.200'),
     guessed: useColorModeValue('green.300', 'green.400'),
     exists: useColorModeValue('orange.300', 'orange.400'),
-    failed: useColorModeValue('gray.300', 'gray.400')
+    failed: useColorModeValue('gray.300', 'gray.400'),
+    defaultKeyHover: useColorModeValue('gray.200', 'gray.300')
   }
 
   const isSubmitted = lettersGuessed.includes(key) || lettersPresent.includes(key) || lettersTried.includes(key)
@@ -34,8 +35,7 @@ const KeyboardLetter = ({ letter, keyHandler, ...rest }) => {
   const letterHeight = ['50px', '44px', '52px', '56px', '56px']
 
   return (
-    <Flex
-      as='button'
+    <Button
       p={1}
       fontWeight={700}
       fontSize={16}
@@ -47,8 +47,6 @@ const KeyboardLetter = ({ letter, keyHandler, ...rest }) => {
       color={fontColor}
       boxShadow='0px 3px 3px rgba(0, 0, 0, .7)'
       textShadow='0px 0px 40px white, 0px 0px 80px white'
-      justify='center'
-      align='center'
       cursor='pointer'
       _active={!isSubmitted && {
         cursor: 'pointer',
@@ -57,7 +55,7 @@ const KeyboardLetter = ({ letter, keyHandler, ...rest }) => {
         transform: 'scale(0.95)'
       }}
       _hover={!isSubmitted && {
-        bg: 'gray.200'
+        bg: COLORS.defaultKeyHover
       }}
       onClick={() => keyHandler(key)}
       textTransform={!special ? 'uppercase' : 'capitalize'}
@@ -68,7 +66,7 @@ const KeyboardLetter = ({ letter, keyHandler, ...rest }) => {
       {key === 'backspace'
         ? <Backspace />
         : key}
-    </Flex>
+    </Button>
   )
 }
 
