@@ -19,7 +19,7 @@ const Header = ({ headerCaption, leftIcon, leftIconHandler, rigthIcon, rightIcon
           variant='ghost'
           size='lg'
         />
-        : <Box />
+        : <Box minW='3em' />
       }
 
       <Logo word={headerCaption} />
@@ -31,7 +31,7 @@ const Header = ({ headerCaption, leftIcon, leftIconHandler, rigthIcon, rightIcon
           variant='ghost'
           size='lg'
         />
-        : <Box />
+        : <Box minW='3em' />
       }
     </Flex>
   )
