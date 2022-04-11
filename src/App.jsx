@@ -75,7 +75,7 @@ const App = () => {
 
   useEffect(() => {
     if (!wordleWord) {
-      setWordleWord('mafer') // temporary
+      setWordleWord('joyas') // temporary
     } else {
       console.log('secret:', decrypt(wordleWord))
     }
