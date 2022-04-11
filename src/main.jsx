@@ -1,4 +1,5 @@
 import './main.css'
+import 'focus-visible/dist/focus-visible'
 import 'react-toastify/dist/ReactToastify.css'
 import { render } from 'react-dom'
 import App from 'src/App'
