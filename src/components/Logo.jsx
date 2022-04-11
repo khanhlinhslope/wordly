@@ -1,4 +1,4 @@
-import { Flex } from '@chakra-ui/react'
+import { Flex, useColorModeValue } from '@chakra-ui/react'
 
 const Logo = ({ word }) => {
   if (!word) return null
@@ -18,7 +18,7 @@ const Logo = ({ word }) => {
           textTransform='uppercase'
           justify='center'
           align='center'
-          bg='green.300'
+          bg={useColorModeValue('green.300', 'green.400')}
           fontWeight={600}
           fontSize={24}
           color='white'

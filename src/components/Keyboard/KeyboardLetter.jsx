@@ -1,4 +1,4 @@
-import { Flex } from '@chakra-ui/react'
+import { Flex, useColorModeValue } from '@chakra-ui/react'
 import Backspace from 'components/Keyboard/Backspace'
 import useStore from 'lib/store'
 
@@ -6,14 +6,21 @@ const KeyboardLetter = ({ letter, keyHandler, ...rest }) => {
   const { lettersGuessed, lettersPresent, lettersTried } = useStore()
   const { key, special } = letter
 
+  const COLORS = {
+    default: useColorModeValue('gray.100', 'gray.200'),
+    guessed: useColorModeValue('green.300', 'green.400'),
+    exists: useColorModeValue('orange.300', 'orange.400'),
+    failed: useColorModeValue('gray.300', 'gray.400')
+  }
+
   const isSubmitted = lettersGuessed.includes(key) || lettersPresent.includes(key) || lettersTried.includes(key)
 
   let bg
-  if (!isSubmitted) bg = 'gray.100'
+  if (!isSubmitted) bg = COLORS.default
   else {
-    if (lettersGuessed.includes(key)) bg = 'green.300'
-    else if (lettersPresent.includes(key)) bg = 'orange.300'
-    else if (lettersTried.includes(key)) bg = 'gray.400'
+    if (lettersGuessed.includes(key)) bg = COLORS.guessed
+    else if (lettersPresent.includes(key)) bg = COLORS.exists
+    else if (lettersTried.includes(key)) bg = COLORS.failed
   }
 
   const fontColor = isSubmitted
@@ -26,8 +33,6 @@ const KeyboardLetter = ({ letter, keyHandler, ...rest }) => {
 
   const letterHeight = ['50px', '44px', '52px', '56px', '56px']
 
-  // const fontSize = ['18px', '20px', '22px', '24px', '24px']
-
   return (
     <Flex
       as='button'
@@ -35,7 +40,6 @@ const KeyboardLetter = ({ letter, keyHandler, ...rest }) => {
       fontWeight={700}
       fontSize={16}
       lineHeight={1.25}
-
       w={letterWidth}
       h={letterHeight}
       borderRadius={8}
@@ -57,7 +61,6 @@ const KeyboardLetter = ({ letter, keyHandler, ...rest }) => {
       }}
       onClick={() => keyHandler(key)}
       textTransform={!special ? 'uppercase' : 'capitalize'}
-      // fontSize={fontSize}
       userSelect='none'
       transition='all .2s ease-in-out'
       {...rest}

@@ -1,22 +1,38 @@
-import { Flex, chakra } from '@chakra-ui/react'
-// import useStore from 'modules/store'
+import { Flex, chakra, useColorModeValue, useToken } from '@chakra-ui/react'
+// import useStore from 'lib/store'
 
 const LetterBox = ({ letterData, isSubmitted }) => {
+  // const { wordInput } = useStore()
   const { letter, status } = letterData
   const isEmpty = status === 'empty'
+
+  const COLORS = {
+    default: useColorModeValue('gray.100', 'gray.200'),
+    guessed: useColorModeValue('green.300', 'green.400'),
+    exists: useColorModeValue('orange.300', 'orange.400'),
+    failed: useColorModeValue('gray.400', 'gray.500')
+  }
+
+  const [alpha0, alpha1, alpha2, alpha3] = useToken(
+    'colors',
+    ['blackAlpha.300', 'blackAlpha.400', 'blackAlpha.500', 'blackAlpha.600']
+  )
 
   const boxSize = [14, 14, 16, 16, 16]
 
   const border = isSubmitted
     ? 'none'
-    : `2px solid ${isEmpty ? '#A0AEC0' : '#4A5568'}`
+    : `2px solid ${isEmpty
+      ? useColorModeValue(alpha0, alpha1)
+      : useColorModeValue(alpha2, alpha3)
+    }`
 
   let bg
-  if (!isSubmitted) bg = 'gray.100'
+  if (!isSubmitted) bg = COLORS.default
   else {
-    if (status === 'guessed') bg = 'green.300'
-    else if (status === 'exists') bg = 'orange.300'
-    else if (status === 'not_exists') bg = 'gray.400'
+    if (status === 'guessed') bg = COLORS.guessed
+    else if (status === 'exists') bg = COLORS.exists
+    else if (status === 'not_exists') bg = COLORS.failed
   }
 
   const fontColor = isSubmitted

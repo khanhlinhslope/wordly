@@ -1,29 +1,39 @@
-import { Flex, Box, FormControl, FormLabel, Switch, Text, useColorModeValue } from '@chakra-ui/react'
-
-const items = [
-  {
-    id: 'dark-mode',
-    title: 'Dark mode',
-    subtitle: 'Toggle between dark and light mode.'
-  },
-  {
-    id: 'blind-mode',
-    title: 'Blind mode',
-    subtitle: 'Toggle between blind and normal mode.'
-  },
-  {
-    id: 'swap-keys',
-    title: 'Swap special keys',
-    subtitle: 'Swap "Enter" and "Backspace" buttons.'
-  },
-  {
-    id: 'fat-keys',
-    title: 'Fat fingers',
-    subtitle: 'Increase the size of the buttons.'
-  }
-]
+import { Flex, Box, FormControl, FormLabel, Switch, Text, useColorModeValue, useColorMode } from '@chakra-ui/react'
 
 const Options = ({ ...props }) => {
+  const { colorMode, toggleColorMode } = useColorMode()
+
+  const items = [
+    {
+      id: 'dark-mode',
+      title: 'Dark mode',
+      subtitle: 'Toggle between dark and light mode.',
+      handler: toggleColorMode,
+      value: colorMode === 'dark'
+    },
+    {
+      id: 'blind-mode',
+      title: 'Blind mode',
+      subtitle: 'Toggle between blind and normal mode.',
+      handler: () => { },
+      value: false
+    },
+    {
+      id: 'swap-keys',
+      title: 'Swap special keys',
+      subtitle: 'Swap "Enter" and "Backspace" buttons.',
+      handler: () => { },
+      value: false
+    },
+    {
+      id: 'fat-keys',
+      title: 'Fat fingers',
+      subtitle: 'Increase the size of the buttons.',
+      handler: () => { },
+      value: false
+    }
+  ]
+
   return (
     <Box pt={4} {...props}>
       <form>
@@ -57,8 +67,13 @@ const Options = ({ ...props }) => {
                       {subtitle}
                     </Text>}
                 </FormLabel>
+
                 <Flex align='center'>
-                  <Switch id={id} />
+                  <Switch
+                    id={id}
+                    isChecked={item.value}
+                    onChange={item.handler}
+                  />
                 </Flex>
               </Flex>
             </FormControl>
