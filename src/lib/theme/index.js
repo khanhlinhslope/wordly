@@ -1,14 +1,13 @@
 import { extendTheme } from '@chakra-ui/react'
+import Button from 'lib/theme/components/button'
+import Switch from 'lib/theme/components/switch'
 
 // https://github.com/chakra-ui/chakra-ui/issues/708
 // https://github.com/chakra-ui/chakra-ui/discussions/2459
+
 const components = {
-  Switch: {
-    baseStyle: { track: { _focus: { boxShadow: 'none' } } }
-  }
-  // Button: {
-  //   baseStyle: { _focus: { boxShadow: 'none' } }
-  // }
+  Button,
+  Switch
 }
 
 const theme = extendTheme({

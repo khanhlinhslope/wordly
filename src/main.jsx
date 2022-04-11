@@ -3,7 +3,7 @@ import 'focus-visible/dist/focus-visible'
 import 'react-toastify/dist/ReactToastify.css'
 import { render } from 'react-dom'
 import App from 'src/App'
-import theme from 'lib/theme'
+import theme from 'src/lib/theme'
 import { ChakraProvider } from '@chakra-ui/react'
 import { ToastContainer } from 'react-toastify'
 

@@ -75,6 +75,7 @@ const Options = ({ ...props }) => {
                 <Flex align='center'>
                   <Switch
                     id={id}
+                    variant='wordle'
                     isChecked={item.value}
                     onChange={item.handler}
                     disabled={!item.enabled}
