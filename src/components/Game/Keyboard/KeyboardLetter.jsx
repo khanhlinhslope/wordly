@@ -1,5 +1,5 @@
 import { Button, useColorModeValue } from '@chakra-ui/react'
-import Backspace from 'components/Keyboard/Backspace'
+import Backspace from 'src/components/Game/Keyboard/Backspace'
 import useStore from 'lib/store'
 
 const KeyboardLetter = ({ letter, keyHandler, ...rest }) => {

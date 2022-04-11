@@ -1,5 +1,5 @@
 import { Flex } from '@chakra-ui/react'
-import KeyboardLetter from 'components/Keyboard/KeyboardLetter'
+import KeyboardLetter from 'src/components/Game/Keyboard/KeyboardLetter'
 
 const keys = [
   [
