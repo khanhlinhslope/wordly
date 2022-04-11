@@ -32,11 +32,10 @@ const KeyboardLetter = ({ letter, keyHandler, ...rest }) => {
     ? ['50px', '69px', '69px', '69px', '81px']
     : ['33px', '46px', '46px', '46px', '54px']
 
-  const letterHeight = ['50px', '44px', '52px', '56px', '56px']
+  const letterHeight = ['50px', '46px', '46px', '46px', '54px']
 
   return (
     <Button
-      p={1}
       fontWeight={700}
       fontSize={16}
       lineHeight={1.25}

@@ -50,7 +50,6 @@ const Keyboard = (props) => {
       align='center'
       w='100%'
       gap='0.5rem'
-      mx='auto'
       // border='2px solid #A0AEC0'
       {...rest}
     >
@@ -58,7 +57,7 @@ const Keyboard = (props) => {
         <Flex
           key={i}
           flexDir='row'
-          gap='0.25rem'
+          // gap='0.25rem'
         >
           {row.map((key, j) => (
             <KeyboardLetter
