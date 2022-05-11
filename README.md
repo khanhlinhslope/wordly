@@ -1,17 +1,9 @@
 <div align="center">
-  <h1>Next.js + Chakra UI Starter</h1>
-  <p>A boilerplate for <a href="https://reactjs.org" target="_blank">React</a> apps using <a href="https://nextjs.org/=" target="_blank">Next.js</a> and <a href="https://chakra-ui.com" target="_blank">Chakra UI</a>.</p>
-  
-  
-[![CodeFactor](https://www.codefactor.io/repository/github/marsigliadev/next-chakra-starter/badge)](https://www.codefactor.io/repository/github/marsigliadev/next-chakra-starter)
-[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=marsigliadev_next-chakra-starter&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=marsigliadev_next-chakra-starter)
-[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=marsigliadev_next-chakra-starter&metric=bugs)](https://sonarcloud.io/summary/new_code?id=marsigliadev_next-chakra-starter)
-[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=marsigliadev_next-chakra-starter&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=marsigliadev_next-chakra-starter)
-[![Depfu](https://badges.depfu.com/badges/5ce1a740c04047bcecc248c1a4d03e8c/overview.svg)](https://depfu.com/github/marsigliadev/next-chakra-starter?project_id=35366)
+  <h1>Wordly</h1>
 </div>
 
 
-## Getting Started
+<!-- ## Getting Started
 
 ### 1. Clone this template using one of these ways:
 
@@ -46,4 +38,4 @@ The following packages are pre-installed in this project:
   - [next-seo](https://github.com/garmeeh/next-seo)
   - [framer-motion](https://github.com/framer/motion)
   - [react-icons](https://github.com/react-icons/react-icons)
-  - [zustand](https://github.com/pmndrs/zustand)
+  - [zustand](https://github.com/pmndrs/zustand) -->
