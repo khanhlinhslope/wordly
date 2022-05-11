@@ -21,19 +21,17 @@ const Game = ({ gameProps, openSettings, keyHandler, ...rest }) => (
       leftIcon={<HelpIcon />}
       leftIconHandler={() => toast('Test!')}
       headerCaption='Wordly'
-      h='calc(var(--vh, 1vh) * 7)'
+      h='calc(var(--vh, 1vh) * 8)'
     />
 
     <WordleGrid
-      minH='calc(var(--vh, 1vh) * 60)'
+      minH='calc(var(--vh, 1vh) * 59)'
       py={[2, 5, 5, 5, 5]}
-      // border='2px solid blue'
     />
 
     <Keyboard
       keyHandler={keyHandler}
       minH='calc(var(--vh, 1vh) * 33)'
-      // border='2px solid red'
     />
   </Flex>
 )
