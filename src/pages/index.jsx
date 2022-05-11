@@ -10,8 +10,9 @@ import useStore from '@lib/store'
 import { decrypt } from '@utils/crypto'
 import { isValidLetter } from '@utils/validation'
 import { toast } from 'react-toastify'
+import 'isomorphic-fetch'
 
-export default function Home() {
+const App = ({ wordData }) => {
   const {
     wordList,
     resetWordList,
@@ -37,8 +38,8 @@ export default function Home() {
   useViewport()
 
   useEffect(() => {
-    if (!wordleWord) {
-      setWordleWord('video') // temporary
+    if (!wordleWord && wordData) {
+      setWordleWord(wordData)
     } else {
       console.log('secret:', decrypt(wordleWord))
     }
@@ -51,7 +52,7 @@ export default function Home() {
     }
   }, [wordleWord])
 
-  function keyHandler (key) {
+  function keyHandler(key) {
     if (isValidLetter(key)) {
       letterHandler(key)
     } else if (key.toLowerCase() === 'backspace') {
@@ -61,7 +62,7 @@ export default function Home() {
     }
   }
 
-  function letterHandler (inputLetter) {
+  function letterHandler(inputLetter) {
     const currWord = [...wordInput]
     const emptyLetterIndex = currWord.findIndex(letter => letter.letter === '')
 
@@ -76,7 +77,7 @@ export default function Home() {
     }
   }
 
-  function backspaceHandler () {
+  function backspaceHandler() {
     const currWord = [...wordInput]
     const reversedWord = currWord.reverse()
     const letterIndex = reversedWord.findIndex(letter => letter.letter !== '')
@@ -91,19 +92,27 @@ export default function Home() {
     }
   }
 
-  function enterHandler () {
+  function enterHandler() {
     const currWord = [...wordInput]
     const hasEmptyLetters = currWord.some(letter => letter.letter === '')
     if (!hasEmptyLetters) {
       const _wordleWord = decrypt(wordleWord)
 
-      const guessedLetters = currWord.filter(({ letter }, i) => letter === _wordleWord[i])
-      const existingLetters = currWord.filter(({ letter }) => _wordleWord.includes(letter))
-      const nonExistingLetters = currWord.filter(({ letter }) => !_wordleWord.includes(letter))
+      const guessedLetters = currWord.filter(
+        ({ letter }, i) => letter === _wordleWord[i]
+      )
+      const existingLetters = currWord.filter(({ letter }) =>
+        _wordleWord.includes(letter)
+      )
+      const nonExistingLetters = currWord.filter(
+        ({ letter }) => !_wordleWord.includes(letter)
+      )
 
       // insert all guessed letters first
       const currWordFormatted = currWord.map((obj, index) => {
-        const g = guessedLetters.find(l => (l.letter === obj.letter && l.index === index))
+        const g = guessedLetters.find(
+          l => l.letter === obj.letter && l.index === index
+        )
         if (g) return { ...g, status: 'guessed' }
         return {}
       })
@@ -114,9 +123,13 @@ export default function Home() {
           let letterToAdd = { ...letter, status: 'exists' }
 
           // check if the letter exists in currWordFormatted
-          const existing = currWordFormatted.filter(l => l.letter === letter.letter)
+          const existing = currWordFormatted.filter(
+            l => l.letter === letter.letter
+          )
           if (existing) {
-            const letterCount = _wordleWord.split('').filter(s => s === letter.letter).length
+            const letterCount = _wordleWord
+              .split('')
+              .filter(s => s === letter.letter).length
             // check if the number of times the letter exists in wordleWord is already the same as in currWordFormatted, if so, change the status to not_exists
             if (existing.length === letterCount) {
               letterToAdd = { ...letter, status: 'not_exists' }
@@ -142,19 +155,28 @@ export default function Home() {
         const isGuessed = _wordleWord[index] === letter
         const exists = _wordleWord.includes(letter)
 
-        if (isGuessed && !lettersGuessed.includes(letter)) addLetterGuessed(letter)
-        else if (exists && !lettersPresent.includes(letter)) addLetterPresent(letter)
-        else if (!lettersTried.includes(letter)) addLetterTried(letter)
+        if (isGuessed && !lettersGuessed.includes(letter)) {
+          addLetterGuessed(letter)
+        } else if (exists && !lettersPresent.includes(letter)) {
+          addLetterPresent(letter)
+        } else if (!lettersTried.includes(letter)) addLetterTried(letter)
       })
 
-      const newWordList = [...wordList.slice(0, inputIndex), currWordFormatted, ...wordList.slice(inputIndex + 1)]
+      const newWordList = [
+        ...wordList.slice(0, inputIndex),
+        currWordFormatted,
+        ...wordList.slice(inputIndex + 1)
+      ]
       setWordList(newWordList)
 
       increaseInputIndex()
       resetWordInput()
 
       // check if the word is guessed
-      const currWordString = currWord.map(letter => letter.letter).join('').toLowerCase()
+      const currWordString = currWord
+        .map(letter => letter.letter)
+        .join('')
+        .toLowerCase()
       if (currWordString === _wordleWord) {
         setWordleGuessed()
       }
@@ -203,3 +225,17 @@ export default function Home() {
     </GameLayout>
   )
 }
+
+export async function getServerSideProps() {
+  // const { data: cardsData } = await fetch(`${server}/api/get-word`)
+  const wordData = await fetch('http://localhost:5000/api/get-word')
+    .then(r => r.json())
+    .then(data => {
+      if (data.success) return data.data
+      throw new Error('Bad response from server')
+    })
+
+  return { props: { wordData } }
+}
+
+export default App
