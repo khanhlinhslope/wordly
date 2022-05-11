@@ -44,30 +44,39 @@ const Keyboard = props => {
 
   return (
     <Flex
-      flexDir='column'
-      justify='center'
-      textAlign='center'
+      as='footer'
       align='center'
+      justify='center'
       w='100%'
-      gap='0.5rem'
-      // border='2px solid #A0AEC0'
+      pos='fixed'
+      bottom={0}
+      // border='2px solid purple'
       {...rest}
     >
-      {keys.map((row, i) => (
-        <Flex
-          key={i}
-          flexDir='row'
-          // gap='0.25rem'
-        >
-          {row.map((key, j) => (
-            <KeyboardLetter
-              key={j}
-              letter={key}
-              keyHandler={() => keyHandler(key.key)}
-            />
-          ))}
-        </Flex>
-      ))}
+      <Flex
+        flexDir='column'
+        gap='0.25rem'
+        w='95%'
+        maxW='600px'
+        // border='2px solid #A0AEC0'
+      >
+        {keys.map((row, i) => (
+          <Flex
+            key={i}
+            flexDir='row'
+            justify='stretch'
+            // gap={['0.15rem', '0.50rem']}
+          >
+            {row.map((key, j) => (
+              <KeyboardLetter
+                key={j}
+                letter={key}
+                keyHandler={() => keyHandler(key.key)}
+              />
+            ))}
+          </Flex>
+        ))}
+      </Flex>
     </Flex>
   )
 }

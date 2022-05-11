@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import GameLayout from '@layouts/main'
-import { Flex } from '@chakra-ui/react'
 import Confetti from '@components/Confetti'
 import Settings from '@components/Settings'
 import Game from '@components/Game'
@@ -20,40 +19,21 @@ const App = ({ wordData }) => {
   const closeSettings = () => setSettingsIsOpen(false)
   const openSettings = () => setSettingsIsOpen(true)
 
-  const gameProps = {
-    display: settingsIsOpen ? 'none' : 'flex',
-    height: settingsIsOpen ? 0 : 'full'
-  }
-
   return (
     <GameLayout>
-      <Flex
-        as='main'
-        flexDir='column'
-        justify='center'
-        textAlign='center'
-        align='center'
-        fontFamily='Open Sans, Roboto, sans-serif, Arial, Helvetica, monospace'
-        overflow='hidden'
-        minH='calc(var(--vh, 1vh) * 100)'
-      >
+      {!settingsIsOpen && (
         <Game
-          gameProps={gameProps}
           openSettings={openSettings}
           keyHandler={keyHandler}
-          h='calc(var(--vh, 1vh) * 100)'
-          // border='2px solid green'
         />
+      )}
 
-        <Settings
-          settingsIsOpen={settingsIsOpen}
-          closeSettings={closeSettings}
-          h='calc(var(--vh, 1vh) * 100)'
-          // border='2px solid green'
-        />
+      <Settings
+        settingsIsOpen={settingsIsOpen}
+        closeSettings={closeSettings}
+      />
 
-        <Confetti launchFireworks={wordleGuessed} />
-      </Flex>
+      <Confetti launchFireworks={wordleGuessed} />
     </GameLayout>
   )
 }

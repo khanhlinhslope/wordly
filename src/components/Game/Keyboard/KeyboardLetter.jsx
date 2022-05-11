@@ -1,4 +1,4 @@
-import { Button, useColorModeValue } from '@chakra-ui/react'
+import { Flex, useColorModeValue } from '@chakra-ui/react'
 import Backspace from '@components/Game/Keyboard/Backspace'
 import useStore from '@lib/store'
 
@@ -26,44 +26,48 @@ const KeyboardLetter = ({ letter, keyHandler, ...rest }) => {
     ? 'white'
     : 'gray.800'
 
-  const letterWidth = special
-    ? ['50px', '69px', '69px', '69px', '81px']
-    : ['33px', '46px', '46px', '46px', '54px']
-
-  const letterHeight = ['50px', '46px', '46px', '46px', '54px']
-
   return (
-    <Button
+    <Flex
+      as='button'
+      align='center'
+      justify='center'
+      cursor='pointer'
+      flex='1 1'
+      margin='3px'
+      padding='3px'
+      minH='46px'
+      textDecoration='inherit'
       fontWeight={700}
       fontSize={16}
       lineHeight={1.25}
-      w={letterWidth}
-      h={letterHeight}
-      borderRadius={8}
+      borderRadius={4}
       bg={bg}
       color={fontColor}
       boxShadow='0px 3px 3px rgba(0, 0, 0, .7)'
       textShadow='0px 0px 40px white, 0px 0px 80px white'
-      cursor='pointer'
-      _active={!isSubmitted && {
-        cursor: 'pointer',
-        h: '90%',
-        mt: '1%',
-        transform: 'scale(0.95)'
-      }}
-      _hover={!isSubmitted && {
-        bg: COLORS.defaultKeyHover
-      }}
+      // _active={
+      //   !isSubmitted && {
+      //     cursor: 'pointer',
+      //     h: '90%',
+      //     mt: '1%',
+      //     transform: 'scale(0.95)'
+      //   }
+      // }
+      _focus={false}
+      _active={false}
+      _hover={
+        !isSubmitted && {
+          bg: COLORS.defaultKeyHover
+        }
+      }
       onClick={() => keyHandler(key)}
       textTransform={!special ? 'uppercase' : 'capitalize'}
       userSelect='none'
       transition='all .2s ease-in-out'
       {...rest}
     >
-      {key === 'backspace'
-        ? <Backspace />
-        : key}
-    </Button>
+      {key === 'backspace' ? <Backspace /> : key}
+    </Flex>
   )
 }
 
