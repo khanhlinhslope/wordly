@@ -18,7 +18,7 @@ const Links = ({ ...props }) => {
       id: 'source-code',
       title: 'Source code',
       urlCaption: 'GitHub',
-      url: 'https://github.com/marsigliadev/wordly'
+      url: 'https://github.com/marsidev/wordly'
     }
   ]
 
