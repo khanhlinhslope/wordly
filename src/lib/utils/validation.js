@@ -4,3 +4,7 @@ export const isValidLetter = key => {
     && key.length === 1 // no special keys
   return isValid
 }
+
+export const isNumeric = str => {
+  return !isNaN(str) && !isNaN(parseFloat(str))
+}
