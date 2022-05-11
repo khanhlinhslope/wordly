@@ -2,7 +2,7 @@
 // https://medium.com/@alexandereardon/uselayouteffect-and-ssr-192986cdcf7a
 
 import { useCallback, useState } from 'react'
-import useLayoutEffect from '@/lib/hooks/useIsomorphicLayoutEffect'
+import useLayoutEffect from '@lib/hooks/useIsomorphicLayoutEffect'
 
 const VARIABLE_NAME = '--vh'
 
