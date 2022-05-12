@@ -8,7 +8,7 @@ import useViewport from '@hooks/useViewport'
 import useGameLogic from '@hooks/useGameLogic'
 import useStore from '@lib/store'
 import 'isomorphic-fetch'
-import { server } from '@lib/config'
+import { SERVER_URL } from '@lib/constants'
 
 const App = ({ wordData }) => {
   const { wordleGuessed } = useStore()
@@ -23,10 +23,7 @@ const App = ({ wordData }) => {
   return (
     <GameLayout>
       {!settingsIsOpen && (
-        <Game
-          openSettings={openSettings}
-          keyHandler={keyHandler}
-        />
+        <Game openSettings={openSettings} keyHandler={keyHandler} />
       )}
 
       <Settings
@@ -40,8 +37,7 @@ const App = ({ wordData }) => {
 }
 
 export async function getServerSideProps() {
-  // const { data: cardsData } = await fetch(`${server}/api/get-word`)
-  const wordData = await fetch(`${server}/api/get-word`)
+  const wordData = await fetch(`${SERVER_URL}/api/get-word`)
     .then(r => r.json())
     .then(data => {
       if (data.success) return data.data
