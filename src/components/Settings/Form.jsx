@@ -1,3 +1,4 @@
+/* eslint-disable object-shorthand */
 import {
   Flex,
   FormControl,
@@ -26,7 +27,7 @@ const Form = ({ ...props }) => {
       id: 'confetti',
       title: 'Confetti animation',
       subtitle: 'If enabled, you will see a confetti animation if you win.',
-      handler() { },
+      handler: () => {},
       value: true,
       enabled: false
     },
@@ -34,7 +35,7 @@ const Form = ({ ...props }) => {
       id: 'accessibility-mode',
       title: 'Accessibility mode',
       subtitle: 'If enabled, letters size will increase.',
-      handler() { },
+      handler: () => {},
       value: false,
       enabled: false
     },
@@ -42,7 +43,7 @@ const Form = ({ ...props }) => {
       id: 'swap-keys',
       title: 'Swap special keys',
       subtitle: 'Swap "Enter" and "Backspace" buttons.',
-      handler() { },
+      handler: () => {},
       value: false,
       enabled: false
     },
@@ -50,7 +51,7 @@ const Form = ({ ...props }) => {
       id: 'fat-keys',
       title: 'Fat fingers',
       subtitle: 'Increase the size of the buttons.',
-      handler() { },
+      handler: () => {},
       value: false,
       enabled: false
     }
@@ -69,6 +70,7 @@ const Form = ({ ...props }) => {
             borderBottom='1px solid #A0AEC0'
             px={4}
             h='75px'
+            minW='600px'
           >
             <Flex
               flexDir='row'
