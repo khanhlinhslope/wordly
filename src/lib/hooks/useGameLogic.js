@@ -17,7 +17,7 @@ const useGameLogic = wordData => {
     wordleGuessed,
     setWordleGuessed,
     wordleWord,
-    setWordleWord,
+    setEncryptedWord,
     inputIndex,
     setWordList,
     lettersGuessed,
@@ -32,9 +32,7 @@ const useGameLogic = wordData => {
 
   useEffect(() => {
     if (!wordleWord && wordData) {
-      setWordleWord(wordData)
-    } else {
-      console.log('secret:', decrypt(wordleWord))
+      setEncryptedWord(wordData)
     }
   }, [wordleWord])
 

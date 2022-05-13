@@ -24,45 +24,52 @@ const defaultWords = (WORD_LENGTH, TRIES) => {
 const wordle = set => ({
   wordleWord: '',
   setWordleWord(word) {
-    set(() => (
-      { wordleWord: encrypt(word) }
-    ))
+    set(() => ({ wordleWord: encrypt(word) }))
+  },
+  setEncryptedWord(encrypted) {
+    set(() => ({ wordleWord: encrypted }))
   },
 
   wordList: [],
   setWordList: obj => set(() => ({ wordList: obj })),
-  resetWordList: () => set(state => ({
-    wordList: defaultWords(decrypt(state.wordleWord).length, MAX_TRIES)
-  })),
+  resetWordList: () =>
+    set(state => ({
+      wordList: defaultWords(decrypt(state.wordleWord).length, MAX_TRIES)
+    })),
 
   wordInput: [],
   setWordInput: obj => set(() => ({ wordInput: obj })),
-  resetWordInput: () => set(state => ({
-    wordInput: emptyWord(decrypt(state.wordleWord).length)
-  })),
+  resetWordInput: () =>
+    set(state => ({
+      wordInput: emptyWord(decrypt(state.wordleWord).length)
+    })),
 
   inputIndex: 0,
   setInputIndex: index => set(() => ({ inputIndex: index })),
-  increaseInputIndex: () => set(state => ({
-    inputIndex: state.inputIndex + 1
-  })),
+  increaseInputIndex: () =>
+    set(state => ({
+      inputIndex: state.inputIndex + 1
+    })),
 
   wordleGuessed: false,
   setWordleGuessed: () => set(() => ({ wordleGuessed: true })),
 
   // keyboard states
   lettersTried: [],
-  addLetterTried: l => set(state => ({
-    lettersTried: [...state.lettersTried, l]
-  })),
+  addLetterTried: l =>
+    set(state => ({
+      lettersTried: [...state.lettersTried, l]
+    })),
   lettersGuessed: [],
-  addLetterGuessed: l => set(state => ({
-    lettersGuessed: [...state.lettersGuessed, l]
-  })),
+  addLetterGuessed: l =>
+    set(state => ({
+      lettersGuessed: [...state.lettersGuessed, l]
+    })),
   lettersPresent: [],
-  addLetterPresent: l => set(state => ({
-    lettersPresent: [...state.lettersPresent, l]
-  }))
+  addLetterPresent: l =>
+    set(state => ({
+      lettersPresent: [...state.lettersPresent, l]
+    }))
 })
 
 let useStore = set => ({
