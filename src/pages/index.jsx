@@ -3,7 +3,6 @@ import GameLayout from '@layouts/main'
 import Confetti from '@components/Confetti'
 import Settings from '@components/Settings'
 import Game from '@components/Game'
-import useKeys from '@hooks/useKeys'
 import useViewport from '@hooks/useViewport'
 import useGameLogic from '@hooks/useGameLogic'
 import useStore from '@lib/store'
@@ -14,7 +13,6 @@ const App = ({ wordData }) => {
   const { wordleGuessed } = useStore()
   const [settingsIsOpen, setSettingsIsOpen] = useState(false)
   const { keyHandler } = useGameLogic(wordData)
-  useKeys(keyHandler, !wordleGuessed)
   useViewport()
 
   const closeSettings = () => setSettingsIsOpen(false)
@@ -23,7 +21,10 @@ const App = ({ wordData }) => {
   return (
     <GameLayout>
       {!settingsIsOpen && (
-        <Game openSettings={openSettings} keyHandler={keyHandler} />
+        <Game
+          openSettings={openSettings}
+          keyHandler={keyHandler}
+        />
       )}
 
       <Settings
