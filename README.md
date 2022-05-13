@@ -1,5 +1,6 @@
 <div align="center">
   <h1>Wordly</h1>
+  <p style="font-style:italic; font-size: 1.2em">In construction</p>
 </div>
 
 
