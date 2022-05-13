@@ -5,6 +5,14 @@ import useStore from '@lib/store'
 import { decrypt } from '@utils/crypto'
 import { isValidLetter } from '@utils/validation'
 import { toast } from 'react-toastify'
+import dictionary from '@assets/dictionary/es/words.json'
+
+const checkWord = word => {
+  console.log({ word })
+  // const dictionary = await import(`@assets/dictionary/${lang}/words.json`)
+  const isValid = dictionary.includes(word)
+  return isValid
+}
 
 const useGameLogic = wordData => {
   const {
@@ -86,7 +94,15 @@ const useGameLogic = wordData => {
   function enterHandler() {
     const currWord = [...wordInput]
     const hasEmptyLetters = currWord.some(letter => letter.letter === '')
-    if (!hasEmptyLetters) {
+
+    const currWordString = currWord
+      .map(letter => letter.letter)
+      .join('')
+      .toLowerCase()
+
+    const isValidWord = checkWord(currWordString)
+
+    if (!hasEmptyLetters && isValidWord) {
       const _wordleWord = decrypt(wordleWord)
 
       const guessedLetters = currWord.filter(
@@ -164,15 +180,13 @@ const useGameLogic = wordData => {
       resetWordInput()
 
       // check if the word is guessed
-      const currWordString = currWord
-        .map(letter => letter.letter)
-        .join('')
-        .toLowerCase()
       if (currWordString === _wordleWord) {
         setWordleGuessed()
       }
+    } else if (hasEmptyLetters) {
+      toast.error('Please fill all the letters')
     } else {
-      toast.error('Word is too short!')
+      toast.error(`"${currWordString}" is not in our dictionary 😢`)
     }
   }
 
