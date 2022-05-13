@@ -5,13 +5,17 @@ const useKeys = (handler, condition = true) => {
     const handleKeyDown = event => {
       if (condition) {
         // event.preventDefault()
-        handler(event.key)
+        const isMultiKey = event.ctrlKey || event.metaKey || event.altKey || event.shiftKey
+
+        if (!isMultiKey) {
+          handler(event.key)
+        }
       }
     }
 
-    document.addEventListener('keydown', handleKeyDown)
+    document.addEventListener('keyup', handleKeyDown)
     return () => {
-      document.removeEventListener('keydown', handleKeyDown)
+      document.removeEventListener('keyup', handleKeyDown)
     }
   }, [handler])
 }
