@@ -14,7 +14,10 @@ const KeyboardLetter = ({ letter, keyHandler, ...rest }) => {
     defaultKeyHover: useColorModeValue('gray.200', 'gray.300')
   }
 
-  const isSubmitted = lettersGuessed.includes(key) || lettersPresent.includes(key) || lettersTried.includes(key)
+  const isSubmitted =
+    lettersGuessed.includes(key) ||
+    lettersPresent.includes(key) ||
+    lettersTried.includes(key)
 
   let bg
   if (!isSubmitted) bg = COLORS.default
@@ -22,9 +25,12 @@ const KeyboardLetter = ({ letter, keyHandler, ...rest }) => {
   else if (lettersPresent.includes(key)) bg = COLORS.exists
   else if (lettersTried.includes(key)) bg = COLORS.failed
 
-  const fontColor = isSubmitted
-    ? 'white'
-    : 'gray.800'
+  const fontColor = isSubmitted ? 'white' : 'gray.800'
+
+  const onClick = event => {
+    keyHandler(letter)
+    event.currentTarget.blur()
+  }
 
   return (
     <Flex
@@ -60,7 +66,7 @@ const KeyboardLetter = ({ letter, keyHandler, ...rest }) => {
           bg: COLORS.defaultKeyHover
         }
       }
-      onClick={() => keyHandler(key)}
+      onClick={onClick}
       textTransform={!special ? 'uppercase' : 'capitalize'}
       userSelect='none'
       transition='all .2s ease-in-out'
