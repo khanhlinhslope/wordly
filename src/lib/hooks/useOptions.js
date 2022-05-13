@@ -9,10 +9,7 @@ const useOptions = () => {
   const [swapKeys, setSwapKeys] = useState(defaultOptions?.swapSpecialKeys ?? false)
   const { colorMode, toggleColorMode } = useColorMode()
 
-  let userOptions
-  if (typeof window !== 'undefined') {
-    userOptions = loadOptions()
-  }
+  const userOptions = loadOptions()
 
   useEffect(() => {
     if (userOptions) {

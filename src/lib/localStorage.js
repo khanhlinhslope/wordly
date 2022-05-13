@@ -3,13 +3,21 @@ const statsKey = 'playerStats'
 // const playerKey = 'isPlayer'
 const optionsKey = 'playerOptions'
 
+const getLocalStorageData = key => {
+  if (typeof window !== 'undefined') {
+    const data = window.localStorage.getItem(key)
+    return data ? JSON.parse(data) : null
+  }
+
+  return null
+}
+
 export const saveGameState = gameState => {
   window.localStorage.setItem(gameStateKey, JSON.stringify(gameState))
 }
 
 export const loadGameState = () => {
-  const state = window.localStorage.getItem(gameStateKey)
-  return state ? JSON.parse(state) : null
+  return getLocalStorageData(gameStateKey)
 }
 
 export const saveStats = gameStats => {
@@ -17,8 +25,7 @@ export const saveStats = gameStats => {
 }
 
 export const loadStats = () => {
-  const stats = window.localStorage.getItem(statsKey)
-  return stats ? JSON.parse(stats) : null
+  return getLocalStorageData(statsKey)
 }
 
 export const saveOptions = options => {
@@ -26,6 +33,5 @@ export const saveOptions = options => {
 }
 
 export const loadOptions = () => {
-  const stats = window.localStorage.getItem(optionsKey)
-  return stats ? JSON.parse(stats) : null
+  return getLocalStorageData(optionsKey)
 }
