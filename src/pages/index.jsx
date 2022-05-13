@@ -37,7 +37,7 @@ const App = ({ wordData }) => {
 }
 
 export async function getServerSideProps() {
-  const wordData = await fetch(`${SERVER_URL}/api/get-word`)
+  const wordData = await fetch(`${SERVER_URL}/api/daily-word`)
     .then(r => r.json())
     .then(data => {
       if (data.success) return data.data
