@@ -8,12 +8,16 @@ import useGameLogic from '@hooks/useGameLogic'
 import useStore from '@lib/store'
 import 'isomorphic-fetch'
 import { SERVER_URL } from '@lib/constants'
+import useOptions from '@hooks/useOptions'
 
 const App = ({ wordData }) => {
   const { wordleGuessed } = useStore()
   const [settingsIsOpen, setSettingsIsOpen] = useState(false)
   const { keyHandler } = useGameLogic(wordData)
+  const options = useOptions()
   useViewport()
+
+  const { showConfetti } = options
 
   const closeSettings = () => setSettingsIsOpen(false)
   const openSettings = () => setSettingsIsOpen(true)
@@ -21,18 +25,16 @@ const App = ({ wordData }) => {
   return (
     <GameLayout>
       {!settingsIsOpen && (
-        <Game
-          openSettings={openSettings}
-          keyHandler={keyHandler}
-        />
+        <Game openSettings={openSettings} keyHandler={keyHandler} />
       )}
 
       <Settings
         settingsIsOpen={settingsIsOpen}
         closeSettings={closeSettings}
+        options={options}
       />
 
-      <Confetti launchFireworks={wordleGuessed} />
+      {showConfetti && <Confetti launchFireworks={wordleGuessed} />}
     </GameLayout>
   )
 }

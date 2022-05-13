@@ -1,11 +1,8 @@
 import Header from '@components/Header'
 import Options from '@components/Settings/Options'
 import { MdOutlineClose as CloseIcon } from 'react-icons/md'
-import useOptions from '@hooks/useOptions'
 
-const Settings = ({ settingsIsOpen, closeSettings }) => {
-  const options = useOptions()
-
+const Settings = ({ options, settingsIsOpen, closeSettings }) => {
   if (!settingsIsOpen) return null
 
   return (
