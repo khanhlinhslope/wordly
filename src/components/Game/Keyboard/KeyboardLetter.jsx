@@ -2,9 +2,16 @@ import { Flex, useColorModeValue } from '@chakra-ui/react'
 import Backspace from '@components/Game/Keyboard/Backspace'
 import useStore from '@lib/store'
 
-const KeyboardLetter = ({ letter, keyHandler, ...rest }) => {
+const KeyboardLetter = ({ letter, keyHandler, options, ...rest }) => {
   const { lettersGuessed, lettersPresent, lettersTried } = useStore()
-  const { key, special } = letter
+  let { key, special } = letter
+  const { swapKeys } = options
+
+  if (swapKeys === true && key === 'enter') {
+    key = 'backspace'
+  } else if (swapKeys === true && key === 'backspace') {
+    key = 'enter'
+  }
 
   const COLORS = {
     default: useColorModeValue('gray.100', 'gray.200'),

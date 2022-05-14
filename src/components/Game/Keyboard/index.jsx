@@ -1,47 +1,8 @@
 import { Flex } from '@chakra-ui/react'
 import KeyboardLetter from '@components/Game/Keyboard/KeyboardLetter'
+import { keyboardKeys } from '@lib/constants'
 
-const keys = [
-  [
-    { key: 'q' },
-    { key: 'w' },
-    { key: 'e' },
-    { key: 'r' },
-    { key: 't' },
-    { key: 'y' },
-    { key: 'u' },
-    { key: 'i' },
-    { key: 'o' },
-    { key: 'p' }
-  ],
-  [
-    { key: 'a' },
-    { key: 's' },
-    { key: 'd' },
-    { key: 'f' },
-    { key: 'g' },
-    { key: 'h' },
-    { key: 'j' },
-    { key: 'k' },
-    { key: 'l' },
-    { key: 'ñ' }
-  ],
-  [
-    { key: 'enter', special: true },
-    { key: 'z' },
-    { key: 'x' },
-    { key: 'c' },
-    { key: 'v' },
-    { key: 'b' },
-    { key: 'n' },
-    { key: 'm' },
-    { key: 'backspace', special: true }
-  ]
-]
-
-const Keyboard = props => {
-  const { keyHandler, ...rest } = props
-
+const Keyboard = ({ keyHandler, options, ...rest }) => {
   return (
     <Flex
       as='footer'
@@ -50,7 +11,6 @@ const Keyboard = props => {
       w='100%'
       pos='fixed'
       bottom={0}
-      // border='2px solid purple'
       {...rest}
     >
       <Flex
@@ -58,9 +18,8 @@ const Keyboard = props => {
         gap='0.25rem'
         w='95%'
         maxW='600px'
-        // border='2px solid #A0AEC0'
       >
-        {keys.map((row, i) => (
+        {keyboardKeys.map((row, i) => (
           <Flex
             key={i}
             flexDir='row'
@@ -72,6 +31,7 @@ const Keyboard = props => {
                 key={j}
                 letter={key}
                 keyHandler={() => keyHandler(key.key)}
+                options={options}
               />
             ))}
           </Flex>

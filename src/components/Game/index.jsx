@@ -4,7 +4,7 @@ import Keyboard from '@components/Game/Keyboard'
 import { toast } from 'react-toastify'
 import { HiCog as CogIcon, HiInformationCircle as HelpIcon } from 'react-icons/hi'
 
-const Game = ({ openSettings, keyHandler }) => (
+const Game = ({ openSettings, keyHandler, options }) => (
   <>
     <Header
       rigthIcon={<CogIcon />}
@@ -19,6 +19,7 @@ const Game = ({ openSettings, keyHandler }) => (
 
     <Keyboard
       keyHandler={keyHandler}
+      options={options}
       minH='calc(var(--vh, 1vh) * 25)'
     />
   </>

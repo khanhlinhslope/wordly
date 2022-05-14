@@ -20,3 +20,41 @@ export const GAME_CONFIG = {
     fatFingers: false
   }
 }
+
+export const keyboardKeys = [
+  [
+    { key: 'q' },
+    { key: 'w' },
+    { key: 'e' },
+    { key: 'r' },
+    { key: 't' },
+    { key: 'y' },
+    { key: 'u' },
+    { key: 'i' },
+    { key: 'o' },
+    { key: 'p' }
+  ],
+  [
+    { key: 'a' },
+    { key: 's' },
+    { key: 'd' },
+    { key: 'f' },
+    { key: 'g' },
+    { key: 'h' },
+    { key: 'j' },
+    { key: 'k' },
+    { key: 'l' },
+    { key: 'ñ' }
+  ],
+  [
+    { key: 'enter', special: true },
+    { key: 'z' },
+    { key: 'x' },
+    { key: 'c' },
+    { key: 'v' },
+    { key: 'b' },
+    { key: 'n' },
+    { key: 'm' },
+    { key: 'backspace', special: true }
+  ]
+]

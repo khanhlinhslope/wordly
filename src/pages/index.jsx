@@ -25,7 +25,11 @@ const App = ({ wordData }) => {
   return (
     <GameLayout>
       {!settingsIsOpen && (
-        <Game openSettings={openSettings} keyHandler={keyHandler} />
+        <Game
+          openSettings={openSettings}
+          keyHandler={keyHandler}
+          options={options}
+        />
       )}
 
       <Settings
