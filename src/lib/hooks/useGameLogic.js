@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import useKeys from '@hooks/useKeys'
 import useStore from '@lib/store'
+import GAME_CONFIG from '@lib/constants'
 import { decrypt } from '@utils/crypto'
 import { isValidLetter } from '@utils/validation'
 import { toast } from 'react-toastify'
@@ -52,9 +53,9 @@ const useGameLogic = wordData => {
   }, [wordleWord])
 
   useEffect(() => {
-    // TODO: compare with maxTries from game props
-    if (inputIndex === 6 && !wordleGuessed) {
-      const _wordleWord = decrypt(wordleWord)?.toLowerCase()
+    const maxTries = GAME_CONFIG?.tries ?? 6
+    if (inputIndex === maxTries && !wordleGuessed) {
+      const _wordleWord = decrypt(wordleWord)?.toUpperCase()
       setGameLose()
       gameLostToast(_wordleWord)
     }
