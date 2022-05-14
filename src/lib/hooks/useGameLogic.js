@@ -82,7 +82,7 @@ const useGameLogic = wordData => {
   }
 
   const gameLostToast = word => {
-    toast(word, { autoClose: 5000 })
+    toast(`The word was ${word}`, { autoClose: 5000 })
   }
 
   function keyHandler(key) {
