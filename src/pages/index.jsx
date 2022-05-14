@@ -1,23 +1,36 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useDisclosure } from '@chakra-ui/react'
+import 'isomorphic-fetch'
 import GameLayout from '@layouts/main'
 import Confetti from '@components/Confetti'
 import Settings from '@components/Settings'
 import Game from '@components/Game'
+import LossModal from '@components/LossModal'
 import useViewport from '@hooks/useViewport'
 import useGameLogic from '@hooks/useGameLogic'
-import useStore from '@lib/store'
-import 'isomorphic-fetch'
-import { SERVER_URL } from '@lib/constants'
 import useOptions from '@hooks/useOptions'
+import useStore from '@lib/store'
+import { SERVER_URL } from '@lib/constants'
 
 const App = ({ wordData }) => {
-  const { wordleGuessed } = useStore()
+  const { wordleGuessed, gameState } = useStore()
   const [settingsIsOpen, setSettingsIsOpen] = useState(false)
   const { keyHandler } = useGameLogic(wordData)
   const options = useOptions()
   useViewport()
-
   const { showConfetti } = options
+
+  const {
+    isOpen: showLossModal,
+    onOpen: openLossModal,
+    onClose: closeLossModal
+  } = useDisclosure()
+
+  useEffect(() => {
+    if (gameState === 'LOSS') {
+      openLossModal()
+    }
+  }, [gameState])
 
   const closeSettings = () => setSettingsIsOpen(false)
   const openSettings = () => setSettingsIsOpen(true)
@@ -39,6 +52,8 @@ const App = ({ wordData }) => {
       />
 
       {showConfetti && <Confetti launchFireworks={wordleGuessed} />}
+
+      <LossModal isOpen={showLossModal} onClose={closeLossModal} />
     </GameLayout>
   )
 }
