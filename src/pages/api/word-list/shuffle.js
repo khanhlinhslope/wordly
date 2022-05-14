@@ -3,7 +3,7 @@ import { onError, onNoMatch } from '@lib/middlewares/nc'
 import withDev from '@lib/middlewares/withDev'
 import { checkLang, checkLetters } from '@lib/middlewares/checkParams'
 import { filter } from '@utils/dictionary'
-import { getDictionary, shuffleDictionary } from '@utils/game-methods'
+import { getDictionary, shuffleDictionary } from '@lib/game-methods'
 
 const handler = nc({ onError, onNoMatch })
   .use(withDev)

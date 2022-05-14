@@ -7,7 +7,7 @@ import {
   getWordOfDay,
   removeWordById,
   removeWordByWord
-} from '@utils/game-methods'
+} from '@lib/game-methods'
 
 const handler = nc({ onError, onNoMatch })
   .use(checkLang)

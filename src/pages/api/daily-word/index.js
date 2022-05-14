@@ -2,7 +2,7 @@ import nc from 'next-connect'
 import { onError, onNoMatch } from '@lib/middlewares/nc'
 import cache from '@lib/middlewares/cache'
 import { checkLang } from '@lib/middlewares/checkParams'
-import { getShuffledDictionary, getWordOfDay } from '@utils/game-methods'
+import { getShuffledDictionary, getWordOfDay } from '@lib/game-methods'
 import { encrypt } from '@utils/crypto'
 
 const handler = nc({ onError, onNoMatch })

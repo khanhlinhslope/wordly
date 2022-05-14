@@ -6,7 +6,7 @@ import {
   getTodayWordIndex,
   getShuffledDictionary,
   formatWordlist
-} from '@utils/game-methods'
+} from '@lib/game-methods'
 
 const parseBooleanQuery = query => {
   query = query === undefined ? false : query
