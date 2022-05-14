@@ -22,11 +22,21 @@ const Keyboard = ({ keyHandler, options, ...rest }) => {
             justify='stretch'
             // gap={['0.15rem', '0.50rem']}
           >
-            {row.map(letter => {
-              if (swapKeys === true && letter.key === 'enter') {
-                letter.key = 'backspace'
-              } else if (swapKeys === true && letter.key === 'backspace') {
-                letter.key = 'enter'
+            {row.map((letter, keyIndex) => {
+              const { key, special } = letter
+
+              if (special) {
+                if (swapKeys) {
+                  if (keyIndex === 0 && key === 'enter') {
+                    letter.key = 'backspace'
+                  } else if (keyIndex === row.length - 1 && key === 'backspace') {
+                    letter.key = 'enter'
+                  }
+                } else if (keyIndex === 0 && key === 'backspace') {
+                  letter.key = 'enter'
+                } else if (keyIndex === row.length - 1 && key === 'enter') {
+                  letter.key = 'backspace'
+                }
               }
 
               return (
