@@ -30,10 +30,13 @@ const useGameLogic = wordData => {
     lettersPresent,
     addLetterPresent,
     lettersTried,
-    addLetterTried
+    addLetterTried,
+    gameState,
+    setGameWin,
+    setGameLose
   } = useStore()
 
-  useKeys(keyHandler, !wordleGuessed)
+  useKeys(keyHandler, gameState === 'IN_PROGRESS')
 
   useEffect(() => {
     if (!wordleWord && wordData) {
@@ -48,8 +51,18 @@ const useGameLogic = wordData => {
     }
   }, [wordleWord])
 
-  const toast1Id = useRef(null)
-  const toast2Id = useRef(null)
+  useEffect(() => {
+    // TODO: compare with maxTries from game props
+    if (inputIndex === 6 && !wordleGuessed) {
+      const _wordleWord = decrypt(wordleWord)?.toLowerCase()
+      setGameLose()
+      gameLostToast(_wordleWord)
+    }
+  }, [inputIndex])
+
+  // toast refs to avoid duplicated toasts
+  const toast1Id = useRef(null) // toast for empty letters
+  const toast2Id = useRef(null) // toast for non-existing word
 
   const emptyLettersToast = () => {
     if (!toast.isActive(toast1Id.current)) {
@@ -61,6 +74,14 @@ const useGameLogic = wordData => {
     if (!toast.isActive(toast2Id.current)) {
       toast2Id.current = toast(`"${word}" not exists in our dictionary`)
     }
+  }
+
+  const gameWonToast = () => {
+    toast('You won!', { autoClose: 5000 })
+  }
+
+  const gameLostToast = word => {
+    toast(word, { autoClose: 5000 })
   }
 
   function keyHandler(key) {
@@ -201,6 +222,8 @@ const useGameLogic = wordData => {
     // check if the word is guessed
     if (currWordString === _wordleWord) {
       setWordleGuessed()
+      setGameWin()
+      gameWonToast()
     }
   }
 
