@@ -2,21 +2,16 @@ import { useEffect } from 'react'
 
 const useKeys = (handler, condition = true) => {
   useEffect(() => {
-    const handleKeyDown = event => {
-      if (condition) {
-        // event.preventDefault()
-        const isMultiKey = event.ctrlKey || event.metaKey || event.altKey || event.shiftKey
+    if (!condition) return
 
-        if (!isMultiKey) {
-          handler(event.key)
-        }
-      }
+    const handleKeyDown = e => {
+      // event.preventDefault()
+      const isMultiKey = e.ctrlKey || e.metaKey || e.altKey || e.shiftKey
+      if (!isMultiKey) handler(e.key)
     }
 
     document.addEventListener('keyup', handleKeyDown)
-    return () => {
-      document.removeEventListener('keyup', handleKeyDown)
-    }
+    return () => document.removeEventListener('keyup', handleKeyDown)
   }, [handler])
 }
 
