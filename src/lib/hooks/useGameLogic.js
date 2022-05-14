@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import useKeys from '@hooks/useKeys'
 import useStore from '@lib/store'
 import { decrypt } from '@utils/crypto'
@@ -47,6 +47,21 @@ const useGameLogic = wordData => {
       resetWordList()
     }
   }, [wordleWord])
+
+  const toast1Id = useRef(null)
+  const toast2Id = useRef(null)
+
+  const emptyLettersToast = () => {
+    if (!toast.isActive(toast1Id.current)) {
+      toast1Id.current = toast.error(' Not enough letters')
+    }
+  }
+
+  const noValidWordToast = word => {
+    if (!toast.isActive(toast2Id.current)) {
+      toast2Id.current = toast(`"${word}" not exists in our dictionary`)
+    }
+  }
 
   function keyHandler(key) {
     if (isValidLetter(key)) {
@@ -100,11 +115,11 @@ const useGameLogic = wordData => {
     const isValidWord = checkWord(currWordString)
 
     if (hasEmptyLetters) {
-      return toast.error('Please fill all the letters')
+      return emptyLettersToast()
     }
 
     if (!isValidWord) {
-      return toast.error(`"${currWordString}" is not in our dictionary 😢`)
+      return noValidWordToast(currWordString)
     }
 
     const _wordleWord = decrypt(wordleWord)
