@@ -1,28 +1,12 @@
 import { readFileSync, writeFileSync } from 'fs'
 import { join } from 'path'
 import { GAME_CONFIG } from '@lib/constants'
+import { getTodayWordIndex, getWordOfDay } from '@lib/wotd'
 
 export const shuffleArray = array => array.sort(() => 0.5 - Math.random())
 
-export const getTodayWordIndex = () => {
-  const gameStartedAt = new Date(GAME_CONFIG.startDate).getTime()
-  const now = Date.now()
-  const oneDayInMs = 86400000
-  const todayIndex = Math.floor((now - gameStartedAt) / oneDayInMs)
-  return todayIndex
-}
-
-export const getWordOfDay = (dictionary, wordIndex) => {
-  const wordsCount = dictionary.length
-  const todayIndex = getTodayWordIndex()
-  const _wordIndex = wordIndex ?? todayIndex
-  const word = dictionary[_wordIndex % wordsCount]
-
-  return {
-    word,
-    wordIndex: _wordIndex,
-    wordsCount
-  }
+export const filterDictionary = (dictionary, letters) => {
+  return dictionary.filter(w => w.length === letters)
 }
 
 export const getDictionary = lang => {
@@ -51,7 +35,6 @@ export const shuffleDictionary = (lang, dictionary) => {
   const { dictionaryPath } = GAME_CONFIG
 
   const shuffled = shuffleArray(dictionary)
-  // .slice(0, 1000)
 
   const newPath = `${dictionaryPath}/${lang}/words-shuffled.json`
   writeFileSync(newPath, JSON.stringify(shuffled))
@@ -67,7 +50,7 @@ export const removeWordById = (lang, dictionary, id) => {
   return updated
 }
 
-export const removeWordByWord = (lang, dictionary, word) => {
+export const removeWord = (lang, dictionary, word) => {
   const { dictionaryPath } = GAME_CONFIG
 
   const updated = dictionary.filter(w => w !== word)
@@ -84,12 +67,14 @@ export const formatWordlist = words => {
     const dayIndex = todayIndex + i
     const daysInMS = i * 86400000
     const day = new Date(gameStartedAt + daysInMS)
+
     const dayString = day.toLocaleDateString(undefined, {
       weekday: 'long',
       month: 'long',
       day: 'numeric',
       year: 'numeric'
     })
+
     const removeUrl = `http://localhost:5000/api/word-list/remove?word=${w}`
 
     return {
@@ -102,3 +87,5 @@ export const formatWordlist = words => {
 
   return data
 }
+
+export { getTodayWordIndex, getWordOfDay }

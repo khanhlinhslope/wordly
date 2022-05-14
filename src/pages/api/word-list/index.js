@@ -2,11 +2,7 @@ import nc from 'next-connect'
 import { onError, onNoMatch } from '@lib/middlewares/nc'
 import { checkLang } from '@lib/middlewares/checkParams'
 import withDev from '@lib/middlewares/withDev'
-import {
-  getTodayWordIndex,
-  getShuffledDictionary,
-  formatWordlist
-} from '@lib/game-methods'
+import { getTodayWordIndex, getShuffledDictionary, formatWordlist } from '@lib/dictionary'
 
 const parseBooleanQuery = query => {
   query = query === undefined ? false : query

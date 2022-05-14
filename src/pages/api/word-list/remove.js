@@ -2,12 +2,7 @@ import nc from 'next-connect'
 import { onError, onNoMatch } from '@lib/middlewares/nc'
 import { checkLang } from '@lib/middlewares/checkParams'
 import withDev from '@lib/middlewares/withDev'
-import {
-  getShuffledDictionary,
-  getWordOfDay,
-  removeWordById,
-  removeWordByWord
-} from '@lib/game-methods'
+import { getShuffledDictionary, getWordOfDay, removeWordById, removeWord } from '@lib/dictionary'
 
 const handler = nc({ onError, onNoMatch })
   .use(checkLang)
@@ -21,7 +16,7 @@ const handler = nc({ onError, onNoMatch })
 
     let newDictionary
     if (word) {
-      newDictionary = removeWordByWord(lang, dictionary, word)
+      newDictionary = removeWord(lang, dictionary, word)
     } else if (dayIndex) {
       const wotd = getWordOfDay(dictionary, dayIndex)
       word = wotd?.word

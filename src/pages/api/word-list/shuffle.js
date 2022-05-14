@@ -2,8 +2,7 @@ import nc from 'next-connect'
 import { onError, onNoMatch } from '@lib/middlewares/nc'
 import withDev from '@lib/middlewares/withDev'
 import { checkLang, checkLetters } from '@lib/middlewares/checkParams'
-import { filter } from '@utils/dictionary'
-import { getDictionary, shuffleDictionary } from '@lib/game-methods'
+import { filterDictionary, getDictionary, shuffleDictionary } from '@lib/dictionary'
 
 const handler = nc({ onError, onNoMatch })
   .use(withDev)
@@ -14,7 +13,7 @@ const handler = nc({ onError, onNoMatch })
     letters = parseInt(letters)
 
     const source = getDictionary(lang)
-    const dictionary = filter(source, letters)
+    const dictionary = filterDictionary(source, letters)
     const shuffled = shuffleDictionary(lang, dictionary)
 
     return res.status(200).json({

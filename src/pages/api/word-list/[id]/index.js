@@ -3,7 +3,7 @@ import { onError, onNoMatch } from '@lib/middlewares/nc'
 import cache from '@lib/middlewares/cache'
 import withDev from '@lib/middlewares/withDev'
 import { checkLang } from '@lib/middlewares/checkParams'
-import { getShuffledDictionary, getWordOfDay } from '@lib/game-methods'
+import { getShuffledDictionary, getWordOfDay } from '@lib/dictionary'
 
 const handler = nc({ onError, onNoMatch })
   .use(cache(12 * 60 * 60)) // 12 hours cache
