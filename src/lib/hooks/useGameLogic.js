@@ -53,7 +53,7 @@ const useGameLogic = wordData => {
 
   const emptyLettersToast = () => {
     if (!toast.isActive(toast1Id.current)) {
-      toast1Id.current = toast.error(' Not enough letters')
+      toast1Id.current = toast(' Not enough letters')
     }
   }
 
