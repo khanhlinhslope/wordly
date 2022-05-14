@@ -69,7 +69,12 @@ const wordle = set => ({
   addLetterPresent: l =>
     set(state => ({
       lettersPresent: [...state.lettersPresent, l]
-    }))
+    })),
+
+  gameState: 'IN_PROGRESS',
+  setGameState: state => set(() => ({ gameState: state })),
+  setGameWin: () => set(() => ({ gameState: 'WIN' })),
+  setGameLose: () => set(() => ({ gameState: 'LOSS' }))
 })
 
 let useStore = set => ({
