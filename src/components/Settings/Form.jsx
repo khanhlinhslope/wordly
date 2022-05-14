@@ -76,7 +76,7 @@ const Form = ({ options, ...props }) => {
             borderBottom='1px solid #A0AEC0'
             px={4}
             h='75px'
-            minW='600px'
+            minW={['300px', '600px']}
           >
             <Flex flexDir='row' justify='space-between' align='center' h='full'>
               <FormLabel htmlFor={id} display='inline-block'>
