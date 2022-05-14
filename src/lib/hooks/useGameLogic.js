@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import useKeys from '@hooks/useKeys'
+import useStats from '@hooks/useStats'
 import useStore from '@lib/store'
 import GAME_CONFIG from '@lib/constants'
 import { decrypt } from '@utils/crypto'
@@ -39,6 +40,8 @@ const useGameLogic = wordData => {
 
   useKeys(keyHandler, gameState === 'IN_PROGRESS')
 
+  const { addLoss, addWin } = useStats()
+
   useEffect(() => {
     if (!wordleWord && wordData) {
       setEncryptedWord(wordData)
@@ -52,12 +55,13 @@ const useGameLogic = wordData => {
     }
   }, [wordleWord])
 
+  // useEffect which listen inputIndex to check if the game is over
   useEffect(() => {
     const maxTries = GAME_CONFIG?.tries ?? 6
-    if (inputIndex === maxTries && !wordleGuessed) {
+    const currentTry = inputIndex + 1
+    if (currentTry > maxTries && !wordleGuessed) {
       const _wordleWord = decrypt(wordleWord)?.toUpperCase()
-      setGameLose()
-      gameLostToast(_wordleWord)
+      wordleLost(_wordleWord)
     }
   }, [inputIndex])
 
@@ -83,6 +87,19 @@ const useGameLogic = wordData => {
 
   const gameLostToast = word => {
     toast(`The word was ${word}`, { autoClose: 5000 })
+  }
+
+  function wordleSolved() {
+    setWordleGuessed()
+    setGameWin()
+    gameWonToast()
+    addWin(inputIndex + 1)
+  }
+
+  function wordleLost(_wordleWord) {
+    setGameLose()
+    gameLostToast(_wordleWord)
+    addLoss()
   }
 
   function keyHandler(key) {
@@ -222,9 +239,7 @@ const useGameLogic = wordData => {
 
     // check if the word is guessed
     if (currWordString === _wordleWord) {
-      setWordleGuessed()
-      setGameWin()
-      gameWonToast()
+      wordleSolved()
     }
   }
 
