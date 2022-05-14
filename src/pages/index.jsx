@@ -18,6 +18,7 @@ const App = ({ wordData }) => {
   const { keyHandler } = useGameLogic(wordData)
   const options = useOptions()
   useViewport()
+
   const { showConfetti } = options
 
   const {
@@ -27,9 +28,7 @@ const App = ({ wordData }) => {
   } = useDisclosure()
 
   useEffect(() => {
-    if (gameState === 'LOSS') {
-      openLossModal()
-    }
+    if (gameState === 'LOSS') openLossModal()
   }, [gameState])
 
   const closeSettings = () => setSettingsIsOpen(false)
@@ -53,7 +52,10 @@ const App = ({ wordData }) => {
 
       {showConfetti && <Confetti launchFireworks={wordleGuessed} />}
 
-      <LossModal isOpen={showLossModal} onClose={closeLossModal} />
+      <LossModal
+        isOpen={showLossModal}
+        onClose={closeLossModal}
+      />
     </GameLayout>
   )
 }
