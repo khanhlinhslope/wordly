@@ -1,4 +1,4 @@
-import { chakra, Box, Flex } from '@chakra-ui/react'
+import { chakra, Flex, Text } from '@chakra-ui/react'
 import Modal from '@components/Modal'
 import useStore from '@lib/store'
 import { getTodayWordIndex } from '@lib/wotd'
@@ -12,12 +12,20 @@ import GuessesDraw from './GuessesDraw'
 const YouLost = ({ encryptedWord, ...props }) => {
   const secretWord = decrypt(encryptedWord)
   return (
-    <Box textAlign='center' {...props}>
+    <Text textAlign='center' {...props}>
       {'You lost! The word was: '}
       <chakra.span ml={1} fontWeight={600}>
         {secretWord.toUpperCase()}
       </chakra.span>
-    </Box>
+    </Text>
+  )
+}
+
+const Congrats = ({ ...props }) => {
+  return (
+    <Text fontWeight={600} textAlign='center' {...props}>
+      Congrats 🎉
+    </Text>
   )
 }
 
@@ -55,7 +63,11 @@ const LossModal = ({ isOpen, onClose, ...rest }) => {
           {/* <>Wordle draw preview here</> */}
           <GuessesDraw />
 
-          {gameState === 'LOSS' && <YouLost encryptedWord={encryptedWord} />}
+          {gameState === 'LOSS' && (
+            <YouLost encryptedWord={encryptedWord} mt={4} />
+          )}
+
+          {gameState === 'WIN' && <Congrats mt={4} />}
 
           <Stats stats={playerStats} />
 
