@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import useStore from '@lib/store'
 
-const useGameSolved = () => {
+const useInitGame = () => {
   const { wordList, wordleWord, resetWordInput, resetWordList } = useStore()
 
   useEffect(() => {
@@ -12,4 +12,4 @@ const useGameSolved = () => {
   }, [wordleWord])
 }
 
-export default useGameSolved
+export default useInitGame
