@@ -39,7 +39,7 @@ const useGameSolved = () => {
     setWordleGuessed()
     setGameWin()
     gameWonToast()
-    addWin(inputIndex + 1)
+    addWin(inputIndex)
   }
 }
 
