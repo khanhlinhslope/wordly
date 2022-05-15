@@ -1,36 +1,14 @@
-import { chakra, Flex, Text } from '@chakra-ui/react'
+import { Flex } from '@chakra-ui/react'
 import Modal from '@components/Modal'
-import useStore from '@lib/store'
 import { getTodayWordIndex } from '@lib/wotd'
-import { decrypt } from '@utils/crypto'
 import useStats from '@hooks/useStats'
 import Stats from './Stats'
 import Distribution from './Distribution'
 import CountDown from './CountDown'
 import GuessesDraw from './GuessesDraw'
+import WinLossMessage from './WinLossMessage'
 
-const YouLost = ({ encryptedWord, ...props }) => {
-  const secretWord = decrypt(encryptedWord)
-  return (
-    <Text textAlign='center' {...props}>
-      {'You lost! The word was: '}
-      <chakra.span ml={1} fontWeight={600}>
-        {secretWord.toUpperCase()}
-      </chakra.span>
-    </Text>
-  )
-}
-
-const Congrats = ({ ...props }) => {
-  return (
-    <Text fontWeight={600} textAlign='center' {...props}>
-      Congrats 🎉
-    </Text>
-  )
-}
-
-const LossModal = ({ isOpen, onClose, ...rest }) => {
-  const { wordleWord: encryptedWord, gameState } = useStore()
+const GameOverModal = ({ isOpen, onClose, ...rest }) => {
   const playerStats = useStats()
 
   const todayWordIndex = getTodayWordIndex()
@@ -42,7 +20,7 @@ const LossModal = ({ isOpen, onClose, ...rest }) => {
       isOpen={isOpen}
       isCentered
       motionPreset='slideInBottom'
-      size='full'
+      size='xl'
       title={title}
       showCloseIcon={true}
       scrollBehavior='inside'
@@ -52,6 +30,7 @@ const LossModal = ({ isOpen, onClose, ...rest }) => {
         flexDir='row'
         justify='center'
         w='100%'
+        // pb={4}
         // border='2px solid purple'
       >
         <Flex
@@ -60,24 +39,19 @@ const LossModal = ({ isOpen, onClose, ...rest }) => {
           maxW='600px'
           // border='2px solid pink'
         >
-          {/* <>Wordle draw preview here</> */}
           <GuessesDraw />
 
-          {gameState === 'LOSS' && (
-            <YouLost encryptedWord={encryptedWord} mt={2} />
-          )}
-
-          {gameState === 'WIN' && <Congrats mt={2} />}
+          <WinLossMessage mt={2} />
 
           <Stats stats={playerStats} mt={8} />
 
           <Distribution stats={playerStats} mt={8} />
 
-          <CountDown mt={8} />
+          <CountDown mt={8} pb={8} />
         </Flex>
       </Flex>
     </Modal>
   )
 }
 
-export default LossModal
+export default GameOverModal
