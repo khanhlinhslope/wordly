@@ -6,6 +6,7 @@ import { decrypt } from '@utils/crypto'
 import useStats from '@hooks/useStats'
 import Stats from './Stats'
 import Distribution from './Distribution'
+import CountDown from './CountDown'
 
 const WordReveal = ({ encryptedWord, ...props }) => {
   const secretWord = decrypt(encryptedWord)
@@ -32,28 +33,34 @@ const LossModal = ({ isOpen, onClose, ...rest }) => {
       isOpen={isOpen}
       isCentered
       motionPreset='slideInBottom'
-      size='lg'
+      size='full'
       title={title}
       showCloseIcon={true}
       scrollBehavior='inside'
       {...rest}
     >
       <Flex
-        flexDir='column'
+        flexDir='row'
+        justify='center'
         w='100%'
-        mb={4}
-        minH='400px'
-        border='1px solid'
+        border='2px solid purple'
       >
-        {/* <>Wordle draw preview here</> */}
+        <Flex
+          flexDir='column'
+          w='100%'
+          maxW='600px'
+          border='2px solid pink'
+        >
+          {/* <>Wordle draw preview here</> */}
 
-        <WordReveal encryptedWord={encryptedWord} />
+          <WordReveal encryptedWord={encryptedWord} />
 
-        <Stats stats={playerStats} />
+          <Stats stats={playerStats} />
 
-        <Distribution stats={playerStats} mt={8} />
+          <Distribution stats={playerStats} mt={8} />
 
-        {/* <>Next Wordle countdown here</> */}
+          <CountDown mt={8} />
+        </Flex>
       </Flex>
     </Modal>
   )

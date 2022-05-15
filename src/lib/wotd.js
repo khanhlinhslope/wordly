@@ -1,11 +1,19 @@
 import { GAME_CONFIG } from '@lib/constants'
 
+const oneDayInMs = 86400000
+
 export const getTodayWordIndex = () => {
   const gameStartedAt = new Date(GAME_CONFIG.startDate).getTime()
   const now = Date.now()
-  const oneDayInMs = 86400000
   const todayIndex = Math.floor((now - gameStartedAt) / oneDayInMs)
   return todayIndex
+}
+
+export const nextWordTs = () => {
+  const gameStartedAt = new Date(GAME_CONFIG.startDate).getTime()
+  const todayIndex = getTodayWordIndex()
+  const nextWordTs = ((todayIndex + 1) * oneDayInMs) + gameStartedAt
+  return nextWordTs
 }
 
 export const getWordOfDay = (dictionary, wordIndex) => {
