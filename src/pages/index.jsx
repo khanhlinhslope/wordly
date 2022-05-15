@@ -13,7 +13,7 @@ import useStore from '@lib/store'
 import { SERVER_URL } from '@lib/constants'
 
 const App = ({ wordData }) => {
-  const { wordleGuessed, gameState } = useStore()
+  const { gameState, launchFireworks } = useStore()
   const [settingsIsOpen, setSettingsIsOpen] = useState(false)
   const { keyHandler } = useGameLogic(wordData)
   const options = useOptions()
@@ -50,7 +50,7 @@ const App = ({ wordData }) => {
         options={options}
       />
 
-      {showConfetti && <Confetti launchFireworks={wordleGuessed} />}
+      {showConfetti && <Confetti launchFireworks={launchFireworks} />}
 
       <GameOverModal isOpen={showLossModal} onClose={closeLossModal} />
     </GameLayout>

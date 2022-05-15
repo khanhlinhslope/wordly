@@ -10,12 +10,14 @@ const useGameSolved = () => {
     wordList,
     inputIndex,
     setWordleGuessed,
-    setGameWin
+    setGameWin,
+    gameState,
+    setLaunchFireworks
   } = useStore()
   const { addWin } = useStats()
 
   useEffect(() => {
-    if (encryptedWord && inputIndex > 0) {
+    if (encryptedWord && inputIndex > 0 && gameState === 'IN_PROGRESS') {
       const currWord = wordList[inputIndex - 1]
 
       const currentWordString = currWord
@@ -29,7 +31,7 @@ const useGameSolved = () => {
         wordleSolved()
       }
     }
-  }, [encryptedWord, inputIndex])
+  }, [encryptedWord, inputIndex, gameState])
 
   const gameWonToast = () => {
     toast('You won!', { autoClose: 5000 })
@@ -40,6 +42,7 @@ const useGameSolved = () => {
     setGameWin()
     gameWonToast()
     addWin(inputIndex)
+    setLaunchFireworks()
   }
 }
 

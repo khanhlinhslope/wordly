@@ -79,7 +79,10 @@ const wordle = set => ({
   gameState: 'IN_PROGRESS',
   setGameState: state => set(() => ({ gameState: state })),
   setGameWin: () => set(() => ({ gameState: 'WIN' })),
-  setGameLose: () => set(() => ({ gameState: 'LOSS' }))
+  setGameLose: () => set(() => ({ gameState: 'LOSS' })),
+
+  launchFireworks: false,
+  setLaunchFireworks: () => set(() => ({ launchFireworks: true }))
 })
 
 let useStore = set => ({
