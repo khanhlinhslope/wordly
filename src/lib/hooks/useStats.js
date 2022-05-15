@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import { saveStats, loadStats } from '@lib/localStorage'
-// import { GAME_CONFIG } from '@lib/constants'
 
 const defaultGuessDistribution = {
   1: 0,
@@ -13,7 +12,6 @@ const defaultGuessDistribution = {
 }
 
 const useStats = () => {
-  // const { defaultOptions } = GAME_CONFIG
   const [currentStreak, setCurrentStreak] = useState(0)
   const [gamesPlayed, setGamesPlayed] = useState(0)
   const [gamesWon, setGamesWon] = useState(0)
