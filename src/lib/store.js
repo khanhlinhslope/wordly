@@ -56,16 +56,21 @@ const wordle = set => ({
 
   // keyboard states
   lettersTried: [],
+  setLettersTried: obj => set(() => ({ lettersTried: obj })),
   addLetterTried: l =>
     set(state => ({
       lettersTried: [...state.lettersTried, l]
     })),
+
   lettersGuessed: [],
+  setLettersGuessed: obj => set(() => ({ lettersGuessed: obj })),
   addLetterGuessed: l =>
     set(state => ({
       lettersGuessed: [...state.lettersGuessed, l]
     })),
+
   lettersPresent: [],
+  setLettersPresent: obj => set(() => ({ lettersPresent: obj })),
   addLetterPresent: l =>
     set(state => ({
       lettersPresent: [...state.lettersPresent, l]

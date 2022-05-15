@@ -1,4 +1,4 @@
-const gameStateKey = 'gameState'
+const gameDataKey = 'gameData'
 const statsKey = 'playerStats'
 // const playerKey = 'isPlayer'
 const optionsKey = 'playerOptions'
@@ -12,12 +12,12 @@ const getLocalStorageData = key => {
   return null
 }
 
-export const saveGameState = gameState => {
-  window.localStorage.setItem(gameStateKey, JSON.stringify(gameState))
+export const saveGameData = gameData => {
+  window.localStorage.setItem(gameDataKey, JSON.stringify(gameData))
 }
 
-export const loadGameState = () => {
-  return getLocalStorageData(gameStateKey)
+export const loadGameData = () => {
+  return getLocalStorageData(gameDataKey)
 }
 
 export const saveStats = gameStats => {

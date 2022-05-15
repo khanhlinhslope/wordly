@@ -5,6 +5,7 @@ import useGameKeyboard from '@hooks/useGameKeyboard'
 import useGameOver from '@hooks/useGameOver'
 import useGameSolved from '@hooks/useGameSolved'
 import useStore from '@lib/store'
+import useGameData from '@hooks/useGameData'
 
 const useGameLogic = wordData => {
   const { gameState } = useStore()
@@ -14,6 +15,8 @@ const useGameLogic = wordData => {
   useInitGame()
   useGameOver()
   useGameSolved()
+  useGameData()
+
   return { keyHandler }
 }
 
