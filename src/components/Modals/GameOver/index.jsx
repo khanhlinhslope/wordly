@@ -43,13 +43,13 @@ const LossModal = ({ isOpen, onClose, ...rest }) => {
         flexDir='row'
         justify='center'
         w='100%'
-        border='2px solid purple'
+        // border='2px solid purple'
       >
         <Flex
           flexDir='column'
           w='100%'
           maxW='600px'
-          border='2px solid pink'
+          // border='2px solid pink'
         >
           {/* <>Wordle draw preview here</> */}
 
