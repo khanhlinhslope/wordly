@@ -64,12 +64,12 @@ const LossModal = ({ isOpen, onClose, ...rest }) => {
           <GuessesDraw />
 
           {gameState === 'LOSS' && (
-            <YouLost encryptedWord={encryptedWord} mt={4} />
+            <YouLost encryptedWord={encryptedWord} mt={2} />
           )}
 
-          {gameState === 'WIN' && <Congrats mt={4} />}
+          {gameState === 'WIN' && <Congrats mt={2} />}
 
-          <Stats stats={playerStats} />
+          <Stats stats={playerStats} mt={8} />
 
           <Distribution stats={playerStats} mt={8} />
 

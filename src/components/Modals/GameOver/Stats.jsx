@@ -28,7 +28,6 @@ const Stats = ({ stats, ...props }) => {
 
   return (
     <Flex
-      mt={4}
       flexDir='column'
       align='center'
       textAlign='center'
