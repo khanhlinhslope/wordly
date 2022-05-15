@@ -61,21 +61,23 @@ const useGameData = () => {
     const savedLettersPresent = gameData?.lettersPressent
     const savedGameState = gameData?.gameState
 
-    if (savedLastGame !== null && savedLastGame !== currentPuzzle) {
-      return resetGameData()
-    }
+    // if (savedLastGame !== null && savedLastGame !== currentPuzzle) {
+    //   return resetGameData()
+    // }
 
-    if (savedLastGame) setLastGamePlayed(savedLastGame)
-    if (savedGuesses) setGuesses(savedGuesses)
-    if (savedEval) setEvaluation(savedEval)
-    if (savedWordList) setWordList(savedWordList)
-    if (savedWordInput) setWordInput(savedWordInput)
-    if (savedInputIndex) setInputIndex(savedInputIndex)
-    if (savedWordleGuessed) setWordleGuessed(savedWordleGuessed)
-    if (savedLettersTried) setLettersTried(savedLettersTried)
-    if (savedLettersGuessed) setLettersGuessed(savedLettersGuessed)
-    if (savedLettersPresent) setLettersPresent(savedLettersPresent)
-    if (savedGameState) setGameState(savedGameState)
+    if (savedLastGame === currentPuzzle) {
+      if (savedLastGame) setLastGamePlayed(savedLastGame)
+      if (savedGuesses) setGuesses(savedGuesses)
+      if (savedEval) setEvaluation(savedEval)
+      if (savedWordList) setWordList(savedWordList)
+      if (savedWordInput) setWordInput(savedWordInput)
+      if (savedInputIndex) setInputIndex(savedInputIndex)
+      if (savedWordleGuessed) setWordleGuessed(savedWordleGuessed)
+      if (savedLettersTried) setLettersTried(savedLettersTried)
+      if (savedLettersGuessed) setLettersGuessed(savedLettersGuessed)
+      if (savedLettersPresent) setLettersPresent(savedLettersPresent)
+      if (savedGameState) setGameState(savedGameState)
+    } // else those states will have default values
   }, [])
 
   // listen for changes to the game states and save them
@@ -111,12 +113,12 @@ const useGameData = () => {
     })
   }
 
-  function resetGameData() {
-    const currentPuzzle = getTodayWordIndex() + 1
-    setGuesses(defaultBoardGuesses)
-    setEvaluation(defaultBoardEvaluation)
-    setLastGamePlayed(currentPuzzle)
-  }
+  // function resetGameData() {
+  //   const currentPuzzle = getTodayWordIndex() + 1
+  //   setGuesses(defaultBoardGuesses)
+  //   setEvaluation(defaultBoardEvaluation)
+  //   setLastGamePlayed(currentPuzzle)
+  // }
 
   return {
     evaluation,
