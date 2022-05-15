@@ -12,12 +12,12 @@ const defaultGuessDistribution = {
 }
 
 const useStats = () => {
-  const [currentStreak, setCurrentStreak] = useState(0)
   const [gamesPlayed, setGamesPlayed] = useState(0)
   const [gamesWon, setGamesWon] = useState(0)
   const [gamesLost, setGamesLost] = useState(0)
-  const [maxStreak, setMaxStreak] = useState(0)
   const [winRate, setWinRate] = useState(0)
+  const [currentStreak, setCurrentStreak] = useState(0)
+  const [maxStreak, setMaxStreak] = useState(0)
   const [guessDistribution, setGuessDistribution] = useState(defaultGuessDistribution)
 
   const playerStats = loadStats()
@@ -118,10 +118,12 @@ const useStats = () => {
   }
 
   return {
-    currentStreak,
+    gamesPlayed,
+    gamesWon,
     gamesLost,
-    maxStreak,
     winRate,
+    currentStreak,
+    maxStreak,
     guessDistribution,
     addWin,
     addLoss
