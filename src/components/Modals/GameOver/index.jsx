@@ -7,8 +7,9 @@ import useStats from '@hooks/useStats'
 import Stats from './Stats'
 import Distribution from './Distribution'
 import CountDown from './CountDown'
+import GuessesDraw from './GuessesDraw'
 
-const WordReveal = ({ encryptedWord, ...props }) => {
+const YouLost = ({ encryptedWord, ...props }) => {
   const secretWord = decrypt(encryptedWord)
   return (
     <Box textAlign='center' {...props}>
@@ -21,7 +22,7 @@ const WordReveal = ({ encryptedWord, ...props }) => {
 }
 
 const LossModal = ({ isOpen, onClose, ...rest }) => {
-  const { wordleWord: encryptedWord } = useStore()
+  const { wordleWord: encryptedWord, gameState } = useStore()
   const playerStats = useStats()
 
   const todayWordIndex = getTodayWordIndex()
@@ -52,8 +53,9 @@ const LossModal = ({ isOpen, onClose, ...rest }) => {
           // border='2px solid pink'
         >
           {/* <>Wordle draw preview here</> */}
+          <GuessesDraw />
 
-          <WordReveal encryptedWord={encryptedWord} />
+          {gameState === 'LOSS' && <YouLost encryptedWord={encryptedWord} />}
 
           <Stats stats={playerStats} />
 
