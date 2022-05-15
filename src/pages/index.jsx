@@ -5,7 +5,7 @@ import GameLayout from '@layouts/main'
 import Confetti from '@components/Confetti'
 import Settings from '@components/Settings'
 import Game from '@components/Game'
-import LossModal from '@components/LossModal'
+import GameOverModal from '@components/Modals/GameOver'
 import useViewport from '@hooks/useViewport'
 import useGameLogic from '@hooks/useGameLogic'
 import useOptions from '@hooks/useOptions'
@@ -52,10 +52,7 @@ const App = ({ wordData }) => {
 
       {showConfetti && <Confetti launchFireworks={wordleGuessed} />}
 
-      <LossModal
-        isOpen={showLossModal}
-        onClose={closeLossModal}
-      />
+      <GameOverModal isOpen={showLossModal} onClose={closeLossModal} />
     </GameLayout>
   )
 }
