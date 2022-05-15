@@ -12,7 +12,7 @@ const defaultGuessDistribution = {
   fail: 0
 }
 
-const useOptions = () => {
+const useStats = () => {
   // const { defaultOptions } = GAME_CONFIG
   const [currentStreak, setCurrentStreak] = useState(0)
   const [gamesPlayed, setGamesPlayed] = useState(0)
@@ -130,4 +130,4 @@ const useOptions = () => {
   }
 }
 
-export default useOptions
+export default useStats
