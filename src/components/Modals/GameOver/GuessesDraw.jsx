@@ -15,7 +15,7 @@ const parseGuesses = wordsData => {
   return { guesses, evals }
 }
 
-const GuessesDraw = () => {
+const GuessesDraw = ({ ...props }) => {
   const { wordList } = useStore()
   const { evals } = parseGuesses(wordList)
 
@@ -27,7 +27,13 @@ const GuessesDraw = () => {
   }
 
   return (
-    <VStack flexDir='column' justify='center' align='center' spacing='.1rem'>
+    <VStack
+      flexDir='column'
+      justify='center'
+      align='center'
+      spacing='.1rem'
+      {...props}
+    >
       {evals.map((rowEval, i) => {
         return (
           <HStack key={i} flexDir='row' spacing='.1rem'>
