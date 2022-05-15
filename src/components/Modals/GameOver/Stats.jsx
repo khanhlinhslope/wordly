@@ -12,6 +12,17 @@ const percentFormatter = new Intl.NumberFormat('en-US', {
   maximumSignificantDigits: 3
 })
 
+const StatItem = ({ label, value }) => {
+  return (
+    <Stat mx={4}>
+      <StatNumber fontSize='2em'>{value}</StatNumber>
+      <StatLabel fontSize='.8em' fontWeight={400}>
+        {label}
+      </StatLabel>
+    </Stat>
+  )
+}
+
 const Stats = ({ stats, ...props }) => {
   const { gamesPlayed, winRate, currentStreak, maxStreak } = stats
 
@@ -29,35 +40,12 @@ const Stats = ({ stats, ...props }) => {
       </Heading>
 
       <StatGroup
-      // border='1px solid red'
+        // border='1px solid red'
       >
-        <Stat>
-          <StatNumber>{gamesPlayed}</StatNumber>
-          <StatLabel fontSize='.8em' fontWeight={400}>
-            Played
-          </StatLabel>
-        </Stat>
-
-        <Stat>
-          <StatNumber>{percentFormatter.format(winRate)}</StatNumber>
-          <StatLabel fontSize='.8em' fontWeight={400}>
-            Win-rate
-          </StatLabel>
-        </Stat>
-
-        <Stat>
-          <StatNumber>{currentStreak}</StatNumber>
-          <StatLabel fontSize='.8em' fontWeight={400}>
-            Current Streak
-          </StatLabel>
-        </Stat>
-
-        <Stat>
-          <StatNumber>{maxStreak}</StatNumber>
-          <StatLabel fontSize='.8em' fontWeight={400}>
-            Max. Streak
-          </StatLabel>
-        </Stat>
+        <StatItem label='Played' value={gamesPlayed} />
+        <StatItem label='Win-Rate' value={percentFormatter.format(winRate)} />
+        <StatItem label='Current Streak' value={currentStreak} />
+        <StatItem label='Max. Streak' value={maxStreak} />
       </StatGroup>
     </Flex>
   )
