@@ -22,13 +22,13 @@ const App = ({ wordData }) => {
   const { showConfetti } = options
 
   const {
-    isOpen: showLossModal,
-    onOpen: openLossModal,
-    onClose: closeLossModal
+    isOpen: showGameOverModal,
+    onOpen: openGameOverModal,
+    onClose: closeGameOverModal
   } = useDisclosure()
 
   useEffect(() => {
-    if (gameState === 'LOSS') openLossModal()
+    if (gameState !== 'IN_PROGRESS') openGameOverModal()
   }, [gameState])
 
   const closeSettings = () => setSettingsIsOpen(false)
@@ -52,7 +52,7 @@ const App = ({ wordData }) => {
 
       {showConfetti && <Confetti launchFireworks={launchFireworks} />}
 
-      <GameOverModal isOpen={showLossModal} onClose={closeLossModal} />
+      <GameOverModal isOpen={showGameOverModal} onClose={closeGameOverModal} />
     </GameLayout>
   )
 }
