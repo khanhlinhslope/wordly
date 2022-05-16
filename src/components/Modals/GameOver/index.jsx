@@ -7,12 +7,21 @@ import Distribution from './Distribution'
 import CountDown from './CountDown'
 import GuessesDraw from './GuessesDraw'
 import WinLossMessage from './WinLossMessage'
+import useStore from '@lib/store'
+import { GAME_CONFIG } from '@lib/constants'
 
 const GameOverModal = ({ isOpen, onClose, ...rest }) => {
   const playerStats = useStats()
+  const { inputIndex } = useStore()
+  const { tries: maxTries, gameState } = GAME_CONFIG
 
   const todayWordIndex = getTodayWordIndex()
-  const title = `Wordly #${todayWordIndex + 1}`
+
+  const tries = gameState === 'LOSS'
+    ? `X/${maxTries}`
+    : `${inputIndex}/${maxTries}`
+
+  const title = `Wordly #${todayWordIndex + 1} - ${tries}`
 
   return (
     <Modal
