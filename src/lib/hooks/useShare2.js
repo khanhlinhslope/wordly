@@ -36,7 +36,6 @@ const useShare = () => {
   }
 
   const isShareable = data => {
-    console.log(data)
     if (!navigator.canShare) return false
     return navigator.canShare(data)
   }
