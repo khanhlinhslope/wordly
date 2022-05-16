@@ -18,7 +18,7 @@ import {
 
 const ShareGame = ({ title, wordList, ...props }) => {
   const textToShare = generateTextToShare({ title, wordList })
-  const { share: share0, isSupported0 } = useShare0()
+  const { share: share0, isSupported: isSupported0 } = useShare0()
   const { share, isSupported } = useShare()
   const { hasCopied, onCopy: copyToClipboard } = useClipboard(textToShare)
 
