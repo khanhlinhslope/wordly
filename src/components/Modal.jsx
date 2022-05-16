@@ -23,7 +23,7 @@ const MyModal = ({
   >
     <ModalOverlay/>
     <ModalContent>
-      <ModalHeader>{title}</ModalHeader>
+      <ModalHeader textAlign='center'>{title}</ModalHeader>
 
       {showCloseIcon && <ModalCloseButton />}
 
