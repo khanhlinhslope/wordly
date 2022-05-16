@@ -18,7 +18,7 @@ import {
 
 const ShareGame = ({ title, wordList, ...props }) => {
   const textToShare = generateTextToShare({ title, wordList })
-  const { share: share0, isShareable: isShareable0 } = useShare0()
+  const { share: share0, isSupported0 } = useShare0()
   const { share, isSupported } = useShare()
   const { hasCopied, onCopy: copyToClipboard } = useClipboard(textToShare)
 
@@ -28,10 +28,8 @@ const ShareGame = ({ title, wordList, ...props }) => {
     url: 'https://wordly-alpha.vercel.app'
   }
 
-  const shareable = isShareable0(dataToShare)
-
   const shareData0 = async () => {
-    await share0(dataToShare)
+    await share0(dataToShare, { fallback: copyToClipboard })
   }
 
   const shareData = async () => {
@@ -69,13 +67,23 @@ const ShareGame = ({ title, wordList, ...props }) => {
       </IconButton>
 
       {isSupported && (
-        <IconButton borderRadius='full' colorScheme='facebook' onClick={shareData} size='sm'>
+        <IconButton
+          borderRadius='full'
+          colorScheme='facebook'
+          onClick={shareData}
+          size='sm'
+        >
           <ShareIcon />
         </IconButton>
       )}
 
-      {shareable && (
-        <IconButton borderRadius='full' colorScheme='pink' onClick={shareData0} size='sm'>
+      {isSupported0 && (
+        <IconButton
+          borderRadius='full'
+          colorScheme='pink'
+          onClick={shareData0}
+          size='sm'
+        >
           <ShareIcon />
         </IconButton>
       )}
