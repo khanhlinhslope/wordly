@@ -26,19 +26,8 @@ const GameOverModal = ({ isOpen, onClose, ...rest }) => {
       scrollBehavior='inside'
       {...rest}
     >
-      <Flex
-        flexDir='row'
-        justify='center'
-        w='100%'
-        // pb={4}
-        // border='2px solid purple'
-      >
-        <Flex
-          flexDir='column'
-          w='100%'
-          maxW='600px'
-          // border='2px solid pink'
-        >
+      <Flex justify='center' w='100%'>
+        <Flex flexDir='column' w='100%' maxW='600px'>
           <GuessesDraw />
 
           <WinLossMessage mt={2} />
