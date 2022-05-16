@@ -1,3 +1,4 @@
+import { defaultSeo as seo } from 'next-seo.config'
 // ref: https://github.com/roedoejet/AnyLanguage-Wordle/blob/main/src/lib/share.ts
 // ref: https://github.com/cwackerfuss/react-wordle/blob/main/src/lib/share.ts
 const parseGuesses = wordsData => {
@@ -16,7 +17,14 @@ const parseGuesses = wordsData => {
 
 export const generateTextToShare = ({ title, wordList }) => {
   const emojis = generateEmojiGrid(wordList)
-  const textToShare = title + '\n\n' + emojis
+  const url = seo?.openGraph?.url
+
+  const textToShare =
+    title
+    + '\n\n'
+    + emojis
+    + '\n\n'
+    + url ?? ''
   return textToShare
 }
 
