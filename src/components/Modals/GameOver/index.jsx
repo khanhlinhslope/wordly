@@ -1,18 +1,19 @@
 import { Flex } from '@chakra-ui/react'
 import Modal from '@components/Modal'
 import { getTodayWordIndex } from '@lib/wotd'
+import useStore from '@lib/store'
 import useStats from '@hooks/useStats'
+import { GAME_CONFIG } from '@lib/constants'
 import Stats from './Stats'
 import Distribution from './Distribution'
 import CountDown from './CountDown'
 import GuessesDraw from './GuessesDraw'
+import ShareGame from './ShareGame'
 import WinLossMessage from './WinLossMessage'
-import useStore from '@lib/store'
-import { GAME_CONFIG } from '@lib/constants'
 
 const GameOverModal = ({ isOpen, onClose, ...rest }) => {
   const playerStats = useStats()
-  const { inputIndex, gameState } = useStore()
+  const { wordList, inputIndex, gameState } = useStore()
   const { tries: maxTries } = GAME_CONFIG
 
   const todayWordIndex = getTodayWordIndex()
@@ -45,7 +46,16 @@ const GameOverModal = ({ isOpen, onClose, ...rest }) => {
 
           <Distribution stats={playerStats} mt={8} />
 
-          <CountDown mt={8} pb={8} />
+          <CountDown mt={8} />
+
+          <ShareGame
+            title={title}
+            wordList={wordList}
+            mt={8}
+            mb={8}
+            // inputIndex={inputIndex}
+            // gameState={gameState}
+          />
         </Flex>
       </Flex>
     </Modal>
