@@ -1,8 +1,7 @@
 import { useEffect } from 'react'
 import { HStack, IconButton, useClipboard } from '@chakra-ui/react'
 import { generateTextToShare } from '@lib/share'
-import useShare0 from '@hooks/useShare'
-import useShare from '@hooks/useShare2'
+import useShare from '@hooks/useShare'
 import { toast } from 'react-toastify'
 import { MdOutlineContentCopy as CopyIcon, MdShare as ShareIcon } from 'react-icons/md'
 import {
@@ -18,24 +17,16 @@ import {
 
 const ShareGame = ({ title, wordList, ...props }) => {
   const textToShare = generateTextToShare({ title, wordList })
-  const { share: share0, isSupported: isSupported0 } = useShare0()
   const { share, isSupported } = useShare()
   const { hasCopied, onCopy: copyToClipboard } = useClipboard(textToShare)
 
   const dataToShare = {
     title,
-    text: textToShare,
-    url: 'https://wordly-alpha.vercel.app'
-  }
-
-  const shareData0 = async () => {
-    await share0(dataToShare, { fallback: copyToClipboard })
+    text: textToShare
   }
 
   const shareData = async () => {
-    if (isSupported) {
-      await share(dataToShare, { fallback: copyToClipboard })
-    }
+    await share(dataToShare, { fallback: copyToClipboard })
   }
 
   useEffect(() => {
@@ -69,19 +60,8 @@ const ShareGame = ({ title, wordList, ...props }) => {
       {isSupported && (
         <IconButton
           borderRadius='full'
-          colorScheme='facebook'
-          onClick={shareData}
-          size='sm'
-        >
-          <ShareIcon />
-        </IconButton>
-      )}
-
-      {isSupported0 && (
-        <IconButton
-          borderRadius='full'
           colorScheme='pink'
-          onClick={shareData0}
+          onClick={shareData}
           size='sm'
         >
           <ShareIcon />

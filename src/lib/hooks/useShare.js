@@ -1,5 +1,4 @@
-// ref: https://github.com/roedoejet/AnyLanguage-Wordle/blob/main/src/lib/share.ts
-// ref: https://github.com/cwackerfuss/react-wordle/blob/main/src/lib/share.ts
+// ref: https://github.com/cwackerfuss/react-wordle/blob/main/src/lib/share.ts#L50
 import { UAParser } from 'ua-parser-js'
 
 const useShare = () => {
