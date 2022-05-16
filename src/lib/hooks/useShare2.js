@@ -15,29 +15,36 @@ const useShare = () => {
     }
   }, [])
 
-  const share = async data => {
+  const share = async (data, { fallback }) => {
     if (!shareRef.current) {
       console.error('Your browser does not support the Share API')
       return false
     }
 
+    let shareSuccess = false
     if (isShareable(data)) {
       try {
         await navigator.share(data)
-        return true
+        shareSuccess = true
       } catch (err) {
         console.warn(err)
-        return false
+        shareSuccess = false
       }
     } else {
-      console.error('Can\'t share this data, check its validity https://developer.mozilla.org/en-US/docs/Web/API/Navigator/canShare ')
-      return false
+      console.warn('Can\'t share this data, check its validity https://developer.mozilla.org/en-US/docs/Web/API/Navigator/canShare ')
+      shareSuccess = false
+    }
+
+    if (!shareSuccess && fallback) {
+      fallback()
     }
   }
 
   const isShareable = data => {
     if (!navigator.canShare) return false
-    return navigator.canShare(data)
+    if (!navigator.canShare(data)) return false
+    if (!navigator.share) return false
+    return true
   }
 
   return { share, isShareable, isSupported }

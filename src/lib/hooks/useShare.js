@@ -35,6 +35,7 @@ const useShare = () => {
     if (!navigator.canShare) return false
     if (!navigator.canShare(data)) return false
     if (!navigator.share) return false
+    return true
   }
 
   const isSupported = Boolean(navigator.canShare)

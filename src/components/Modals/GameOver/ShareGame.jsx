@@ -34,7 +34,7 @@ const ShareGame = ({ title, wordList, ...props }) => {
 
   const shareData = async () => {
     if (isSupported) {
-      await share(dataToShare)
+      await share(dataToShare, { fallback: copyToClipboard })
     }
   }
 
