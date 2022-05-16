@@ -1,4 +1,4 @@
-import { chakra, Box, Flex, Heading } from '@chakra-ui/react'
+import { chakra, Box, Flex, Heading, HStack, VStack } from '@chakra-ui/react'
 
 const percentFormatter = new Intl.NumberFormat('en-US', {
   style: 'percent',
@@ -10,33 +10,26 @@ const Distribution = ({ stats, ...props }) => {
   const guessKeys = Object.keys(guessDistribution)
 
   return (
-    <Flex
+    <VStack
       flexDir='column'
       align='center'
       textAlign='center'
+      spacing={1}
       // border='1px solid blue'
       {...props}
     >
-      <Heading as='h2' fontSize='1.5em'>
+      <Heading as='h2' fontSize='1.5em' mb={2}>
         Guess Distribution
       </Heading>
+
       {guessKeys.map(key => {
         const guess = key === 'fail' ? 'X' : key
         const guessCount = guessDistribution[key]
         const guessPercent = percentFormatter.format(guessCount / gamesPlayed)
 
         return (
-          <Flex
-            key={guess}
-            w='100%'
-            justify='flex-start'
-            align='center'
-            // border='1px solid red'
-          >
-            <chakra.span
-              // border='1px solid red'
-              w='5%'
-            >
+          <HStack key={guess} w='100%' justify='flex-start' align='center'>
+            <chakra.span fontSize='.8em' w='5%' textAlign='right'>
               {guess}:
             </chakra.span>
 
@@ -51,18 +44,13 @@ const Distribution = ({ stats, ...props }) => {
               <Box h='full' w={guessPercent} bg='blue.400' borderRadius={12} />
             </chakra.span>
 
-            <chakra.span
-              ml={2}
-              fontSize='.8em'
-              w='15%'
-              // border='1px solid'
-            >
+            <chakra.span ml={2} fontSize='.8em' w='15%' textAlign='left'>
               {`${guessCount} (${guessPercent})`}
             </chakra.span>
-          </Flex>
+          </HStack>
         )
       })}
-    </Flex>
+    </VStack>
   )
 }
 
