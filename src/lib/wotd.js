@@ -16,6 +16,7 @@ export const nextWordTs = () => {
   return nextWordTs
 }
 
+// @ref: https://github.com/roedoejet/AnyLanguage-Wordle/blob/main/src/lib/words.ts
 export const getWordOfDay = (dictionary, wordIndex) => {
   const wordsCount = dictionary.length
   const todayIndex = getTodayWordIndex()
