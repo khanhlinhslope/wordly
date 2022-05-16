@@ -1,4 +1,4 @@
-import { chakra, Box, Flex, Heading, HStack, VStack } from '@chakra-ui/react'
+import { chakra, Box, Heading, HStack, VStack } from '@chakra-ui/react'
 
 const percentFormatter = new Intl.NumberFormat('en-US', {
   style: 'percent',
