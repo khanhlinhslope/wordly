@@ -12,8 +12,8 @@ import { GAME_CONFIG } from '@lib/constants'
 
 const GameOverModal = ({ isOpen, onClose, ...rest }) => {
   const playerStats = useStats()
-  const { inputIndex } = useStore()
-  const { tries: maxTries, gameState } = GAME_CONFIG
+  const { inputIndex, gameState } = useStore()
+  const { tries: maxTries } = GAME_CONFIG
 
   const todayWordIndex = getTodayWordIndex()
 
