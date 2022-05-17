@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { saveStats, loadStats } from '@lib/localStorage'
+import useStore from '@lib/store'
 
 const defaultGuessDistribution = {
   1: 0,
@@ -19,10 +20,12 @@ const useStats = () => {
   const [currentStreak, setCurrentStreak] = useState(0)
   const [maxStreak, setMaxStreak] = useState(0)
   const [guessDistribution, setGuessDistribution] = useState(defaultGuessDistribution)
+  const { gameState } = useStore()
 
   const playerStats = loadStats()
 
   useEffect(() => {
+    console.log('useStats mount useEffect')
     if (playerStats) {
       const currentStreak = playerStats?.currentStreak
       if (currentStreak) setCurrentStreak(currentStreak)
@@ -42,12 +45,16 @@ const useStats = () => {
       const guessDistribution = playerStats?.guessDistribution
       if (guessDistribution) setGuessDistribution(guessDistribution)
 
-      if (gamesPlayed > 0) {
+      if (gamesPlayed > 0 && gamesWon > 0) {
         const winRate = gamesWon / gamesPlayed
         setWinRate(winRate)
       }
     }
   }, [])
+
+  useEffect(() => {
+    saveData()
+  }, [gamesPlayed, gameState])
 
   const increaseDistributionById = id => {
     let newDistribution = guessDistribution
@@ -58,6 +65,20 @@ const useStats = () => {
     }
 
     return newDistribution
+  }
+
+  function saveData() {
+    const stats = {
+      gamesPlayed,
+      gamesWon,
+      gamesLost,
+      currentStreak,
+      maxStreak,
+      guessDistribution,
+      winRate
+    }
+
+    saveStats({ ...playerStats, ...stats })
   }
 
   const addWin = tries => {
@@ -72,6 +93,7 @@ const useStats = () => {
     setGamesWon(newWins)
     setWinRate(winRate)
     setCurrentStreak(newCurrentStreak)
+    setGuessDistribution(newDistribution)
 
     // maxStreak
     if (newCurrentStreak > maxStreak) {
@@ -79,17 +101,7 @@ const useStats = () => {
       setMaxStreak(newMaxStreak)
     }
 
-    // save
-    saveStats({
-      ...playerStats,
-      gamesPlayed: newGames,
-      gamesWon: newWins,
-      gamesLost,
-      currentStreak: newCurrentStreak,
-      maxStreak: newMaxStreak,
-      guessDistribution: newDistribution,
-      winRate
-    })
+    // saveData()
   }
 
   const addLoss = () => {
@@ -103,18 +115,9 @@ const useStats = () => {
     setGamesLost(newLoss)
     setWinRate(winRate)
     setCurrentStreak(newCurrentStreak)
+    setGuessDistribution(newDistribution)
 
-    // save
-    saveStats({
-      ...playerStats,
-      gamesPlayed: newGames,
-      gamesWon,
-      gamesLost: newLoss,
-      currentStreak: newCurrentStreak,
-      maxStreak,
-      guessDistribution: newDistribution,
-      winRate
-    })
+    // saveData()
   }
 
   return {
