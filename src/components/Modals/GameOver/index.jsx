@@ -1,4 +1,4 @@
-import { Flex } from '@chakra-ui/react'
+import { Flex, Stack } from '@chakra-ui/react'
 import Modal from '@components/Modal'
 import { getTodayWordIndex } from '@lib/wotd'
 import useStore from '@lib/store'
@@ -46,16 +46,20 @@ const GameOverModal = ({ isOpen, onClose, ...rest }) => {
 
           <Distribution stats={playerStats} mt={8} />
 
-          <CountDown mt={8} />
-
-          <ShareGame
-            title={title}
-            wordList={wordList}
+          <Stack
+            px={4}
             mt={8}
             mb={8}
-            // inputIndex={inputIndex}
-            // gameState={gameState}
-          />
+            direction={['column', 'row']}
+            spacing={2}
+            align='center'
+            justify='space-between'
+            // border='1px solid'
+          >
+            <CountDown />
+
+            <ShareGame title={title} wordList={wordList} />
+          </Stack>
         </Flex>
       </Flex>
     </Modal>
