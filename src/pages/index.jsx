@@ -10,7 +10,7 @@ import useViewport from '@hooks/useViewport'
 import useGameLogic from '@hooks/useGameLogic'
 import useOptions from '@hooks/useOptions'
 import useStore from '@lib/store'
-import { SERVER_URL } from '@lib/constants'
+import { defaultUrl as PRODUCTION_URL } from 'next-seo.config'
 
 const App = ({ wordData }) => {
   const { gameState, launchFireworks } = useStore()
@@ -57,8 +57,20 @@ const App = ({ wordData }) => {
   )
 }
 
-export async function getServerSideProps() {
-  const wordData = await fetch(`${SERVER_URL}/api/daily-word`)
+export async function getServerSideProps(context) {
+  const { req } = context
+  const proto = req.headers['x-forwarded-proto'] || req.headers.referer?.split('://')[0] || 'http'
+  const host = req.headers['x-forwarded-host'] || req.headers.host
+  const DEVELOPMENT_URL = `${proto}://${host}`
+  const { NODE_ENV } = process.env
+
+  const SERVER_URL = NODE_ENV === 'production'
+    ? PRODUCTION_URL
+    : DEVELOPMENT_URL
+
+  const dailyWordUrl = `${SERVER_URL}/api/daily-word`
+
+  const wordData = await fetch(dailyWordUrl)
     .then(r => r.json())
     .then(data => {
       if (data.success) return data.data
