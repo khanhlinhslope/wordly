@@ -6,20 +6,6 @@ import { getTodayWordIndex } from '@lib/wotd'
 const defaultBoardGuesses = ['', '', '', '', '', '']
 const defaultBoardEvaluation = [null, null, null, null, null, null]
 
-// const parseGuesses = wordsData => {
-//   const guesses = []
-//   const evals = []
-
-//   wordsData.forEach(wordObj => {
-//     const guess = wordObj.map(l => l.letter).join('')
-//     const _eval = wordObj.map(l => l.status)
-//     guesses.push(guess)
-//     evals.push(_eval)
-//   })
-
-//   return { guesses, evals }
-// }
-
 const useGameData = () => {
   const {
     wordList,
@@ -60,10 +46,6 @@ const useGameData = () => {
     const savedLettersGuessed = gameData?.lettersGuessed
     const savedLettersPresent = gameData?.lettersPressent
     const savedGameState = gameData?.gameState
-
-    // if (savedLastGame !== null && savedLastGame !== currentPuzzle) {
-    //   return resetGameData()
-    // }
 
     if (savedLastGame === currentPuzzle) {
       if (savedLastGame) setLastGamePlayed(savedLastGame)
@@ -112,13 +94,6 @@ const useGameData = () => {
       gameState
     })
   }
-
-  // function resetGameData() {
-  //   const currentPuzzle = getTodayWordIndex() + 1
-  //   setGuesses(defaultBoardGuesses)
-  //   setEvaluation(defaultBoardEvaluation)
-  //   setLastGamePlayed(currentPuzzle)
-  // }
 
   return {
     evaluation,
