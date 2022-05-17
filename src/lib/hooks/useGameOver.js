@@ -20,26 +20,29 @@ const useGameOver = () => {
   const { addWin, addLoss } = useStats()
 
   useEffect(() => {
+    if (encryptedWord && inputIndex > 0 && !wordleGuessed && gameState === 'IN_PROGRESS') {
+      const currentWord = getSubmittedWord()
+      const secretWord = decrypt(encryptedWord)
+
+      if (currentWord === secretWord) {
+        wordleSolved()
+      }
+    }
+  }, [encryptedWord, inputIndex, gameState])
+
+  useEffect(() => {
     const maxTries = GAME_CONFIG?.tries ?? 6
     const currentTry = inputIndex + 1
 
     if (currentTry > maxTries && !wordleGuessed && gameState === 'IN_PROGRESS') {
-      const currWord = wordList[inputIndex - 1]
-
-      const currentWordString = currWord
-        .map(letter => letter.letter)
-        .join('')
-        .toLowerCase()
-
+      const currentWord = getSubmittedWord()
       const secretWord = decrypt(encryptedWord)
 
-      if (currentWordString === secretWord) {
-        wordleSolved()
-      } else {
+      if (currentWord !== secretWord) {
         wordleLost(secretWord.toUpperCase())
       }
     }
-  }, [encryptedWord, inputIndex, gameState])
+  }, [inputIndex, gameState])
 
   const gameLostToast = word => {
     toast(`The word was ${word}`, { autoClose: 5000 })
@@ -47,6 +50,14 @@ const useGameOver = () => {
 
   const gameWonToast = () => {
     toast('You won! 🎉', { autoClose: 5000 })
+  }
+
+  const getSubmittedWord = () => {
+    const currWord = wordList[inputIndex - 1]
+    return currWord
+      .map(letter => letter.letter)
+      .join('')
+      .toLowerCase()
   }
 
   function wordleSolved() {
