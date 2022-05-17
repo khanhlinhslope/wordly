@@ -27,6 +27,7 @@ const WordleGrid = ({ ...props }) => {
         {wordList.map((word, i) => (
           <WordRow
             key={i}
+            rowIndex={i}
             word={i === inputIndex ? wordInput : word}
             isSubmitted={inputIndex > i}
           />

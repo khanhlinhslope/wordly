@@ -1,0 +1,127 @@
+/*  
+  credits of this animations to react-wordle
+  @ref: https://github.com/cwackerfuss/react-wordle/blob/main/src/index.css
+*/
+
+.letter-container {
+  animation: offsetLetterFlip 0.35s linear;
+  animation-fill-mode: backwards;
+}
+
+.cell-type-animation {
+  animation: onLetterType linear;
+  animation-duration: 0.35s;
+}
+
+.cell-reveal-animation {
+  animation-duration: 0.35s;
+  animation-timing-function: linear;
+  animation-fill-mode: backwards;
+}
+
+.cell-reveal-animation.not_exists {
+  animation-name: revealNonExistingLetter;
+}
+
+.cell-reveal-animation.guessed {
+  animation-name: revealGuessedLetter;
+}
+
+.cell-reveal-animation.exists {
+  animation-name: revealExistingLetter;
+}
+
+@keyframes revealNonExistingLetter {
+  0% {
+    transform: rotateX(0deg);
+    background-color: var(--chakra-colors-gray-100);
+    border-width: 2px;
+    border-style: solid;
+    border-color: var(--chakra-colors-blackAlpha-500);
+    color: black;
+  }
+
+  50% {
+    background-color: var(--chakra-colors-gray-100);
+    border-width: 2px;
+    border-style: solid;
+    border-color: var(--chakra-colors-blackAlpha-500);
+    color: black;
+  }
+
+  50.1% {
+    background-color: var(--chakra-colors-gray-400);
+    border-color: var(--chakra-colors-gray-400);
+    border: none;
+    color: white;
+  }
+
+  100% { transform: rotateX(180deg); }
+}
+
+@keyframes revealGuessedLetter {
+  0% {
+    transform: rotateX(0deg);
+    background-color: var(--chakra-colors-gray-100);
+    border-width: 2px;
+    border-style: solid;
+    border-color: var(--chakra-colors-blackAlpha-500);
+    color: black;
+  }
+
+  50% {
+    background-color: var(--chakra-colors-gray-100);
+    border-width: 2px;
+    border-style: solid;
+    border-color: var(--chakra-colors-blackAlpha-500);
+    color: black;
+  }
+
+  50.1% {
+    background-color: var(--chakra-colors-green-300);
+    border-color: var(--chakra-colors-green-300);
+    border: none;
+    color: white;
+  }
+
+  100% { transform: rotateX(180deg); }
+}
+
+@keyframes revealExistingLetter {
+  0% {
+    transform: rotateX(0deg);
+    background-color: var(--chakra-colors-gray-100);
+    border-width: 2px;
+    border-style: solid;
+    border-color: var(--chakra-colors-blackAlpha-500);
+    color: black;
+  }
+
+  50% {
+    background-color: var(--chakra-colors-gray-100);
+    border-width: 2px;
+    border-style: solid;
+    border-color: var(--chakra-colors-blackAlpha-500);
+    color: black;
+  }
+
+  50.1% {
+    background-color: var(--chakra-colors-orange-300);
+    border-color: var(--chakra-colors-orange-300);
+    border: none;
+    color: white;
+  }
+
+  100% { transform: rotateX(180deg); }
+}
+
+@keyframes offsetLetterFlip {
+  0% { transform: rotateX(0deg); }
+  100% { transform: rotateX(180deg); }
+}
+
+@keyframes onLetterType {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}

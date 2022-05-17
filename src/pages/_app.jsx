@@ -1,4 +1,5 @@
 import '@styles/globals.css'
+import '@styles/animations.css'
 import 'focus-visible/dist/focus-visible'
 import 'react-toastify/dist/ReactToastify.css'
 import { ChakraProvider } from '@chakra-ui/react'
