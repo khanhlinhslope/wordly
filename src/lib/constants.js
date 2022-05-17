@@ -1,8 +1,3 @@
-export const SERVER_URL =
-  process.env.NODE_ENV !== 'production'
-    ? 'http://localhost:5000'
-    : 'https://wordly-alpha.vercel.app'
-
 export const GAME_CONFIG = {
   dictionaryPath: 'src/assets/dictionary',
   tries: 6,
