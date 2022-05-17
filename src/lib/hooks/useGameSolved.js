@@ -34,14 +34,14 @@ const useGameSolved = () => {
   }, [encryptedWord, inputIndex, gameState])
 
   const gameWonToast = () => {
-    toast('You won!', { autoClose: 5000 })
+    toast('You won! 🎉', { autoClose: 5000 })
   }
 
   function wordleSolved() {
+    addWin(inputIndex)
     setWordleGuessed()
     setGameWin()
     gameWonToast()
-    addWin(inputIndex)
     setLaunchFireworks()
   }
 }
