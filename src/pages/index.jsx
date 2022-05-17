@@ -28,7 +28,11 @@ const App = ({ wordData }) => {
   } = useDisclosure()
 
   useEffect(() => {
-    if (gameState !== 'IN_PROGRESS') openGameOverModal()
+    if (gameState !== 'IN_PROGRESS') {
+      setTimeout(() => {
+        openGameOverModal()
+      }, 2500)
+    }
   }, [gameState])
 
   const closeSettings = () => setSettingsIsOpen(false)
