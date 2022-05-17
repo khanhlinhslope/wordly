@@ -1,4 +1,5 @@
 import { chakra, Box, Heading, HStack, VStack } from '@chakra-ui/react'
+import useStats from '@hooks/useStats'
 
 const percentFormatter = new Intl.NumberFormat('en-US', {
   style: 'percent',
@@ -6,7 +7,7 @@ const percentFormatter = new Intl.NumberFormat('en-US', {
 })
 
 const Distribution = ({ stats, ...props }) => {
-  const { guessDistribution, gamesPlayed } = stats
+  const { guessDistribution, gamesPlayed } = useStats()
   const guessKeys = Object.keys(guessDistribution)
 
   return (
@@ -15,7 +16,6 @@ const Distribution = ({ stats, ...props }) => {
       align='center'
       textAlign='center'
       spacing={1}
-      // border='1px solid blue'
       {...props}
     >
       <Heading as='h2' fontSize='1.5em' mb={2}>
