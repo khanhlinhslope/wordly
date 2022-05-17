@@ -1,19 +1,6 @@
 import { Box, HStack, useColorModeValue, VStack } from '@chakra-ui/react'
 import useStore from '@lib/store'
-
-const parseGuesses = wordsData => {
-  const guesses = []
-  const evals = []
-
-  wordsData.forEach(wordObj => {
-    const guess = wordObj.map(l => l.letter).join('')
-    const _eval = wordObj.map(l => l.status)
-    guesses.push(guess)
-    evals.push(_eval)
-  })
-
-  return { guesses, evals }
-}
+import { parseGuesses } from '@lib/share'
 
 const GuessesDraw = ({ ...props }) => {
   const { wordList } = useStore()
