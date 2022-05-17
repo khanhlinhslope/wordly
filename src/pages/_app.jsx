@@ -16,7 +16,7 @@ const toastProps = {
   draggable: true,
   pauseOnHover: false,
   theme: 'dark',
-  limit: 5,
+  limit: 15,
   closeButton: false,
   transition: Zoom,
   icon: false
