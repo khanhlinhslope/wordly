@@ -1,5 +1,4 @@
-import { useEffect } from 'react'
-import { HStack, IconButton, useClipboard } from '@chakra-ui/react'
+import { Flex, HStack, IconButton, Text } from '@chakra-ui/react'
 import { generateTextToShare } from '@lib/share'
 import useShare from '@hooks/useShare'
 import { toast } from 'react-toastify'
@@ -14,60 +13,65 @@ import {
   WhatsappIcon,
   EmailIcon
 } from 'react-share'
+import { copyText } from '@lib/copy'
 
 const ShareGame = ({ title, wordList, ...props }) => {
   const textToShare = generateTextToShare({ title, wordList })
   const { share, isSupported } = useShare()
-  const { hasCopied, onCopy: copyToClipboard } = useClipboard(textToShare)
 
   const dataToShare = {
     title,
     text: textToShare
   }
 
+  const copyToClipboard = async () => {
+    await copyText(textToShare)
+    toast('Copied to clipboard')
+  }
+
   const shareData = async () => {
     await share(dataToShare, { fallback: copyToClipboard })
   }
 
-  useEffect(() => {
-    if (hasCopied) {
-      toast('Copied to clipboard')
-    }
-  }, [hasCopied])
-
   return (
-    <HStack justify='center' {...props}>
-      <TwitterShareButton url={textToShare}>
-        <TwitterIcon size={32} round />
-      </TwitterShareButton>
+    <Flex flexDir='column' {...props}>
+      <Text textAlign='center' fontSize={18} fontWeight={400}>
+        Share your result
+      </Text>
 
-      <TelegramShareButton url={textToShare}>
-        <TelegramIcon size={32} round />
-      </TelegramShareButton>
+      <HStack justify='center'>
+        <TwitterShareButton url={textToShare}>
+          <TwitterIcon size={32} round />
+        </TwitterShareButton>
 
-      <WhatsappShareButton url={textToShare}>
-        <WhatsappIcon size={32} round />
-      </WhatsappShareButton>
+        <TelegramShareButton url={textToShare}>
+          <TelegramIcon size={32} round />
+        </TelegramShareButton>
 
-      <EmailShareButton url={textToShare}>
-        <EmailIcon size={32} round />
-      </EmailShareButton>
+        <WhatsappShareButton url={textToShare}>
+          <WhatsappIcon size={32} round />
+        </WhatsappShareButton>
 
-      <IconButton borderRadius='full' onClick={copyToClipboard} size='sm'>
-        <CopyIcon />
-      </IconButton>
+        <EmailShareButton url={textToShare}>
+          <EmailIcon size={32} round />
+        </EmailShareButton>
 
-      {isSupported && (
-        <IconButton
-          borderRadius='full'
-          colorScheme='pink'
-          onClick={shareData}
-          size='sm'
-        >
-          <ShareIcon />
+        <IconButton borderRadius='full' onClick={copyToClipboard} size='sm'>
+          <CopyIcon />
         </IconButton>
-      )}
-    </HStack>
+
+        {isSupported && (
+          <IconButton
+            borderRadius='full'
+            variant='wordle'
+            onClick={shareData}
+            size='sm'
+          >
+            <ShareIcon />
+          </IconButton>
+        )}
+      </HStack>
+    </Flex>
   )
 }
 
