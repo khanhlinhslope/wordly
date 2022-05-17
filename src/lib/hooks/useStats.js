@@ -25,7 +25,6 @@ const useStats = () => {
   const playerStats = loadStats()
 
   useEffect(() => {
-    console.log('useStats mount useEffect')
     if (playerStats) {
       const currentStreak = playerStats?.currentStreak
       if (currentStreak) setCurrentStreak(currentStreak)
