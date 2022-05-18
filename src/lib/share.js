@@ -22,7 +22,7 @@ export const generateTextToShare = ({ title, wordList }) => {
     title
     + '\n\n'
     + emojis
-    + '\n\n'
+    + '\n'
     + url ?? ''
   return textToShare
 }
@@ -31,18 +31,18 @@ export const generateEmojiGrid = wordList => {
   const { evals: guesses } = parseGuesses(wordList)
 
   let emojis = ''
-  guesses
-    .map(guess => {
-      return guess
-        .forEach(status => {
-          let emoji = ''
-          if (status === 'guessed') emoji = '🟩'
-          if (status === 'exists') emoji = '🟨'
-          if (status === 'not_exists') emoji = '⬜'
-          if (emoji) emojis += emoji
-        })
+  guesses.forEach(guess => {
+    if (guess[0] === 'empty') return emojis
+
+    guess.forEach(status => {
+      let emoji = ''
+      if (status === 'guessed') emoji = '🟩'
+      if (status === 'exists') emoji = '🟨'
+      if (status === 'not_exists') emoji = '⬜'
+      if (emoji) emojis += emoji
     })
-    .join('\n')
+    emojis += '\n'
+  })
 
   return emojis
 }
