@@ -1,7 +1,7 @@
 /* eslint-disable object-shorthand */
 import { Box, Flex, IconButton, Switch, Text, useColorModeValue, VStack } from '@chakra-ui/react'
 import { removeStats, removeGameData, removeOptions } from '@lib/localStorage'
-import { MdOutlineClose as StarIcon } from 'react-icons/md'
+import { GiPlayButton as HandlerIcon } from 'react-icons/gi'
 
 const DEV = process.env.NODE_ENV === 'development'
 
@@ -139,7 +139,9 @@ const Switches = ({ options, ...props }) => {
             {isButton && (
               <IconButton
                 id={id}
-                icon={<StarIcon />}
+                variant='wordle'
+                borderRadius={9999}
+                icon={<HandlerIcon />}
                 onClick={handler}
                 disabled={!enabled}
               />
