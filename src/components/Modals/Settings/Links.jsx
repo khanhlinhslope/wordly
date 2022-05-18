@@ -1,10 +1,4 @@
-import {
-  Box,
-  Flex,
-  Link,
-  useColorModeValue,
-  Text
-} from '@chakra-ui/react'
+import { Box, Flex, Link, useColorModeValue, Text } from '@chakra-ui/react'
 
 const Links = ({ ...props }) => {
   const links = [
@@ -39,7 +33,6 @@ const Links = ({ ...props }) => {
             flexDir='row'
             justify='space-between'
             align='center'
-            // h='full'
             w='100%'
             borderBottom='1px solid #A0AEC0'
             px={4}

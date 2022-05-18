@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useDisclosure } from '@chakra-ui/react'
 import 'isomorphic-fetch'
 import GameLayout from '@layouts/main'
 import Confetti from '@components/Confetti'
-import Settings from '@components/Settings'
 import Game from '@components/Game'
 import GameOverModal from '@components/Modals/GameOver'
+import SettingsModal from '@components/Modals/Settings'
 import useViewport from '@hooks/useViewport'
 import useGameLogic from '@hooks/useGameLogic'
 import useOptions from '@hooks/useOptions'
@@ -14,7 +14,6 @@ import { defaultUrl as PRODUCTION_URL } from 'next-seo.config'
 
 const App = ({ wordData }) => {
   const { gameState, launchFireworks } = useStore()
-  const [settingsIsOpen, setSettingsIsOpen] = useState(false)
   const { keyHandler } = useGameLogic(wordData)
   const options = useOptions()
   useViewport()
@@ -27,6 +26,12 @@ const App = ({ wordData }) => {
     onClose: closeGameOverModal
   } = useDisclosure()
 
+  const {
+    isOpen: showSettingsModal,
+    onOpen: openSettingsModal,
+    onClose: closeSettingsModal
+  } = useDisclosure()
+
   useEffect(() => {
     if (gameState !== 'IN_PROGRESS') {
       setTimeout(() => {
@@ -35,26 +40,21 @@ const App = ({ wordData }) => {
     }
   }, [gameState])
 
-  const closeSettings = () => setSettingsIsOpen(false)
-  const openSettings = () => setSettingsIsOpen(true)
-
   return (
     <GameLayout>
-      {!settingsIsOpen && (
-        <Game
-          openSettings={openSettings}
-          keyHandler={keyHandler}
-          options={options}
-        />
-      )}
-
-      <Settings
-        settingsIsOpen={settingsIsOpen}
-        closeSettings={closeSettings}
+      <Game
+        openSettings={openSettingsModal}
+        keyHandler={keyHandler}
         options={options}
       />
 
       {showConfetti && <Confetti launchFireworks={launchFireworks} />}
+
+      <SettingsModal
+        isOpen={showSettingsModal}
+        onClose={closeSettingsModal}
+        options={options}
+      />
 
       <GameOverModal isOpen={showGameOverModal} onClose={closeGameOverModal} />
     </GameLayout>
