@@ -1,12 +1,7 @@
 /* eslint-disable object-shorthand */
-import {
-  Flex,
-  useColorModeValue,
-  Switch,
-  Text,
-  VStack,
-  Box
-} from '@chakra-ui/react'
+import { Box, Flex, IconButton, Switch, Text, useColorModeValue, VStack } from '@chakra-ui/react'
+import { removeStats, removeGameData, removeOptions } from '@lib/localStorage'
+import { MdOutlineClose as StarIcon } from 'react-icons/md'
 
 const DEV = process.env.NODE_ENV === 'development'
 
@@ -30,6 +25,7 @@ const Switches = ({ options, ...props }) => {
       subtitle: 'Toggle between dark and light mode.',
       handler: toggleTheme,
       value: theme === 'dark',
+      type: 'switch',
       enabled: true
     },
     {
@@ -38,6 +34,7 @@ const Switches = ({ options, ...props }) => {
       subtitle: 'If enabled, you will see a confetti animation if you win.',
       handler: toggleConfetti,
       value: showConfetti,
+      type: 'switch',
       enabled: true
     },
     {
@@ -46,6 +43,7 @@ const Switches = ({ options, ...props }) => {
       subtitle: 'Swap "Enter" and "Backspace" buttons.',
       handler: toggleKeys,
       value: swapKeys,
+      type: 'switch',
       enabled: true
     },
     {
@@ -54,6 +52,7 @@ const Switches = ({ options, ...props }) => {
       subtitle: 'If enabled, letters size will increase.',
       handler: () => {},
       value: false,
+      type: 'switch',
       enabled: false
     },
     {
@@ -62,16 +61,49 @@ const Switches = ({ options, ...props }) => {
       subtitle: 'For improved color vision.',
       handler: () => {},
       value: false,
+      type: 'switch',
       enabled: false
+    },
+    {
+      id: 'reset-stats',
+      title: 'Reset player stats',
+      subtitle: 'Reset player stats from local storage.',
+      handler: removeStats,
+      type: 'button',
+      enabled: true,
+      devOnly: true
+    },
+    {
+      id: 'reset-data',
+      title: 'Reset game data',
+      subtitle: 'Reset game data from local storage.',
+      handler: removeGameData,
+      type: 'button',
+      enabled: true,
+      devOnly: true
+    },
+    {
+      id: 'reset-options',
+      title: 'Reset player options',
+      subtitle: 'Reset player options from local storage.',
+      handler: removeOptions,
+      type: 'button',
+      enabled: true,
+      devOnly: true
     }
   ]
 
   return (
     <VStack {...props}>
       {items.map(item => {
-        const { id, title, subtitle, handler, enabled, value } = item
+        const { id, title, subtitle, handler, enabled, value, type, devOnly } =
+          item
 
         if (!enabled && !DEV) return null
+        if (devOnly && !DEV) return null
+
+        const isSwitch = type === 'switch'
+        const isButton = type === 'button'
 
         return (
           <Flex
@@ -94,13 +126,24 @@ const Switches = ({ options, ...props }) => {
               )}
             </Box>
 
-            <Switch
-              id={id}
-              variant='wordle'
-              isChecked={value}
-              onChange={handler}
-              disabled={!enabled}
-            />
+            {isSwitch && (
+              <Switch
+                id={id}
+                variant='wordle'
+                isChecked={value}
+                onChange={handler}
+                disabled={!enabled}
+              />
+            )}
+
+            {isButton && (
+              <IconButton
+                id={id}
+                icon={<StarIcon />}
+                onClick={handler}
+                disabled={!enabled}
+              />
+            )}
           </Flex>
         )
       })}
