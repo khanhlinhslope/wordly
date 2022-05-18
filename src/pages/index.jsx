@@ -11,8 +11,10 @@ import useGameLogic from '@hooks/useGameLogic'
 import useOptions from '@hooks/useOptions'
 import useStore from '@lib/store'
 import { defaultUrl as PRODUCTION_URL } from 'next-seo.config'
+import { GAME_CONFIG } from '@lib/constants'
 
 const App = ({ wordData }) => {
+  const { revealAnimationTime, defaultWordLength: wordLength } = GAME_CONFIG
   const { gameState, launchFireworks } = useStore()
   const { keyHandler } = useGameLogic(wordData)
   const options = useOptions()
@@ -36,7 +38,7 @@ const App = ({ wordData }) => {
     if (gameState !== 'IN_PROGRESS') {
       setTimeout(() => {
         openGameOverModal()
-      }, 2500)
+      }, revealAnimationTime * (wordLength + 3))
     }
   }, [gameState])
 
