@@ -1,6 +1,9 @@
-import { Box, Flex, Link, useColorModeValue, Text } from '@chakra-ui/react'
+import { Flex, Link, useColorModeValue, Text, VStack } from '@chakra-ui/react'
 
 const Links = ({ ...props }) => {
+  const linkColor = useColorModeValue('#818692', '#c3c7e0')
+  const borderColor = useColorModeValue('gray.200', 'gray.600')
+
   const links = [
     {
       id: 'about',
@@ -17,50 +20,32 @@ const Links = ({ ...props }) => {
   ]
 
   return (
-    <Flex
-      flexDir='column'
-      justify='space-between'
-      align='center'
-      w='100%'
-      {...props}
-    >
+    <VStack {...props}>
       {links.map(link => {
         const { id, title, url, urlCaption } = link
 
         return (
           <Flex
             key={id}
-            flexDir='row'
+            borderBottom='1px solid'
+            borderColor={borderColor}
+            px={4}
+            minH='75px'
+            minW={['300px', '500px']}
             justify='space-between'
             align='center'
-            w='100%'
-            borderBottom='1px solid #A0AEC0'
-            px={4}
-            h='75px'
           >
-            <Box>
-              <Text fontWeight='bold'>
-                {title}
-              </Text>
-            </Box>
+            <Text fontWeight={600}>{title}</Text>
 
-            <Flex
-              align='center'
-              color={useColorModeValue('#818692', '#c3c7e0')}
-              fontSize={16}
-            >
-              <Link
-                href={url}
-                isExternal
-                textDecoration='underline'
-              >
+            <Flex as='span' align='center' color={linkColor} fontSize={16}>
+              <Link href={url} isExternal textDecoration='underline'>
                 {urlCaption}
               </Link>
             </Flex>
           </Flex>
         )
       })}
-    </Flex>
+    </VStack>
   )
 }
 

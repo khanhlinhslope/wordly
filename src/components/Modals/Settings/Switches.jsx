@@ -1,16 +1,16 @@
 /* eslint-disable object-shorthand */
 import {
   Flex,
-  FormControl,
-  FormLabel,
   useColorModeValue,
   Switch,
-  Text
+  Text,
+  VStack,
+  Box
 } from '@chakra-ui/react'
 
 const DEV = process.env.NODE_ENV === 'development'
 
-const Form = ({ options, ...props }) => {
+const Switches = ({ options, ...props }) => {
   const {
     showConfetti,
     toggleConfetti,
@@ -19,6 +19,9 @@ const Form = ({ options, ...props }) => {
     theme,
     toggleTheme
   } = options
+
+  const subtitleColor = useColorModeValue('#818692', '#c3c7e0')
+  const borderColor = useColorModeValue('gray.200', 'gray.600')
 
   const items = [
     {
@@ -54,9 +57,9 @@ const Form = ({ options, ...props }) => {
       enabled: false
     },
     {
-      id: 'fat-keys',
-      title: 'Fat fingers',
-      subtitle: 'Increase the size of the buttons.',
+      id: 'high-contrast',
+      title: 'High contrast mode',
+      subtitle: 'For improved color vision.',
       handler: () => {},
       value: false,
       enabled: false
@@ -64,49 +67,45 @@ const Form = ({ options, ...props }) => {
   ]
 
   return (
-    <form {...props}>
+    <VStack {...props}>
       {items.map(item => {
         const { id, title, subtitle, handler, enabled, value } = item
 
         if (!enabled && !DEV) return null
 
         return (
-          <FormControl
+          <Flex
             key={id}
-            borderBottom='1px solid #A0AEC0'
+            borderBottom='1px solid'
+            borderColor={borderColor}
             px={4}
-            h='75px'
-            minW={['300px', '600px']}
+            minH='75px'
+            minW={['300px', '500px']}
+            justify='space-between'
+            align='center'
           >
-            <Flex flexDir='row' justify='space-between' align='center' h='full'>
-              <FormLabel htmlFor={id} display='inline-block'>
-                <Text fontWeight='bold'>{title}</Text>
+            <Box as='span'>
+              <Text fontWeight={600}>{title}</Text>
 
-                {subtitle && (
-                  <Text
-                    fontSize='14px'
-                    color={useColorModeValue('#818692', '#c3c7e0')}
-                  >
-                    {subtitle}
-                  </Text>
-                )}
-              </FormLabel>
+              {subtitle && (
+                <Text fontSize={14} color={subtitleColor}>
+                  {subtitle}
+                </Text>
+              )}
+            </Box>
 
-              <Flex align='center'>
-                <Switch
-                  id={id}
-                  variant='wordle'
-                  isChecked={value}
-                  onChange={handler}
-                  disabled={!enabled}
-                />
-              </Flex>
-            </Flex>
-          </FormControl>
+            <Switch
+              id={id}
+              variant='wordle'
+              isChecked={value}
+              onChange={handler}
+              disabled={!enabled}
+            />
+          </Flex>
         )
       })}
-    </form>
+    </VStack>
   )
 }
 
-export default Form
+export default Switches
