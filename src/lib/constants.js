@@ -6,6 +6,8 @@ export const GAME_CONFIG = {
   minWordLength: 4,
   maxWordLength: 11,
   defaultWordLength: 5,
+  revealAnimationTime: 350,
+  typeAnimationTime: 150,
   defaultOptions: {
     lang: 'es',
     darkMode: false,

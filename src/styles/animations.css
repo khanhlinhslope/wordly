@@ -4,17 +4,15 @@
 */
 
 .letter-container {
-  animation: offsetLetterFlip 0.35s linear;
+  animation: offsetLetterFlip linear;
   animation-fill-mode: backwards;
 }
 
 .cell-type-animation {
   animation: onLetterType linear;
-  animation-duration: 0.35s;
 }
 
 .cell-reveal-animation {
-  animation-duration: 0.35s;
   animation-timing-function: linear;
   animation-fill-mode: backwards;
 }

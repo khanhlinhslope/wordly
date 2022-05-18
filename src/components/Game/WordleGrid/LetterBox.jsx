@@ -1,5 +1,6 @@
 import { Flex, chakra, useColorModeValue } from '@chakra-ui/react'
 import useStore from '@lib/store'
+import { GAME_CONFIG } from '@lib/constants'
 
 const checkCursor = ({ wordInput, inputIndex, rowIndex, colIndex, isSubmitted }) => {
   if (isSubmitted) return false
@@ -47,13 +48,27 @@ const resolveBackgroundColor = ({ isSubmitted, status }) => {
 }
 
 const resolveClassName = ({ isSubmitted, status, isCurrentCursor }) => {
-  let className = ''
-  if (isCurrentCursor) className = 'cell-type-animation'
-  else if (isSubmitted) {
-    className = `cell-reveal-animation ${status}`
+  if (isCurrentCursor) return 'cell-type-animation'
+  if (isSubmitted) return `cell-reveal-animation ${status}`
+  return ''
+}
+
+const resolveAnimationTimes = ({ isSubmitted, colIndex, isCurrentCursor }) => {
+  const { revealAnimationTime, typeAnimationTime } = GAME_CONFIG
+
+  let animationDuration = '0ms'
+
+  if (isCurrentCursor) {
+    animationDuration = `${typeAnimationTime}ms`
+  } else if (isSubmitted) {
+    animationDuration = `${revealAnimationTime}ms`
   }
 
-  return className
+  const animationDelay = isSubmitted
+    ? `${colIndex * revealAnimationTime}ms`
+    : 0
+
+  return { animationDuration, animationDelay }
 }
 
 // isSubmitted is a boolean that indicates whether the entire row-word has been submitted or not
@@ -64,12 +79,12 @@ const LetterBox = ({ letterData, isSubmitted, rowIndex, colIndex }) => {
   const boxSize = [14, 14, 16, 16, 16]
   const border = isSubmitted ? 'none' : '2px solid'
   const fontColor = isSubmitted ? 'white' : 'black'
-  const animationDelay = isSubmitted ? `${colIndex * 350}ms` : 0
 
   const isCurrentCursor = checkCursor({ wordInput, inputIndex, rowIndex, colIndex, isSubmitted })
   const borderColor = resolveBorderColor({ isSubmitted, status })
   const bg = resolveBackgroundColor({ isSubmitted, status })
   const className = resolveClassName({ isSubmitted, status, isCurrentCursor })
+  const { animationDuration, animationDelay } = resolveAnimationTimes({ isSubmitted, colIndex, isCurrentCursor })
 
   return (
     <Flex
@@ -86,11 +101,11 @@ const LetterBox = ({ letterData, isSubmitted, rowIndex, colIndex }) => {
       textTransform='uppercase'
       justify='center'
       align='center'
-      style={{ animationDelay }}
+      style={{ animationDelay, animationDuration }}
     >
       <chakra.span
         className={isSubmitted && 'letter-container'}
-        style={{ animationDelay }}
+        style={{ animationDelay, animationDuration }}
       >
         {letter}
       </chakra.span>
