@@ -63,11 +63,9 @@ const App = ({ wordData }) => {
   )
 }
 
-export async function getServerSideProps(context) {
-  const { req } = context
-  const proto = req.headers['x-forwarded-proto'] || req.headers.referer?.split('://')[0] || 'https'
-  const { NODE_ENV, PORT } = process.env
-  const DEVELOPMENT_URL = `${proto}://localhost:${PORT}`
+export async function getServerSideProps() {
+  const { NODE_ENV, PORT, PROTO } = process.env
+  const DEVELOPMENT_URL = `${PROTO}://localhost:${PORT}`
 
   const SERVER_URL = NODE_ENV === 'production'
     ? PRODUCTION_URL
