@@ -4,7 +4,7 @@ import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalFooter,
 const MyModal = ({
   isOpen,
   onClose,
-  title = 'Modal Window',
+  title = '',
   size = 'md',
   showCloseIcon = false,
   onCloseComplete = () => {},
@@ -23,7 +23,7 @@ const MyModal = ({
   >
     <ModalOverlay/>
     <ModalContent>
-      <ModalHeader textAlign='center'>{title}</ModalHeader>
+      {title && <ModalHeader textAlign='center'>{title}</ModalHeader>}
 
       {showCloseIcon && <ModalCloseButton />}
 
