@@ -7,7 +7,7 @@ const YouLost = ({ encryptedWord, ...props }) => {
   return (
     <Text textAlign='center' {...props}>
       {'You lost! The word was: '}
-      <chakra.span ml={1} fontWeight={600}>
+      <chakra.span fontWeight={600} ml={1}>
         {secretWord.toUpperCase()}
       </chakra.span>
     </Text>

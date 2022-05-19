@@ -6,15 +6,15 @@ const Keyboard = ({ keyHandler, options, ...rest }) => {
   const { swapKeys } = options
   return (
     <Flex
-      as='footer'
       align='center'
-      justify='center'
-      w='100%'
-      pos='fixed'
+      as='footer'
       bottom={0}
+      justify='center'
+      pos='fixed'
+      w='100%'
       {...rest}
     >
-      <Flex flexDir='column' gap='0.25rem' w='95%' maxW='600px'>
+      <Flex flexDir='column' gap='0.25rem' maxW='600px' w='95%'>
         {keyboardKeys.map((row, i) => (
           <Flex
             key={i}
@@ -42,8 +42,8 @@ const Keyboard = ({ keyHandler, options, ...rest }) => {
               return (
                 <KeyboardLetter
                   key={letter.key}
-                  letter={letter}
                   keyHandler={() => keyHandler(letter.key)}
+                  letter={letter}
                 />
               )
             })}

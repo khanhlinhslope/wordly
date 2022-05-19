@@ -7,13 +7,13 @@ const GameLayout = ({ children }) => {
     <>
       <DefaultSeo {...defaultSeo} />
       <Flex
-        flexDir='column'
-        justify='flex-start'
-        textAlign='center'
         align='center'
+        flexDir='column'
         fontFamily='Open Sans, Roboto, sans-serif, Arial, Helvetica, monospace'
-        overflow='hidden'
+        justify='flex-start'
         minH='calc(var(--vh, 1vh) * 100)'
+        overflow='hidden'
+        textAlign='center'
       >
         {children}
       </Flex>

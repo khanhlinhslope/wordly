@@ -12,28 +12,28 @@ const Header = ({
 }) => (
   <Flex
     as='header'
-    w='100%'
-    justify='center'
     borderBottom={showBorder && '1px solid #A0AEC0'}
+    justify='center'
+    w='100%'
     // border='2px solid purple'
     // pos='fixed'
     // top={0}
     {...rest}
   >
     <Flex
+      align='center'
       flexDir='row'
       justify='space-between'
-      textAlign='center'
-      align='center'
-      w='95%'
       maxW='600px'
+      textAlign='center'
+      w='95%'
     >
       {leftIcon ? (
         <IconButton
           icon={leftIcon}
-          onClick={leftIconHandler}
-          variant='ghost'
           size='lg'
+          variant='ghost'
+          onClick={leftIconHandler}
         />
       ) : <Box minW='3em' />}
 
@@ -42,9 +42,9 @@ const Header = ({
       {rigthIcon ? (
         <IconButton
           icon={rigthIcon}
-          onClick={rightIconHandler}
-          variant='ghost'
           size='lg'
+          variant='ghost'
+          onClick={rightIconHandler}
         />
       ) : <Box minW='3em' />}
     </Flex>

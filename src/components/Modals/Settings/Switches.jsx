@@ -108,19 +108,19 @@ const Switches = ({ options, ...props }) => {
         return (
           <Flex
             key={id}
+            align='center'
             borderBottom='1px solid'
             borderColor={borderColor}
-            px={4}
+            justify='space-between'
             minH='75px'
             minW={['300px', '500px']}
-            justify='space-between'
-            align='center'
+            px={4}
           >
             <Box as='span'>
               <Text fontWeight={600}>{title}</Text>
 
               {subtitle && (
-                <Text fontSize={14} color={subtitleColor}>
+                <Text color={subtitleColor} fontSize={14}>
                   {subtitle}
                 </Text>
               )}
@@ -128,22 +128,22 @@ const Switches = ({ options, ...props }) => {
 
             {isSwitch && (
               <Switch
-                id={id}
-                variant='wordle'
-                isChecked={value}
-                onChange={handler}
                 disabled={!enabled}
+                id={id}
+                isChecked={value}
+                variant='wordle'
+                onChange={handler}
               />
             )}
 
             {isButton && (
               <IconButton
+                borderRadius={9999}
+                disabled={!enabled}
+                icon={<HandlerIcon />}
                 id={id}
                 variant='wordle'
-                borderRadius={9999}
-                icon={<HandlerIcon />}
                 onClick={handler}
-                disabled={!enabled}
               />
             )}
           </Flex>

@@ -45,8 +45,8 @@ const App = ({ wordData }) => {
   return (
     <GameLayout>
       <Game
-        openSettings={openSettingsModal}
         keyHandler={keyHandler}
+        openSettings={openSettingsModal}
         options={options}
       />
 
@@ -54,8 +54,8 @@ const App = ({ wordData }) => {
 
       <SettingsModal
         isOpen={showSettingsModal}
-        onClose={closeSettingsModal}
         options={options}
+        onClose={closeSettingsModal}
       />
 
       <GameOverModal isOpen={showGameOverModal} onClose={closeGameOverModal} />

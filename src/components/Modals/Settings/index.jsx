@@ -8,21 +8,21 @@ import Links from '@components/Modals/Settings/Links'
 const SettingsModal = ({ isOpen, onClose, options, ...rest }) => {
   return (
     <Modal
-      onClose={onClose}
-      isOpen={isOpen}
       isCentered
+      isOpen={isOpen}
       motionPreset='slideInBottom'
+      scrollBehavior='inside'
+      showCloseIcon={false}
       size='lg'
       title={
         <Header
-          rigthIcon={<CloseIcon />}
-          rightIconHandler={onClose}
           headerCaption='Settings'
+          rightIconHandler={onClose}
+          rigthIcon={<CloseIcon />}
           showBorder={false}
         />
       }
-      showCloseIcon={false}
-      scrollBehavior='inside'
+      onClose={onClose}
       {...rest}
     >
       <Flex flexDir='column' justify='center' maxW='600px' pb={8}>

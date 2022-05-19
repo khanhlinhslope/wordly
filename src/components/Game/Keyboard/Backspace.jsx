@@ -3,7 +3,7 @@ import { HiBackspace } from 'react-icons/hi'
 
 const Backspace = () => (
   <Flex>
-    <Icon as={HiBackspace} w={8} h={8} />
+    <Icon as={HiBackspace} h={8} w={8} />
   </Flex>
 )
 

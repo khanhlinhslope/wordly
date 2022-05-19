@@ -35,37 +35,37 @@ const ShareGame = ({ title, wordList, ...props }) => {
 
   return (
     <Flex flexDir='column' {...props}>
-      <Text textAlign='center' fontSize={18} fontWeight={400}>
+      <Text fontSize={18} fontWeight={400} textAlign='center'>
         Share your result
       </Text>
 
       <HStack justify='center'>
         <TwitterShareButton url={textToShare}>
-          <TwitterIcon size={32} round />
+          <TwitterIcon round size={32} />
         </TwitterShareButton>
 
         <TelegramShareButton url={textToShare}>
-          <TelegramIcon size={32} round />
+          <TelegramIcon round size={32} />
         </TelegramShareButton>
 
         <WhatsappShareButton url={textToShare}>
-          <WhatsappIcon size={32} round />
+          <WhatsappIcon round size={32} />
         </WhatsappShareButton>
 
         <EmailShareButton url={textToShare}>
-          <EmailIcon size={32} round />
+          <EmailIcon round size={32} />
         </EmailShareButton>
 
-        <IconButton borderRadius='full' onClick={copyToClipboard} size='sm'>
+        <IconButton borderRadius='full' size='sm' onClick={copyToClipboard}>
           <CopyIcon />
         </IconButton>
 
         {isSupported && (
           <IconButton
             borderRadius='full'
+            size='sm'
             variant='wordle'
             onClick={shareData}
-            size='sm'
           >
             <ShareIcon />
           </IconButton>

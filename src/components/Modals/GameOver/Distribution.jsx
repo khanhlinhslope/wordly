@@ -12,10 +12,10 @@ const Distribution = ({ stats, ...props }) => {
 
   return (
     <VStack
-      flexDir='column'
       align='center'
-      textAlign='center'
+      flexDir='column'
       spacing={1}
+      textAlign='center'
       {...props}
     >
       <Heading as='h2' fontSize='1.5em' mb={2}>
@@ -28,23 +28,23 @@ const Distribution = ({ stats, ...props }) => {
         const guessPercent = percentFormatter.format(guessCount / gamesPlayed)
 
         return (
-          <HStack key={guess} w='100%' justify='flex-start' align='center'>
-            <chakra.span fontSize='.8em' w='5%' textAlign='right'>
+          <HStack key={guess} align='center' justify='flex-start' w='100%'>
+            <chakra.span fontSize='.8em' textAlign='right' w='5%'>
               {guess}:
             </chakra.span>
 
             <chakra.span
-              w='80%'
-              h='18px'
-              ml={2}
               border='1px solid'
               borderColor='gray.400'
               borderRadius={12}
+              h='18px'
+              ml={2}
+              w='80%'
             >
-              <Box h='full' w={guessPercent} bg='blue.400' borderRadius={12} />
+              <Box bg='blue.400' borderRadius={12} h='full' w={guessPercent} />
             </chakra.span>
 
-            <chakra.span ml={2} fontSize='.8em' w='15%' textAlign='left'>
+            <chakra.span fontSize='.8em' ml={2} textAlign='left' w='15%'>
               {`${guessCount} (${guessPercent})`}
             </chakra.span>
           </HStack>

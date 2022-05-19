@@ -7,9 +7,9 @@ const WordleGrid = ({ ...props }) => {
 
   return (
     <Flex
+      align='center'
       as='main'
       flexDir='column'
-      align='center'
       justify='center'
       w='100%'
       // border='2px solid purple'
@@ -17,19 +17,19 @@ const WordleGrid = ({ ...props }) => {
     >
       <Flex
         // border='2px solid #A0AEC0'
-        flexDir='column'
         align='center'
-        justify='center'
+        flexDir='column'
         gap={1}
+        justify='center'
         p={4}
         {...props}
       >
         {wordList.map((word, i) => (
           <WordRow
             key={i}
+            isSubmitted={inputIndex > i}
             rowIndex={i}
             word={i === inputIndex ? wordInput : word}
-            isSubmitted={inputIndex > i}
           />
         ))}
       </Flex>

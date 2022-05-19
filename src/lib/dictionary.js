@@ -1,5 +1,6 @@
 import { readFileSync, writeFileSync } from 'fs'
 import { join } from 'path'
+
 import { GAME_CONFIG } from '@lib/constants'
 import { getTodayWordIndex, getWordOfDay } from '@lib/wotd'
 

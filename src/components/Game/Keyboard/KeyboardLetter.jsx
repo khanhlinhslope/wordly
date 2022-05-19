@@ -34,23 +34,27 @@ const KeyboardLetter = ({ letter, keyHandler, ...rest }) => {
 
   return (
     <Flex
-      as='button'
+      _active={false}
+      _focus={false}
+      _hover={
+        !isSubmitted && {
+          bg: COLORS.defaultKeyHover
+        }
+      }
       align='center'
-      justify='center'
+      as='button'
+      bg={bg}
+      borderRadius={4}
+      boxShadow='0px 3px 3px rgba(0, 0, 0, .7)'
+      color={fontColor}
       cursor='pointer'
       flex='1 1'
-      margin='3px'
-      padding='3px'
-      minH='46px'
-      textDecoration='inherit'
-      fontWeight={700}
       fontSize={16}
+      fontWeight={700}
+      justify='center'
       lineHeight={1.25}
-      borderRadius={4}
-      bg={bg}
-      color={fontColor}
-      boxShadow='0px 3px 3px rgba(0, 0, 0, .7)'
-      textShadow='0px 0px 40px white, 0px 0px 80px white'
+      margin='3px'
+      minH='46px'
       // _active={
       //   !isSubmitted && {
       //     cursor: 'pointer',
@@ -59,17 +63,13 @@ const KeyboardLetter = ({ letter, keyHandler, ...rest }) => {
       //     transform: 'scale(0.95)'
       //   }
       // }
-      _focus={false}
-      _active={false}
-      _hover={
-        !isSubmitted && {
-          bg: COLORS.defaultKeyHover
-        }
-      }
-      onClick={onClick}
+      padding='3px'
+      textDecoration='inherit'
+      textShadow='0px 0px 40px white, 0px 0px 80px white'
       textTransform={!special ? 'uppercase' : 'capitalize'}
-      userSelect='none'
       transition='all .2s ease-in-out'
+      userSelect='none'
+      onClick={onClick}
       {...rest}
     >
       {key === 'backspace' ? <Backspace /> : key}

@@ -3,6 +3,7 @@ import Modal from '@components/Modal'
 import { getTodayWordIndex } from '@lib/wotd'
 import useStore from '@lib/store'
 import { GAME_CONFIG } from '@lib/constants'
+
 import Stats from './Stats'
 import Distribution from './Distribution'
 import CountDown from './CountDown'
@@ -24,18 +25,18 @@ const GameOverModal = ({ isOpen, onClose, ...rest }) => {
 
   return (
     <Modal
-      onClose={onClose}
-      isOpen={isOpen}
       isCentered
+      isOpen={isOpen}
       motionPreset='slideInBottom'
+      scrollBehavior='inside'
+      showCloseIcon={true}
       size='xl'
       title={title}
-      showCloseIcon={true}
-      scrollBehavior='inside'
+      onClose={onClose}
       {...rest}
     >
       <Flex justify='center' w='100%'>
-        <Flex flexDir='column' w='100%' maxW='600px'>
+        <Flex flexDir='column' maxW='600px' w='100%'>
           <GuessesDraw />
 
           <WinLossMessage mt={2} />
@@ -45,13 +46,13 @@ const GameOverModal = ({ isOpen, onClose, ...rest }) => {
           <Distribution mt={8} />
 
           <Stack
-            px={4}
-            mt={8}
-            mb={8}
-            direction={['column', 'row']}
-            spacing={2}
             align='center'
+            direction={['column', 'row']}
             justify='space-between'
+            mb={8}
+            mt={8}
+            px={4}
+            spacing={2}
           >
             <CountDown />
 

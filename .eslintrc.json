@@ -4,10 +4,7 @@
     "es2021": true,
     "node": true
   },
-  "extends": [
-    "xo",
-    "plugin:react/recommended"
-  ],
+  "extends": ["xo", "plugin:react/recommended"],
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
@@ -15,15 +12,22 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": [
-    "react"
-  ],
+  "plugins": ["react", "import"],
   "rules": {
     "arrow-body-style": "off",
     "capitalized-comments": "off",
     "comma-dangle": [ "warn", "never" ],
     "curly": ["error", "multi-line"],
     "guard-for-in": "off",
+    "import/order": ["warn", {
+      "groups": ["type", "builtin", "object", "external", "internal", "parent", "sibling", "index"],
+      "pathGroups": [{
+        "pattern": "~/**",
+        "group": "external",
+        "position": "after"
+      }],
+      "newlines-between": "always"
+    }],
     "indent": ["error", 2],
     "jsx-quotes": [ "error", "prefer-single" ],
     "no-mixed-spaces-and-tabs": "off",
@@ -41,6 +45,15 @@
     "radix": "off",
     "react/function-component-definition": 0,
     "react/jsx-indent": [2, 2],
+    "react/jsx-sort-props": [
+      "warn",
+      {
+        "callbacksLast": true,
+        "shorthandFirst": true,
+        "noSortAlphabetically": false,
+        "reservedFirst": true
+      }
+    ],
     "react/jsx-tag-spacing": "off",
     "react/no-children-prop": "off",
     "react/prop-types": "off",

@@ -12,16 +12,16 @@ const Logo = ({ word }) => {
       {brandLetters.map((letter, i) => (
         <Flex
           key={i}
-          h={8}
-          w={8}
-          borderRadius={4}
-          textTransform='uppercase'
-          justify='center'
           align='center'
           bg={useColorModeValue('green.300', 'green.400')}
-          fontWeight={600}
-          fontSize={24}
+          borderRadius={4}
           color='white'
+          fontSize={24}
+          fontWeight={600}
+          h={8}
+          justify='center'
+          textTransform='uppercase'
+          w={8}
         >
           {letter}
         </Flex>

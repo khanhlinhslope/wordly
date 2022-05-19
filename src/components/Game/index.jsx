@@ -7,20 +7,20 @@ import { HiCog as CogIcon, HiInformationCircle as HelpIcon } from 'react-icons/h
 const Game = ({ openSettings, keyHandler, options }) => (
   <>
     <Header
-      rigthIcon={<CogIcon />}
-      rightIconHandler={openSettings}
+      h='calc(var(--vh, 1vh) * 8)'
+      headerCaption='Wordly'
       leftIcon={<HelpIcon />}
       leftIconHandler={() => toast('Test!')}
-      headerCaption='Wordly'
-      h='calc(var(--vh, 1vh) * 8)'
+      rightIconHandler={openSettings}
+      rigthIcon={<CogIcon />}
     />
 
     <WordleGrid h='calc(var(--vh, 1vh) * 67)' py={[2, 5, 5, 5, 5]} />
 
     <Keyboard
       keyHandler={keyHandler}
-      options={options}
       minH='calc(var(--vh, 1vh) * 25)'
+      options={options}
     />
   </>
 )

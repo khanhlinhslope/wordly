@@ -88,20 +88,20 @@ const LetterBox = ({ letterData, isSubmitted, rowIndex, colIndex }) => {
 
   return (
     <Flex
-      h={boxSize}
-      w={boxSize}
+      align='center'
       bg={bg}
-      color={fontColor}
-      className={className}
       border={border}
       borderColor={borderColor}
-      fontWeight='bold'
-      fontSize={36}
       borderRadius={4}
-      textTransform='uppercase'
+      className={className}
+      color={fontColor}
+      fontSize={36}
+      fontWeight='bold'
+      h={boxSize}
       justify='center'
-      align='center'
       style={{ animationDelay, animationDuration }}
+      textTransform='uppercase'
+      w={boxSize}
     >
       <chakra.span
         className={isSubmitted && 'letter-container'}

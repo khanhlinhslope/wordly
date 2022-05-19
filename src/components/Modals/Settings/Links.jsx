@@ -27,18 +27,18 @@ const Links = ({ ...props }) => {
         return (
           <Flex
             key={id}
+            align='center'
             borderBottom='1px solid'
             borderColor={borderColor}
-            px={4}
+            justify='space-between'
             minH='75px'
             minW={['300px', '500px']}
-            justify='space-between'
-            align='center'
+            px={4}
           >
             <Text fontWeight={600}>{title}</Text>
 
-            <Flex as='span' align='center' color={linkColor} fontSize={16}>
-              <Link href={url} isExternal textDecoration='underline'>
+            <Flex align='center' as='span' color={linkColor} fontSize={16}>
+              <Link isExternal href={url} textDecoration='underline'>
                 {urlCaption}
               </Link>
             </Flex>

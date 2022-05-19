@@ -6,10 +6,10 @@ const Word = ({ word, isSubmitted, rowIndex }) => (
     {word.map((letterData, i) => (
       <LetterBox
         key={i}
-        rowIndex={rowIndex}
         colIndex={i}
-        letterData={letterData}
         isSubmitted={isSubmitted}
+        letterData={letterData}
+        rowIndex={rowIndex}
       />
     ))}
   </Flex>

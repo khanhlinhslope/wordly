@@ -15,9 +15,9 @@ const GuessesDraw = ({ ...props }) => {
 
   return (
     <VStack
+      align='center'
       flexDir='column'
       justify='center'
-      align='center'
       spacing='.1rem'
       {...props}
     >
@@ -34,11 +34,11 @@ const GuessesDraw = ({ ...props }) => {
               return (
                 <Box
                   key={j}
-                  flexDir='row'
-                  w={6}
-                  h={6}
                   bg={bg}
                   border='2px solid black'
+                  flexDir='row'
+                  h={6}
+                  w={6}
                 />
               )
             })}
