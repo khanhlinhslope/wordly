@@ -1,7 +1,5 @@
 import { Flex } from '@chakra-ui/react'
 import Modal from '@components/Modal'
-import Header from '@components/Header'
-import { MdOutlineClose as CloseIcon } from 'react-icons/md'
 import Switches from '@components/Modals/Settings/Switches'
 import Links from '@components/Modals/Settings/Links'
 
@@ -12,22 +10,22 @@ const SettingsModal = ({ isOpen, onClose, options, ...rest }) => {
       isOpen={isOpen}
       motionPreset='slideInBottom'
       scrollBehavior='inside'
-      showCloseIcon={false}
+      showCloseIcon={true}
       size='lg'
-      title={
-        <Header
-          headerCaption='Settings'
-          rightIconHandler={onClose}
-          rigthIcon={<CloseIcon />}
-          showBorder={false}
-        />
-      }
+      title='Settings'
       onClose={onClose}
       {...rest}
     >
-      <Flex flexDir='column' justify='center' maxW='600px' pb={8}>
+      <Flex
+        flexDir='column'
+        justify='center'
+        maxW='600px'
+        mb={8}
+        minW={['300px', '500px']}
+        w='100%'
+      >
         <Switches options={options} />
-        <Links />
+        <Links mt={2} />
       </Flex>
     </Modal>
   )

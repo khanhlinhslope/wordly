@@ -1,5 +1,6 @@
 /* eslint-disable object-shorthand */
-import { Box, Flex, IconButton, Switch, Text, useColorModeValue, VStack } from '@chakra-ui/react'
+import { HStack } from '@chakra-ui/react'
+import { IconButton, Switch, Text, useColorModeValue, VStack } from '@chakra-ui/react'
 import { removeStats, removeGameData, removeOptions } from '@lib/localStorage'
 import { GiPlayButton as HandlerIcon } from 'react-icons/gi'
 
@@ -106,7 +107,7 @@ const Switches = ({ options, ...props }) => {
         const isButton = type === 'button'
 
         return (
-          <Flex
+          <HStack
             key={id}
             align='center'
             borderBottom='1px solid'
@@ -115,38 +116,43 @@ const Switches = ({ options, ...props }) => {
             minH='75px'
             minW={['300px', '500px']}
             px={4}
+            w='100%'
           >
-            <Box as='span'>
-              <Text fontWeight={600}>{title}</Text>
+            <VStack align='center' flexDir='column' spacing={0}>
+              <Text fontWeight={600} w='100%'>
+                {title}
+              </Text>
 
               {subtitle && (
-                <Text color={subtitleColor} fontSize={14}>
+                <Text color={subtitleColor} fontSize={14} w='100%'>
                   {subtitle}
                 </Text>
               )}
-            </Box>
+            </VStack>
 
-            {isSwitch && (
-              <Switch
-                disabled={!enabled}
-                id={id}
-                isChecked={value}
-                variant='wordle'
-                onChange={handler}
-              />
-            )}
+            <span>
+              {isSwitch && (
+                <Switch
+                  disabled={!enabled}
+                  id={id}
+                  isChecked={value}
+                  variant='wordle'
+                  onChange={handler}
+                />
+              )}
 
-            {isButton && (
-              <IconButton
-                borderRadius={9999}
-                disabled={!enabled}
-                icon={<HandlerIcon />}
-                id={id}
-                variant='wordle'
-                onClick={handler}
-              />
-            )}
-          </Flex>
+              {isButton && (
+                <IconButton
+                  borderRadius={9999}
+                  disabled={!enabled}
+                  icon={<HandlerIcon />}
+                  id={id}
+                  variant='wordle'
+                  onClick={handler}
+                />
+              )}
+            </span>
+          </HStack>
         )
       })}
     </VStack>
