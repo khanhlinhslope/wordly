@@ -2,6 +2,7 @@ import { Flex } from '@chakra-ui/react'
 import Modal from '@components/Modal'
 import Switches from '@components/Modals/Settings/Switches'
 import Links from '@components/Modals/Settings/Links'
+import Time from '@components/Modals/Settings/Time'
 
 const SettingsModal = ({ isOpen, onClose, options, ...rest }) => {
   return (
@@ -26,6 +27,7 @@ const SettingsModal = ({ isOpen, onClose, options, ...rest }) => {
       >
         <Switches options={options} />
         <Links mt={2} />
+        <Time mt={2} />
       </Flex>
     </Modal>
   )
