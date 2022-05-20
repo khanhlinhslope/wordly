@@ -8,6 +8,8 @@ export const GAME_CONFIG = {
   defaultWordLength: 5,
   revealAnimationTime: 350,
   typeAnimationTime: 150,
+  shakeAnimationTime: 750,
+  bounceAnimationTime: 1000,
   defaultOptions: {
     lang: 'es',
     darkMode: false,

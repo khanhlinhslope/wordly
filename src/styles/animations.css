@@ -1,6 +1,7 @@
 /*  
-  credits of this animations to react-wordle
+  credits of this animations to react-wordle and NYTGames
   @ref: https://github.com/cwackerfuss/react-wordle/blob/main/src/index.css
+  @ref: https://www.nytimes.com/games/wordle/index.html
 */
 
 .letter-container {
@@ -27,6 +28,14 @@
 
 .cell-reveal-animation.exists {
   animation-name: revealExistingLetter;
+}
+
+.cell-bounce-animation {
+  animation-name: Bounce;
+}
+
+.is-invalid {
+  animation-name: Shake;
 }
 
 @keyframes revealNonExistingLetter {
@@ -122,4 +131,27 @@
   0% { transform: scale(1); }
   50% { transform: scale(1.05); }
   100% { transform: scale(1); }
+}
+
+@keyframes Shake {
+  0% { transform: translateX(0); }
+  10% { transform: translateX(-1px); }
+  20% { transform: translateX(2px); }
+  30% { transform: translateX(-4px); }
+  40% { transform: translateX(4px); }
+  50% { transform: translateX(-4px); }
+  60% { transform: translateX(4px); }
+  70% { transform: translateX(-4px); }
+  80% { transform: translateX(2px); }
+  90% { transform: translateX(-1px); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes Bounce {
+  0%, 20% { transform: translateY(0); }
+  40% { transform: translateY(-30px); }
+  50% { transform: translateY(5px); }
+  60% { transform: translateY(-15px); }
+  80% { transform: translateY(2px); }
+  100% { transform: translateY(0); }
 }

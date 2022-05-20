@@ -1,6 +1,7 @@
 import create from 'zustand'
 import { devtools } from 'zustand/middleware'
 import { encrypt, decrypt } from '@utils/crypto'
+import { GAME_CONFIG } from '@lib/constants'
 
 const MAX_TRIES = 6
 
@@ -54,7 +55,13 @@ const wordle = set => ({
   wordleGuessed: false,
   setWordleGuessed: () => set(() => ({ wordleGuessed: true })),
 
-  // keyboard states
+  gameState: 'IN_PROGRESS',
+  setGameState: state => set(() => ({ gameState: state })),
+  setGameWin: () => set(() => ({ gameState: 'WIN' })),
+  setGameLose: () => set(() => ({ gameState: 'LOSS' }))
+})
+
+const keyboard = set => ({
   lettersTried: [],
   setLettersTried: obj => set(() => ({ lettersTried: obj })),
   addLetterTried: l =>
@@ -76,17 +83,27 @@ const wordle = set => ({
       lettersPresent: [...state.lettersPresent, l]
     })),
 
-  gameState: 'IN_PROGRESS',
-  setGameState: state => set(() => ({ gameState: state })),
-  setGameWin: () => set(() => ({ gameState: 'WIN' })),
-  setGameLose: () => set(() => ({ gameState: 'LOSS' })),
+  lastKey: '',
+  setKey(key) {
+    set(() => ({ lastKey: key }))
+    setTimeout(() => {
+      set(() => ({ lastKey: '' }))
+    }, GAME_CONFIG.shakeAnimationTime)
+  },
 
+  submitAt: -1,
+  setSubmitAt: index => set(() => ({ submitAt: index }))
+})
+
+const config = set => ({
   launchFireworks: false,
   setLaunchFireworks: () => set(() => ({ launchFireworks: true }))
 })
 
 let useStore = set => ({
-  ...wordle(set)
+  ...wordle(set),
+  ...keyboard(set),
+  ...config(set)
 })
 
 useStore = devtools(useStore)

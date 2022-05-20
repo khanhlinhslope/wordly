@@ -1,10 +1,12 @@
+import { memo } from 'react'
 import { Flex, chakra, useColorModeValue } from '@chakra-ui/react'
 import useStore from '@lib/store'
 import { GAME_CONFIG } from '@lib/constants'
 
-const checkCursor = ({ wordInput, inputIndex, rowIndex, colIndex, isSubmitted }) => {
+const checkCursor = ({ wordInput, inputIndex, rowIndex, colIndex, isSubmitted, lastKey }) => {
   if (isSubmitted) return false
   if (inputIndex !== rowIndex) return false
+  if (lastKey === '') return false
 
   let isCurrentInput = false
   const submittedWord = [...wordInput]
@@ -47,44 +49,43 @@ const resolveBackgroundColor = ({ isSubmitted, status }) => {
   return bg
 }
 
-const resolveClassName = ({ isSubmitted, status, isCurrentCursor }) => {
-  if (isCurrentCursor) return 'cell-type-animation'
-  if (isSubmitted) return `cell-reveal-animation ${status}`
-  return ''
-}
+const resolveClassAndAnimation = props => {
+  const { isSubmitted, status, isCurrentCursor, colIndex, isInvalid } = props
+  const { revealAnimationTime, typeAnimationTime, shakeAnimationTime } = GAME_CONFIG
 
-const resolveAnimationTimes = ({ isSubmitted, colIndex, isCurrentCursor }) => {
-  const { revealAnimationTime, typeAnimationTime } = GAME_CONFIG
+  let className = null
+  let animationDuration = null
+  let animationDelay = null
 
-  let animationDuration = '0ms'
-
-  if (isCurrentCursor) {
+  if (isInvalid) {
+    className = 'is-invalid'
+    animationDuration = `${shakeAnimationTime}ms`
+  } else if (isCurrentCursor) {
+    className = 'cell-type-animation'
     animationDuration = `${typeAnimationTime}ms`
   } else if (isSubmitted) {
+    className = `cell-reveal-animation ${status}`
     animationDuration = `${revealAnimationTime}ms`
+    animationDelay = `${colIndex * revealAnimationTime}ms`
   }
 
-  const animationDelay = isSubmitted
-    ? `${colIndex * revealAnimationTime}ms`
-    : 0
-
-  return { animationDuration, animationDelay }
+  return { className, animationDuration, animationDelay }
 }
 
 // isSubmitted is a boolean that indicates whether the entire row-word has been submitted or not
-const LetterBox = ({ letterData, isSubmitted, rowIndex, colIndex }) => {
-  const { wordInput, inputIndex } = useStore()
+const LetterBox = ({ letterData, isSubmitted, rowIndex, colIndex, isInvalid }) => {
+  const { wordInput, inputIndex, lastKey } = useStore()
   const { letter, status } = letterData
 
   const boxSize = [14, 14, 16, 16, 16]
   const border = isSubmitted ? 'none' : '2px solid'
   const fontColor = isSubmitted ? 'white' : 'black'
 
-  const isCurrentCursor = checkCursor({ wordInput, inputIndex, rowIndex, colIndex, isSubmitted })
+  const isCurrentCursor = checkCursor({ wordInput, inputIndex, rowIndex, colIndex, isSubmitted, lastKey })
   const borderColor = resolveBorderColor({ isSubmitted, status })
   const bg = resolveBackgroundColor({ isSubmitted, status })
-  const className = resolveClassName({ isSubmitted, status, isCurrentCursor })
-  const { animationDuration, animationDelay } = resolveAnimationTimes({ isSubmitted, colIndex, isCurrentCursor })
+  const { className, animationDuration, animationDelay } =
+    resolveClassAndAnimation({ isSubmitted, status, isCurrentCursor, colIndex, isInvalid })
 
   return (
     <Flex
@@ -103,14 +104,16 @@ const LetterBox = ({ letterData, isSubmitted, rowIndex, colIndex }) => {
       textTransform='uppercase'
       w={boxSize}
     >
-      <chakra.span
-        className={isSubmitted && 'letter-container'}
-        style={{ animationDelay, animationDuration }}
-      >
-        {letter}
-      </chakra.span>
+      {letter && (
+        <chakra.span
+          className={isSubmitted ? 'letter-container' : null}
+          style={{ animationDelay, animationDuration }}
+        >
+          {letter}
+        </chakra.span>
+      )}
     </Flex>
   )
 }
 
-export default LetterBox
+export default memo(LetterBox)

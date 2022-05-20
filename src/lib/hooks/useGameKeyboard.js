@@ -19,7 +19,9 @@ const useGameKeyboard = () => {
     addLetterPresent,
     lettersTried,
     addLetterTried,
-    gameState
+    gameState,
+    setKey,
+    setSubmitAt
   } = useStore()
 
   const { validateWord } = useValidation()
@@ -32,8 +34,8 @@ const useGameKeyboard = () => {
     ]
     setWordList(newWordList)
 
-    increaseInputIndex()
     resetWordInput()
+    increaseInputIndex()
   }
 
   const updateKeyboardStates = (secretWord, wordObj) => {
@@ -45,42 +47,52 @@ const useGameKeyboard = () => {
         addLetterGuessed(letter)
       } else if (exists && !lettersPresent.includes(letter)) {
         addLetterPresent(letter)
-      } else if (!lettersTried.includes(letter)) addLetterTried(letter)
+      } else if (!lettersTried.includes(letter)) {
+        addLetterTried(letter)
+      }
     })
   }
 
   const splitLetters = (secretWord, wordObj) => {
     const guessed = wordObj.filter(({ letter }, i) => letter === secretWord[i])
 
-    const existing = wordObj.filter(({ letter }) => secretWord.includes(letter))
+    const present = wordObj.filter(({ letter }) => secretWord.includes(letter))
 
-    const nonExisting = wordObj.filter(({ letter }) => !secretWord.includes(letter))
+    const absent = wordObj.filter(({ letter }) => !secretWord.includes(letter))
 
-    return { guessed, existing, nonExisting }
+    return { guessed, present, absent }
   }
 
   const fixSubmittedWord = (secretWord, wordObj) => {
-    const { guessed, existing, nonExisting } = splitLetters(secretWord, wordObj)
+    const { guessed, present, absent } = splitLetters(secretWord, wordObj)
 
     // insert all guessed letters first
     const fixedWord = wordObj.map((obj, index) => {
       const g = guessed.find(l => l.letter === obj.letter && l.index === index)
-      if (g) return { ...g, status: 'guessed' }
-      return {}
+      if (g) {
+        return { ...g, status: 'guessed' }
+      }
+
+      // return {}
+      return { letter: '', status: '', index }
     })
 
     // insert existing but not guessed letters
-    existing.forEach(l => {
-      if (!fixedWord[l.index].letter) {
+    present.forEach(l => {
+      if (fixedWord[l.index].letter === '') {
         let letterToAdd = { ...l, status: 'exists' }
         const existing = fixedWord.filter(l2 => l2.letter === l.letter)
 
         if (existing) {
+          // number of occurences of this letter in the solution/secretWord
           const letterCount = secretWord
             .split('')
             .filter(s => s === l.letter).length
 
-          if (existing.length === letterCount) {
+          // number of occurences of this letter in the -temporary- submission/fixedWord
+          const existingCount = existing.length
+
+          if (existingCount >= letterCount) {
             letterToAdd = { ...l, status: 'not_exists' }
           }
         }
@@ -90,7 +102,7 @@ const useGameKeyboard = () => {
     })
 
     // insert non-existing letters
-    nonExisting.forEach(l => {
+    absent.forEach(l => {
       if (!fixedWord[l.index].letter) {
         fixedWord[l.index] = { ...l, status: 'not_exists' }
       }
@@ -102,10 +114,14 @@ const useGameKeyboard = () => {
   function keyHandler(key) {
     if (gameState === 'IN_PROGRESS') {
       if (isValidLetter(key)) {
+        setKey(key)
         onChar(key)
       } else if (key.toLowerCase() === 'backspace') {
+        setKey('backspace')
         onDelete()
       } else if (key.toLowerCase() === 'enter') {
+        setKey('enter')
+        setSubmitAt(inputIndex)
         onEnter()
       }
     }
