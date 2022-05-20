@@ -50,31 +50,59 @@ const resolveBackgroundColor = ({ isSubmitted, status }) => {
 }
 
 const resolveClassAndAnimation = props => {
-  const { isSubmitted, status, isCurrentCursor, colIndex, isInvalid } = props
-  const { revealAnimationTime, typeAnimationTime, shakeAnimationTime } = GAME_CONFIG
+  const { isSubmitted, status, isCurrentCursor, colIndex, rowIndex, isInvalid, wordleGuessed, inputIndex } = props
+  const { revealAnimationTime, typeAnimationTime, shakeAnimationTime, bounceAnimationTime } = GAME_CONFIG
 
-  let className = null
-  let animationDuration = null
-  let animationDelay = null
-
-  if (isInvalid) {
-    className = 'is-invalid'
-    animationDuration = `${shakeAnimationTime}ms`
-  } else if (isCurrentCursor) {
-    className = 'cell-type-animation'
-    animationDuration = `${typeAnimationTime}ms`
-  } else if (isSubmitted) {
-    className = `cell-reveal-animation ${status}`
-    animationDuration = `${revealAnimationTime}ms`
-    animationDelay = `${colIndex * revealAnimationTime}ms`
+  const res = {
+    className: null,
+    boxAnimation: {
+      duration: null,
+      delay: null
+    },
+    letterAnimation: {
+      duration: null,
+      delay: null
+    }
   }
 
-  return { className, animationDuration, animationDelay }
+  if (isInvalid) {
+    res.className = 'is-invalid'
+    res.boxAnimation.duration = `${shakeAnimationTime}ms`
+    res.letterAnimation.duration = res.boxAnimation.duration
+  } else if (isCurrentCursor) {
+    res.className = 'cell-type-animation'
+    res.boxAnimation.duration = `${typeAnimationTime}ms`
+    res.letterAnimation.duration = res.boxAnimation.duration
+  } else if (isSubmitted && wordleGuessed && (inputIndex - 1) === rowIndex) {
+    res.className = 'puzzle_solved'
+    const revealDelay = `${colIndex * revealAnimationTime}ms`
+
+    let bounceDelay = 5 * revealAnimationTime // 4 letras con revealDelay + 1 delay extra
+    bounceDelay += colIndex * (bounceAnimationTime * 0.35)
+    bounceDelay = `${bounceDelay}ms`
+
+    // box animation
+    res.boxAnimation.delay = `${revealDelay}, ${bounceDelay}`
+    res.boxAnimation.duration = `${revealAnimationTime}ms, ${bounceAnimationTime}ms`
+
+    // letter animation
+    res.letterAnimation.duration = `${revealAnimationTime}ms`
+    res.letterAnimation.delay = revealDelay
+  } else if (isSubmitted) {
+    res.className = `cell-reveal-animation ${status}`
+    res.boxAnimation.duration = `${revealAnimationTime}ms`
+    res.boxAnimation.delay = `${colIndex * revealAnimationTime}ms`
+
+    res.letterAnimation.duration = res.boxAnimation.duration
+    res.letterAnimation.delay = res.boxAnimation.delay
+  }
+
+  return res
 }
 
 // isSubmitted is a boolean that indicates whether the entire row-word has been submitted or not
 const LetterBox = ({ letterData, isSubmitted, rowIndex, colIndex, isInvalid }) => {
-  const { wordInput, inputIndex, lastKey } = useStore()
+  const { wordInput, inputIndex, lastKey, wordleGuessed } = useStore()
   const { letter, status } = letterData
 
   const boxSize = [14, 14, 16, 16, 16]
@@ -84,8 +112,16 @@ const LetterBox = ({ letterData, isSubmitted, rowIndex, colIndex, isInvalid }) =
   const isCurrentCursor = checkCursor({ wordInput, inputIndex, rowIndex, colIndex, isSubmitted, lastKey })
   const borderColor = resolveBorderColor({ isSubmitted, status })
   const bg = resolveBackgroundColor({ isSubmitted, status })
-  const { className, animationDuration, animationDelay } =
-    resolveClassAndAnimation({ isSubmitted, status, isCurrentCursor, colIndex, isInvalid })
+  const { className, boxAnimation, letterAnimation } = resolveClassAndAnimation({
+    isSubmitted,
+    status,
+    isCurrentCursor,
+    colIndex,
+    isInvalid,
+    wordleGuessed,
+    inputIndex,
+    rowIndex
+  })
 
   return (
     <Flex
@@ -100,14 +136,20 @@ const LetterBox = ({ letterData, isSubmitted, rowIndex, colIndex, isInvalid }) =
       fontWeight='bold'
       h={boxSize}
       justify='center'
-      style={{ animationDelay, animationDuration }}
+      style={{
+        animationDelay: boxAnimation.delay,
+        animationDuration: boxAnimation.duration
+      }}
       textTransform='uppercase'
       w={boxSize}
     >
       {letter && (
         <chakra.span
           className={isSubmitted ? 'letter-container' : null}
-          style={{ animationDelay, animationDuration }}
+          style={{
+            animationDelay: letterAnimation.delay,
+            animationDuration: letterAnimation.duration
+          }}
         >
           {letter}
         </chakra.span>

@@ -30,6 +30,12 @@
   animation-name: revealExistingLetter;
 }
 
+.puzzle_solved {
+  animation-name: revealGuessedLetter, Bounce;
+  animation-timing-function: linear, ease-in;
+  animation-fill-mode: backwards, none;
+}
+
 .cell-bounce-animation {
   animation-name: Bounce;
 }
