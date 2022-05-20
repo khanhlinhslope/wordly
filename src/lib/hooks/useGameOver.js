@@ -4,6 +4,9 @@ import { GAME_CONFIG } from '@lib/constants'
 import { decrypt } from '@utils/crypto'
 import { toast } from 'react-toastify'
 import useStats from '@hooks/useStats'
+import { getTotalAnimationTime } from '@lib/animations'
+
+const totalDuration = getTotalAnimationTime()
 
 const useGameOver = () => {
   const {
@@ -18,7 +21,8 @@ const useGameOver = () => {
     setLaunchFireworks
   } = useStore()
   const { addWin, addLoss } = useStats()
-  const { revealAnimationTime, tries: maxTries, defaultWordLength: wordLength } = GAME_CONFIG
+
+  const { tries: maxTries } = GAME_CONFIG
 
   useEffect(() => {
     if (encryptedWord && inputIndex > 0 && !wordleGuessed && gameState === 'IN_PROGRESS') {
@@ -68,7 +72,7 @@ const useGameOver = () => {
     setTimeout(() => {
       gameWonToast()
       setLaunchFireworks()
-    }, revealAnimationTime * wordLength)
+    }, totalDuration)
   }
 
   function wordleLost(secretWord) {
@@ -77,7 +81,7 @@ const useGameOver = () => {
 
     setTimeout(() => {
       gameLostToast(secretWord)
-    }, revealAnimationTime * wordLength)
+    }, totalDuration)
   }
 }
 
