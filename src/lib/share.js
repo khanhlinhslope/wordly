@@ -18,12 +18,7 @@ export const parseGuesses = wordsData => {
 export const generateTextToShare = ({ title, wordList }) => {
   const emojis = generateEmojiGrid(wordList)
 
-  const textToShare =
-    title
-    + '\n\n'
-    + emojis
-    + '\n'
-    + url ?? ''
+  const textToShare = title ? (title + '\n\n' + emojis + '\n' + url) : ''
   return textToShare
 }
 
@@ -46,4 +41,3 @@ export const generateEmojiGrid = wordList => {
 
   return emojis
 }
-
