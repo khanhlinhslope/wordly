@@ -57,3 +57,5 @@ export const keyboardKeys = [
     { key: 'backspace', special: true }
   ]
 ]
+
+export const WORD_LENGTH = 5

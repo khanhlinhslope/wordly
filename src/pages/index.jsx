@@ -65,7 +65,7 @@ const App = ({ wordData }) => {
 }
 
 export async function getServerSideProps() {
-  const { NODE_ENV, PORT, PROTO } = process.env
+  const { NODE_ENV, PORT = 5000, PROTO = 'http' } = process.env
   const DEVELOPMENT_URL = `${PROTO}://localhost:${PORT}`
 
   const SERVER_URL = NODE_ENV === 'production'
